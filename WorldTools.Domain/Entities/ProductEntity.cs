@@ -1,0 +1,32 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using WorldTools.Domain.ValueObjects.ProductValueObjects;
+
+namespace WorldTools.Domain.Entities
+{
+    public class ProductEntity
+    {
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ProductId { get; set; }
+
+        [Required] public ProductValueObjectName ProductName { get; set; }
+
+        [Required] public ProductValueObjectDescription ProductDescription { get; set; }
+
+        [Required] public ProductValueObjectPrice ProductPrice { get; set; }
+
+        [Required] public ProductValueObjectInventoryStock ProductInventoryStock { get; set; }
+
+        [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
+
+        [Required] public int BranchId { get; set; }
+
+        [Required]
+        [ForeignKey("BranchId")]
+        public virtual BranchEntity BranchEntity { get; set; }
+
+
+    }
+}
