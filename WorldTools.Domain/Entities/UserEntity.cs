@@ -30,6 +30,13 @@ namespace WorldTools.Domain.Entities
         [ForeignKey("BranchId")]
         public virtual BranchEntity BranchEntity { get; set; }
 
-
+        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole.roles role, int branchId)
+        {
+            Name = name;
+            UserPassword = password;
+            Email = email;
+            Role = role;
+            BranchId = branchId;
+        }
     }
 }

@@ -15,13 +15,19 @@ namespace WorldTools.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BranchId { get; set; }
 
-        public BranchValueObjectName BranchName { get; set; }
+        [Required] public BranchValueObjectName BranchName { get; set; }
 
-        public BranchValueObjectLocation BranchLocation { get; set; }
-        
+        [Required] public BranchValueObjectLocation BranchLocation { get; set; }
+
         public virtual List<ProductEntity> BranchProducts { get; set; }
-        
+
         public virtual List<UserEntity> BranchEmployees { get; set; }
+
+        public BranchEntity(BranchValueObjectName name, BranchValueObjectLocation location)
+        {
+            BranchName = name;
+            BranchLocation = location;
+        }
 
     }
 }

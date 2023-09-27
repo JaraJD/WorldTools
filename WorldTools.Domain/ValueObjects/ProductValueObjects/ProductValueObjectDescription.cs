@@ -11,6 +11,9 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
     {
         [Required] public string ProductDescription { get; set; }
 
-        
+        public ProductValueObjectDescription(string description)
+        {
+            ProductDescription = description;
+        }
     }
 }

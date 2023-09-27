@@ -11,12 +11,11 @@ namespace WorldTools.Domain.Commands.BranchCommands
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BranchId { get; set; }
 
-        public BranchValueObjectName BranchName { get; set; }
+        [Required] public string BranchName { get; set; }
 
-        public BranchValueObjectLocation BranchLocation { get; set; }
+        [Required] public string BranchCountry { get; set; }
 
-        public virtual List<ProductEntity> BranchProducts { get; set; }
+        [Required] public string BranchCity { get; set; }
 
-        public virtual List<UserEntity> BranchEmployees { get; set; }
     }
 }

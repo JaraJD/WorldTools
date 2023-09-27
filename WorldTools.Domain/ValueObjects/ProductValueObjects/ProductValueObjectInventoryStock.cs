@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WorldTools.Domain.ValueObjects.ProductValueObjects
 {
@@ -11,5 +6,9 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
     {
         [Required] public int ProductInventoryStock { get; set; }
 
+        public ProductValueObjectInventoryStock(int stock)
+        {
+            ProductInventoryStock = stock;
+        }
     }
 }

@@ -11,6 +11,9 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
     {
         [Required] public double ProductPrice { get; set; }
 
-        
+        public ProductValueObjectPrice(double price)
+        {
+            ProductPrice = price;
+        }
     }
 }

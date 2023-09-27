@@ -13,6 +13,10 @@ namespace WorldTools.Domain.ValueObjects.BranchValueObjects
 
         [Required] public string City { get; set; }
 
-        
+        public BranchValueObjectLocation(string country, string city)
+        {
+            Country = country;
+            City = city;
+        }
     }
 }

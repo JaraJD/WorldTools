@@ -11,6 +11,9 @@ namespace WorldTools.Domain.ValueObjects.BranchValueObjects
     {
         [Required] public string BranchName { get; set; }
 
-        
+        public BranchValueObjectName(string name)
+        {
+            BranchName = name;
+        }
     }
 }

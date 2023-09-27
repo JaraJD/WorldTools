@@ -10,6 +10,9 @@ namespace WorldTools.Domain.ValueObjects.UserValueObjects
     {
         public string UserName { get; set; }
 
-        
+        public UserValueObjectName(string name)
+        {
+            UserName = name;
+        }
     }
 }

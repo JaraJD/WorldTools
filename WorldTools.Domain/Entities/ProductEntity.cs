@@ -27,6 +27,21 @@ namespace WorldTools.Domain.Entities
         [ForeignKey("BranchId")]
         public virtual BranchEntity BranchEntity { get; set; }
 
-
+        public ProductEntity(
+            ProductValueObjectName name,
+            ProductValueObjectDescription description,
+            ProductValueObjectPrice price,
+            ProductValueObjectInventoryStock stock,
+            ProductValueObjectCategory.Category category,
+            int branchId
+            )
+        {
+            ProductName = name;
+            ProductDescription = description;
+            ProductPrice = price;
+            ProductInventoryStock = stock;
+            ProductCategory = category;
+            BranchId = branchId;
+        }
     }
 }

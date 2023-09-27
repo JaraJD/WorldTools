@@ -10,6 +10,9 @@ namespace WorldTools.Domain.ValueObjects.UserValueObjects
     {
         public string UserPassword { get; set; }
 
-        
+        public UserValueObjectPassword(string password)
+        {
+            UserPassword = password;
+        }
     }
 }
