@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WorldTools.Domain.Commands.ProductCommands;
+using WorldTools.Domain.DTO;
 
 namespace WorldTools.Application.Gateway.Repository
 {
     public interface IProductRepository
     {
+        Task<string> RegisterProductAsync(RegisterProductDTO product);
+
+        Task<string> RegisterProductInventoryStockAsync(RegisterProductInventoryCommand product);
+
+        Task<string> RegisterProductFinalCustomerSaleAsync(RegisterSaleProductCommand product);
+
+        Task<string> RegisterResellerSaleAsync(RegisterSaleProductCommand product);
     }
 }
