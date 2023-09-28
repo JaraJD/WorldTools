@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WorldTools.Domain\WorldTools.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -11,8 +11,6 @@ namespace WorldTools.Domain.Entities
 {
     public class BranchEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BranchId { get; set; }
 
         [Required] public BranchValueObjectName BranchName { get; set; }

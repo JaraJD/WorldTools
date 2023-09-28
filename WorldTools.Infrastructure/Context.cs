@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
+using WorldTools.Domain.DTO;
 using WorldTools.Domain.Entities;
 
 namespace WorldTools.Infrastructure
@@ -8,12 +9,11 @@ namespace WorldTools.Infrastructure
     {
         public Context(DbContextOptions<Context> options) : base (options) 
         { 
-
         }
 
-        public DbSet<BranchEntity> Branch { get; set; }
-        public DbSet<ProductEntity> Product { get; set; }
-        public DbSet<UserEntity> User { get; set; }
+        public DbSet<RegisterBranchDTO> Branch { get; set; }
+        public DbSet<RegisterProductDTO> Product { get; set; }
+        public DbSet<RegisterUserDTO> User { get; set; }
 
     }
 }

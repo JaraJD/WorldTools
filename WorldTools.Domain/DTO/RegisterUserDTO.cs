@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.ValueObjects.UserValueObjects;
 
-namespace WorldTools.Domain.Commands.UserCommands
+namespace WorldTools.Domain.DTO
 {
-    public class RegisterUserCommand
+    public class RegisterUserDTO
     {
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
 
         [Required] string Name { get; set; }
 
@@ -23,5 +27,8 @@ namespace WorldTools.Domain.Commands.UserCommands
 
         [Required] public int BranchId { get; set; }
 
+        [Required]
+        [ForeignKey("BranchId")]
+        public virtual RegisterBranchDTO Branch{ get; set; }
     }
 }

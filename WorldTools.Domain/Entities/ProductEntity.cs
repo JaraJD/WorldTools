@@ -6,9 +6,6 @@ namespace WorldTools.Domain.Entities
 {
     public class ProductEntity
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
 
         [Required] public ProductValueObjectName ProductName { get; set; }
@@ -24,7 +21,6 @@ namespace WorldTools.Domain.Entities
         [Required] public int BranchId { get; set; }
 
         [Required]
-        [ForeignKey("BranchId")]
         public virtual BranchEntity BranchEntity { get; set; }
 
         public ProductEntity(
