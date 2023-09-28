@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorldTools.Application.Gateway;
@@ -15,6 +17,7 @@ namespace WorldTools.Application.UseCase
     {
         private readonly IBranchRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
+        public static event EventHandler MyEvent;
 
         public BranchUseCase(IBranchRepository repository, IStoredEventRepository storedEvent)
         {
@@ -28,12 +31,22 @@ namespace WorldTools.Application.UseCase
             var branchLocation = new BranchValueObjectLocation(branch.BranchCountry, branch.BranchCity);
             var branchEntity = new BranchEntity(branchName, branchLocation);
 
+            //Observable.FromEventPattern(
+            //    e => MyEvent += e,
+            //    e => MyEvent -= e
+            //    );
+            RegisterEvent(branch);
             return _repository.RegisterBranchAsync(branchEntity);
         }
 
-        public void RegisterEvent()
+        public Task<string> RegisterEvent(RegisterBranchCommand branch)
         {
+            var eventToRegister = new StoredEvent();
 
+            eventToRegister.StoredName = "Branch created";
+            eventToRegister.EventBody = JsonConvert.SerializeObject(branch);
+
+            return _storedEvent.RegisterEvent(eventToRegister);
         }
     }
 }
