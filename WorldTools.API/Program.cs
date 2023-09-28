@@ -19,6 +19,8 @@ builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
+builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

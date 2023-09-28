@@ -11,7 +11,7 @@ using WorldTools.Infrastructure;
 namespace WorldTools.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230928002209_Init")]
+    [Migration("20230928051233_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -101,6 +101,27 @@ namespace WorldTools.Infrastructure.Migrations
                     b.HasIndex("BranchId");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("WorldTools.Domain.Entities.StoredEvent", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<string>("EventBody")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoredName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("StoredEvent");
                 });
 
             modelBuilder.Entity("WorldTools.Domain.DTO.RegisterProductDTO", b =>

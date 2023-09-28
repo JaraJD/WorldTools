@@ -26,6 +26,20 @@ namespace WorldTools.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StoredEvent",
+                columns: table => new
+                {
+                    EventId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoredName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventBody = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoredEvent", x => x.EventId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -84,6 +98,9 @@ namespace WorldTools.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "StoredEvent");
 
             migrationBuilder.DropTable(
                 name: "User");

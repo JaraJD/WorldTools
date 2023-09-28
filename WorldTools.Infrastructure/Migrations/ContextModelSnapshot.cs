@@ -100,6 +100,27 @@ namespace WorldTools.Infrastructure.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("WorldTools.Domain.Entities.StoredEvent", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<string>("EventBody")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoredName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("StoredEvent");
+                });
+
             modelBuilder.Entity("WorldTools.Domain.DTO.RegisterProductDTO", b =>
                 {
                     b.HasOne("WorldTools.Domain.DTO.RegisterBranchDTO", "Branch")

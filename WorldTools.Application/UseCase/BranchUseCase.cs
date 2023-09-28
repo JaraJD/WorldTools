@@ -14,10 +14,12 @@ namespace WorldTools.Application.UseCase
     public class BranchUseCase : IBranchUseCase
     {
         private readonly IBranchRepository _repository;
+        private readonly IStoredEventRepository _storedEvent;
 
-        public BranchUseCase(IBranchRepository repository)
+        public BranchUseCase(IBranchRepository repository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
+            _storedEvent = storedEvent;
         }
 
         public Task<string> RegisterBranch(RegisterBranchCommand branch)
@@ -27,6 +29,11 @@ namespace WorldTools.Application.UseCase
             var branchEntity = new BranchEntity(branchName, branchLocation);
 
             return _repository.RegisterBranchAsync(branchEntity);
+        }
+
+        public void RegisterEvent()
+        {
+
         }
     }
 }
