@@ -1,9 +1,23 @@
 using WorldTools.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using WorldTools.Application.Gateway;
+using WorldTools.Application.UseCase;
+using WorldTools.Application.Gateway.Repository;
+using WorldTools.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+
+builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+
+builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

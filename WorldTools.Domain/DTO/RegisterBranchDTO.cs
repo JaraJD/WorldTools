@@ -11,6 +11,13 @@ namespace WorldTools.Domain.DTO
 {
     public class RegisterBranchDTO
     {
+        public RegisterBranchDTO(string branchName, string branchCountry, string branchCity)
+        {
+            BranchName = branchName;
+            BranchCountry = branchCountry;
+            BranchCity = branchCity;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BranchId { get; set; }
@@ -24,5 +31,7 @@ namespace WorldTools.Domain.DTO
         public virtual List<RegisterProductDTO> BranchProducts { get; set; }
 
         public virtual List<RegisterUserDTO> BranchEmployees { get; set; }
+
+        
     }
 }

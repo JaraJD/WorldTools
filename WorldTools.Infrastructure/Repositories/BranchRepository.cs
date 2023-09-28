@@ -1,5 +1,6 @@
 ﻿using WorldTools.Application.Gateway.Repository;
 using WorldTools.Domain.DTO;
+using WorldTools.Domain.Entities;
 
 namespace WorldTools.Infrastructure.Repositories
 {
@@ -12,9 +13,14 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public Task<string> RegisterBranchAsync(RegisterBranchDTO branch)
+        public async Task<string> RegisterBranchAsync(BranchEntity branch)
         {
-            throw new NotImplementedException();
+            var branchToCreate = new RegisterBranchDTO(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
+
+            _context.Add(branchToCreate);
+            await _context.SaveChangesAsync();
+
+            return "Branch created";
         }
     }
 }
