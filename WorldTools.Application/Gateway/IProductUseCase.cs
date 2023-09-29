@@ -4,7 +4,7 @@ namespace WorldTools.Application.Gateway
 {
     public interface IProductUseCase
     {
-        Task<string> RegisterProduct(RegisterProductCommand product);
+        Task<int> RegisterProduct(RegisterProductCommand product);
 
         Task<string> RegisterProductInventoryStock(RegisterProductInventoryCommand product);
 

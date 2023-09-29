@@ -11,17 +11,17 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
     {
         public enum Category
         {
-            HandTools,
-            PowerTools,
-            Locksmithing,
-            ConstructionHardware,
-            PaintAndAccessories,
-            GardeningAndOutdoors,
-            SafetyAndProtectiveEquipment,
-            PlumbingSupplies,
-            Electrical,
-            HomeFixtures,
-            Others
+            HandTools = 1,
+            PowerTools = 2,
+            Locksmithing = 3,
+            ConstructionHardware = 4,
+            PaintAndAccessories = 5,
+            GardeningAndOutdoors= 6,
+            SafetyAndProtectiveEquipment = 7,
+            PlumbingSupplies = 8,
+            Electrical = 9,
+            HomeFixtures = 10,
+            Others = 11
         }
     }
 }

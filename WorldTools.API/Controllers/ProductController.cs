@@ -17,7 +17,7 @@ namespace WorldTools.API.Controllers
         }
 
         [HttpPost]
-        public async Task<string> RegisterProduct([FromBody] RegisterProductCommand command)
+        public async Task<int> RegisterProduct([FromBody] RegisterProductCommand command)
         {
             return await _productUseCase.RegisterProduct(command);
         }

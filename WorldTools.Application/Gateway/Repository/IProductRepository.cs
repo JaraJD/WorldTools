@@ -5,7 +5,7 @@ namespace WorldTools.Application.Gateway.Repository
 {
     public interface IProductRepository
     {
-        Task<string> RegisterProductAsync(ProductEntity product);
+        Task<int> RegisterProductAsync(ProductEntity product);
 
         Task<string> RegisterProductInventoryStockAsync(RegisterProductInventoryCommand product);
 

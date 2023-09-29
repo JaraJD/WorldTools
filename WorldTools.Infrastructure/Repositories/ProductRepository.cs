@@ -19,9 +19,20 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public Task<string> RegisterProductAsync(ProductEntity product)
+        public async Task<int> RegisterProductAsync(ProductEntity product)
         {
-            throw new NotImplementedException();
+            var productToCreate = new RegisterProductDTO(
+                product.ProductName.ProductName,
+                product.ProductDescription.ProductDescription,
+                product.ProductPrice.ProductPrice,
+                product.ProductInventoryStock.ProductInventoryStock,
+                product.ProductCategory.ToString(), product.BranchId
+                );
+
+            _context.Add(productToCreate);
+            await _context.SaveChangesAsync();
+
+            return productToCreate.BranchId;
         }
 
         public Task<string> RegisterProductFinalCustomerSaleAsync(RegisterSaleProductCommand product)

@@ -20,7 +20,6 @@ namespace WorldTools.Domain.Entities
 
         [Required] public int BranchId { get; set; }
 
-        [Required]
         public virtual BranchEntity BranchEntity { get; set; }
 
         public ProductEntity(

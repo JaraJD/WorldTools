@@ -1,6 +1,7 @@
 ﻿using WorldTools.Application.Gateway.Repository;
 using WorldTools.Domain.DTO;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Infrastructure.Repositories
 {
@@ -16,7 +17,6 @@ namespace WorldTools.Infrastructure.Repositories
         public async Task<int> RegisterBranchAsync(BranchEntity branch)
         {
             var branchToCreate = new RegisterBranchDTO(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
-
             _context.Add(branchToCreate);
             await _context.SaveChangesAsync();
 

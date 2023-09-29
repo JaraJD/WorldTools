@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Domain.Commands.ProductCommands
 {
@@ -15,7 +9,7 @@ namespace WorldTools.Domain.Commands.ProductCommands
         [Required] public string? ProductDescription { get; set; }
         [Required] public double ProductPrice { get; set; }
         [Required] public int ProductInventoryStock { get; set; }   
-        [Required] public string? ProductCategory { get; set; }
+        [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
         [Required] public int BranchId { get; set; }
 
     }

@@ -17,11 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
-builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
-builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IProductUseCase, ProductUseCase>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
-builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IUserUseCase, UserUseCase>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();
 

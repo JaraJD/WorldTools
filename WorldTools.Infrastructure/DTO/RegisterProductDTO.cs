@@ -11,6 +11,16 @@ namespace WorldTools.Domain.DTO
 {
     public class RegisterProductDTO
     {
+        public RegisterProductDTO(string? productName, string? productDescription, double productPrice, int productInventoryStock, string? productCategory, int branchId)
+        {
+            ProductName = productName;
+            ProductDescription = productDescription;
+            ProductPrice = productPrice;
+            ProductInventoryStock = productInventoryStock;
+            ProductCategory = productCategory;
+            BranchId = branchId;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
