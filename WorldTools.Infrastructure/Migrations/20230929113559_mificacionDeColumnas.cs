@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace WorldTools.Infrastructure.Migrations
+namespace WorldTools.SqlAdapter.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class mificacionDeColumnas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,20 +26,6 @@ namespace WorldTools.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StoredEvent",
-                columns: table => new
-                {
-                    EventId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StoredName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventBody = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StoredEvent", x => x.EventId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -49,7 +35,7 @@ namespace WorldTools.Infrastructure.Migrations
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductPrice = table.Column<double>(type: "float", nullable: false),
                     ProductInventoryStock = table.Column<int>(type: "int", nullable: false),
-                    ProductCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductCategory = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -69,6 +55,10 @@ namespace WorldTools.Infrastructure.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -98,9 +88,6 @@ namespace WorldTools.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Product");
-
-            migrationBuilder.DropTable(
-                name: "StoredEvent");
 
             migrationBuilder.DropTable(
                 name: "User");

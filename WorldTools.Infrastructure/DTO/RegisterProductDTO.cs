@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Domain.DTO
 {
     public class RegisterProductDTO
     {
-        public RegisterProductDTO(string? productName, string? productDescription, double productPrice, int productInventoryStock, string? productCategory, int branchId)
+        public RegisterProductDTO(string? productName, string? productDescription, double productPrice, int productInventoryStock, ProductValueObjectCategory.Category productCategory, int branchId)
         {
             ProductName = productName;
             ProductDescription = productDescription;
@@ -28,7 +29,7 @@ namespace WorldTools.Domain.DTO
         [Required] public string? ProductDescription { get; set; }
         [Required] public double ProductPrice { get; set; }
         [Required] public int ProductInventoryStock { get; set; }
-        [Required] public string? ProductCategory { get; set; }
+        [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
         [Required] public int BranchId { get; set; }
 
         [Required]

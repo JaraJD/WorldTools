@@ -26,7 +26,7 @@ namespace WorldTools.Infrastructure.Repositories
                 product.ProductDescription.ProductDescription,
                 product.ProductPrice.ProductPrice,
                 product.ProductInventoryStock.ProductInventoryStock,
-                product.ProductCategory.ToString(),
+                product.ProductCategory,
                 product.BranchId
                 );
 

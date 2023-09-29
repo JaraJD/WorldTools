@@ -12,7 +12,7 @@ namespace WorldTools.Domain.DTO
 {
     public class RegisterUserDTO
     {
-        public RegisterUserDTO(string name, string userPassword, string email, string role, int branchId)
+        public RegisterUserDTO(string name, string userPassword, string email, UserValueObjectRole.roles role, int branchId)
         {
             Name = name;
             UserPassword = userPassword;
@@ -32,7 +32,7 @@ namespace WorldTools.Domain.DTO
 
         [Required] public string Email { get; set; }
 
-        [Required] public string Role { get; set; }
+        [Required] public UserValueObjectRole.roles Role { get; set; }
 
         [Required] public int BranchId { get; set; }
 

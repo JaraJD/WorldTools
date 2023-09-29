@@ -20,7 +20,7 @@ namespace WorldTools.Infrastructure.Repositories
                 user.Name.UserName,
                 user.UserPassword.UserPassword,
                 user.Email.UserEmail,
-                user.Role.ToString(),
+                user.Role,
                 user.BranchId);
 
             _context.Add(userToRegistered);
