@@ -13,14 +13,14 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public async Task<string> RegisterBranchAsync(BranchEntity branch)
+        public async Task<int> RegisterBranchAsync(BranchEntity branch)
         {
             var branchToCreate = new RegisterBranchDTO(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
 
             _context.Add(branchToCreate);
             await _context.SaveChangesAsync();
 
-            return "Branch created";
+            return branchToCreate.BranchId;
         }
     }
 }

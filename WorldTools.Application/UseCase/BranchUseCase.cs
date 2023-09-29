@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorldTools.Application.Gateway;
 using WorldTools.Application.Gateway.Repository;
 using WorldTools.Domain.Commands.BranchCommands;
@@ -17,7 +11,6 @@ namespace WorldTools.Application.UseCase
     {
         private readonly IBranchRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
-        public static event EventHandler MyEvent;
 
         public BranchUseCase(IBranchRepository repository, IStoredEventRepository storedEvent)
         {
@@ -25,28 +18,24 @@ namespace WorldTools.Application.UseCase
             _storedEvent = storedEvent;
         }
 
-        public Task<string> RegisterBranch(RegisterBranchCommand branch)
+        public async Task<int> RegisterBranch(RegisterBranchCommand branch)
         {
             var branchName = new BranchValueObjectName(branch.BranchName);
             var branchLocation = new BranchValueObjectLocation(branch.BranchCountry, branch.BranchCity);
             var branchEntity = new BranchEntity(branchName, branchLocation);
+            var branchId = await _repository.RegisterBranchAsync(branchEntity);
 
-            //Observable.FromEventPattern(
-            //    e => MyEvent += e,
-            //    e => MyEvent -= e
-            //    );
-            RegisterEvent(branch);
-            return _repository.RegisterBranchAsync(branchEntity);
+            // Registro del evento
+            await RegisterAndPersistEvent("BranchRegistered", branchId, branch);
+
+            return branchId;
         }
 
-        public Task<string> RegisterEvent(RegisterBranchCommand branch)
+        public async Task RegisterAndPersistEvent(string eventName, int aggregateId, RegisterBranchCommand eventBody)
         {
-            var eventToRegister = new StoredEvent();
+            var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
 
-            eventToRegister.StoredName = "Branch created";
-            eventToRegister.EventBody = JsonConvert.SerializeObject(branch);
-
-            return _storedEvent.RegisterEvent(eventToRegister);
+            await _storedEvent.RegisterEvent(storedEvent);
         }
     }
 }

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Domain.DTO;
+using WorldTools.Domain.Entities;
 
 namespace WorldTools.Domain.Commands.ProductCommands
 {
     public class RegisterSaleProductCommand
     {
-        [Required] public List<ProductSaleDTO> Products { get; set; }
+        [Required] public List<ProductEntity> Products { get; set; }
     }
 }

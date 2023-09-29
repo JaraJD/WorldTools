@@ -1,11 +1,11 @@
 ﻿using WorldTools.Domain.Commands.ProductCommands;
-using WorldTools.Domain.DTO;
+using WorldTools.Domain.Entities;
 
 namespace WorldTools.Application.Gateway.Repository
 {
     public interface IProductRepository
     {
-        Task<string> RegisterProductAsync(RegisterProductDTO product);
+        Task<string> RegisterProductAsync(ProductEntity product);
 
         Task<string> RegisterProductInventoryStockAsync(RegisterProductInventoryCommand product);
 

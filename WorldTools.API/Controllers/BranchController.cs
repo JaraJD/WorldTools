@@ -17,7 +17,7 @@ namespace WorldTools.API.Controllers
         }
 
         [HttpPost]
-        public async Task<string> RegisterBranch([FromBody] RegisterBranchCommand command)
+        public async Task<int> RegisterBranch([FromBody] RegisterBranchCommand command)
         {
             return await _branchUseCase.RegisterBranch(command);
         }

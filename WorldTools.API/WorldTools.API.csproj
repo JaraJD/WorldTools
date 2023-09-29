@@ -16,7 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WorldTools.Application\WorldTools.Application.csproj" />
-    <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.Infrastructure.csproj" />
+    <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
+    <ProjectReference Include="..\WorldTools.MongoAdapter\WorldTools.MongoAdapter.csproj" />
   </ItemGroup>
 
 </Project>

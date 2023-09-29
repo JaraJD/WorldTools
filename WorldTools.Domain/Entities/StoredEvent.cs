@@ -10,17 +10,17 @@ namespace WorldTools.Domain.Entities
 {
     public class StoredEvent
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int EventId { get; set; }
 
         public string StoredName { get; set; }
 
+        public int AggregateId { get; set; }
+
         public string EventBody { get; set; }
 
-        public StoredEvent(string storedName, string eventBody)
+        public StoredEvent(string storedName ,int aggregateId ,string eventBody)
         {
             StoredName = storedName;
+            AggregateId = aggregateId;
             EventBody = eventBody;
         }
 

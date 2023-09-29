@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WorldTools.Application.Gateway.Repository;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.DTO;
+using WorldTools.Domain.Entities;
 
 namespace WorldTools.Infrastructure.Repositories
 {
@@ -18,7 +19,7 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public Task<string> RegisterProductAsync(RegisterProductDTO product)
+        public Task<string> RegisterProductAsync(ProductEntity product)
         {
             throw new NotImplementedException();
         }

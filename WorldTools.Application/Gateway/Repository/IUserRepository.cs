@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Domain.DTO;
+﻿using WorldTools.Domain.Entities;
 
 namespace WorldTools.Application.Gateway.Repository
 {
     public interface IUserRepository
     {
-        Task<string> RegisterBranchAsync(RegisterUserDTO user);
+        Task<string> RegisterBranchAsync(UserEntity user);
     }
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Application.Gateway.Repository;
-using WorldTools.Domain.DTO;
+﻿using WorldTools.Application.Gateway.Repository;
+using WorldTools.Domain.Entities;
 
 namespace WorldTools.Infrastructure.Repositories
 {
@@ -17,7 +12,7 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public Task<string> RegisterBranchAsync(RegisterUserDTO user)
+        public Task<string> RegisterBranchAsync(UserEntity user)
         {
             throw new NotImplementedException();
         }

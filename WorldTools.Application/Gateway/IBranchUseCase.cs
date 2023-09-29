@@ -4,6 +4,6 @@ namespace WorldTools.Application.Gateway
 {
     public interface IBranchUseCase
     {
-        Task<string> RegisterBranch(RegisterBranchCommand branch);
+        Task<int> RegisterBranch(RegisterBranchCommand branch);
     }
 }

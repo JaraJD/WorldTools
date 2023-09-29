@@ -1,10 +1,14 @@
 using WorldTools.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+using AutoMapper.Data;
 using WorldTools.Application.Gateway;
 using WorldTools.Application.UseCase;
 using WorldTools.Application.Gateway.Repository;
 using WorldTools.Infrastructure.Repositories;
+using WorldTools.MongoAdapter;
+using WorldTools.MongoAdapter.Interfaces;
+using WorldTools.MongoAdapter.Common.Mapping;
+using WorldTools.MongoAdapter.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,11 @@ builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();
 
 builder.Services.AddControllers();
+
+
+builder.Services.AddAutoMapper(config => config.AddDataReaderMapping(), typeof(MappingProfileMongo));
+builder.Services.AddSingleton<IContextMongo>(provider => new ContextMongo(builder.Configuration.GetConnectionString("MongoConnection"), "Events"));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
