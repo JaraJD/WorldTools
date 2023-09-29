@@ -1,5 +1,7 @@
 ﻿using WorldTools.Application.Gateway.Repository;
+using WorldTools.Domain.DTO;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.ValueObjects.UserValueObjects;
 
 namespace WorldTools.Infrastructure.Repositories
 {
@@ -12,9 +14,19 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public Task<string> RegisterBranchAsync(UserEntity user)
+        public async Task<int> RegisterUserAsync(UserEntity user)
         {
-            throw new NotImplementedException();
+            var userToRegistered = new RegisterUserDTO(
+                user.Name.UserName,
+                user.UserPassword.UserPassword,
+                user.Email.UserEmail,
+                user.Role.ToString(),
+                user.BranchId);
+
+            _context.Add(userToRegistered);
+            await _context.SaveChangesAsync();
+
+            return userToRegistered.UserId;
         }
     }
 }

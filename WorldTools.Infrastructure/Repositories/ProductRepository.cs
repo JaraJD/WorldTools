@@ -21,18 +21,19 @@ namespace WorldTools.Infrastructure.Repositories
 
         public async Task<int> RegisterProductAsync(ProductEntity product)
         {
-            var productToCreate = new RegisterProductDTO(
+            var productToRegister = new RegisterProductDTO(
                 product.ProductName.ProductName,
                 product.ProductDescription.ProductDescription,
                 product.ProductPrice.ProductPrice,
                 product.ProductInventoryStock.ProductInventoryStock,
-                product.ProductCategory.ToString(), product.BranchId
+                product.ProductCategory.ToString(),
+                product.BranchId
                 );
 
-            _context.Add(productToCreate);
+            _context.Add(productToRegister);
             await _context.SaveChangesAsync();
 
-            return productToCreate.BranchId;
+            return productToRegister.ProductId;
         }
 
         public Task<string> RegisterProductFinalCustomerSaleAsync(RegisterSaleProductCommand product)

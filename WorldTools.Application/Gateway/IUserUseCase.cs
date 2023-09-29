@@ -4,6 +4,6 @@ namespace WorldTools.Application.Gateway
 {
     public interface IUserUseCase
     {
-        Task<string> RegisterUser(RegisterUserCommand user);
+        Task<int> RegisterUser(RegisterUserCommand user);
     }
 }

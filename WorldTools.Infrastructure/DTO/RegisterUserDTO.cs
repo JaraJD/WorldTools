@@ -12,18 +12,27 @@ namespace WorldTools.Domain.DTO
 {
     public class RegisterUserDTO
     {
+        public RegisterUserDTO(string name, string userPassword, string email, string role, int branchId)
+        {
+            Name = name;
+            UserPassword = userPassword;
+            Email = email;
+            Role = role;
+            BranchId = branchId;
+        }
+
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
-        [Required] string Name { get; set; }
+        [Required] public string Name { get; set; }
 
-        [Required] string UserPassword { get; set; }
+        [Required] public string UserPassword { get; set; }
 
-        [Required] string Email { get; set; }
+        [Required] public string Email { get; set; }
 
-        [Required] UserValueObjectRole.roles Role { get; set; }
+        [Required] public string Role { get; set; }
 
         [Required] public int BranchId { get; set; }
 

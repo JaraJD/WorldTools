@@ -13,13 +13,13 @@ namespace WorldTools.Domain.Commands.UserCommands
     public class RegisterUserCommand
     {
 
-        [Required] string Name { get; set; }
+        [Required] public string Name { get; set; }
 
-        [Required] string UserPassword { get; set; }
+        [Required] public string UserPassword { get; set; }
 
-        [Required] string Email { get; set; }
+        [Required] public string Email { get; set; }
 
-        [Required] UserValueObjectRole.roles Role { get; set; }
+        [Required] public UserValueObjectRole.roles Role { get; set; }
 
         [Required] public int BranchId { get; set; }
 

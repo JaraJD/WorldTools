@@ -4,6 +4,6 @@ namespace WorldTools.Application.Gateway.Repository
 {
     public interface IUserRepository
     {
-        Task<string> RegisterBranchAsync(UserEntity user);
+        Task<int> RegisterUserAsync(UserEntity user);
     }
 }

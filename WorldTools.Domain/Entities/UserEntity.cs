@@ -13,13 +13,13 @@ namespace WorldTools.Domain.Entities
     {
         public int UserId { get; set; }
 
-        [Required] UserValueObjectName Name { get; set; }
+        [Required] public UserValueObjectName Name { get; set; }
 
-        [Required] UserValueObjectPassword UserPassword { get; set; }
+        [Required] public UserValueObjectPassword UserPassword { get; set; }
 
-        [Required] UserValueObjectEmail Email { get; set; }
+        [Required] public UserValueObjectEmail Email { get; set; }
 
-        [Required] UserValueObjectRole.roles Role { get; set; }
+        [Required] public UserValueObjectRole.roles Role { get; set; }
 
         [Required] public int BranchId { get; set; }
 
