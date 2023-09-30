@@ -8,7 +8,7 @@ namespace WorldTools.MongoAdapter.Common.Mapping
     {
         public MappingProfileMongo()
         {
-            CreateMap<StoredEventDTO, StoredEvent>().ReverseMap();
+            CreateMap<StoredEventMongoEntity, StoredEvent>().ReverseMap();
         }
     }
 }

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Domain.Entities;
 using WorldTools.Domain.ValueObjects.UserValueObjects;
 
-namespace WorldTools.Domain.DTO
+namespace WorldTools.SqlAdapter.DataEntity
 {
-    public class RegisterUserDTO
+    public class RegisterUserData
     {
-        public RegisterUserDTO(string name, string userPassword, string email, UserValueObjectRole.roles role, int branchId)
+        public RegisterUserData(string name, string userPassword, string email, UserValueObjectRole.roles role, int branchId)
         {
             Name = name;
             UserPassword = userPassword;
@@ -38,6 +32,6 @@ namespace WorldTools.Domain.DTO
 
         [Required]
         [ForeignKey("BranchId")]
-        public virtual RegisterBranchDTO Branch{ get; set; }
+        public virtual RegisterBranchData Branch { get; set; }
     }
 }

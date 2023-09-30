@@ -2,7 +2,7 @@
 
 namespace WorldTools.MongoAdapter.DTO
 {
-    public class StoredEventDTO
+    public class StoredEventMongoEntity
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]

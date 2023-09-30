@@ -14,6 +14,6 @@ namespace WorldTools.MongoAdapter
             _database = client.GetDatabase(DBname);
         }
 
-        public IMongoCollection<StoredEventDTO> StoredEvent => _database.GetCollection<StoredEventDTO>("storedEevnt");
+        public IMongoCollection<StoredEventMongoEntity> StoredEvent => _database.GetCollection<StoredEventMongoEntity>("storedEevnt");
     }
 }

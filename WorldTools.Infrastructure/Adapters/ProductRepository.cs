@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Application.Gateway.Repository;
-using WorldTools.Domain.Commands.ProductCommands;
-using WorldTools.Domain.DTO;
+﻿using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.Ports;
+using WorldTools.Infrastructure;
+using WorldTools.SqlAdapter.DataEntity;
 
-namespace WorldTools.Infrastructure.Repositories
+namespace WorldTools.SqlAdapter.Adapters
 {
     public class ProductRepository : IProductRepository
     {
@@ -21,7 +17,7 @@ namespace WorldTools.Infrastructure.Repositories
 
         public async Task<int> RegisterProductAsync(ProductEntity product)
         {
-            var productToRegister = new RegisterProductDTO(
+            var productToRegister = new RegisterProductData(
                 product.ProductName.ProductName,
                 product.ProductDescription.ProductDescription,
                 product.ProductPrice.ProductPrice,

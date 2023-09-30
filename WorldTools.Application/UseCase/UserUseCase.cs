@@ -1,14 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorldTools.Application.Gateway;
-using WorldTools.Application.Gateway.Repository;
-using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Commands.UserCommands;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.Ports;
 using WorldTools.Domain.ValueObjects.UserValueObjects;
 
 namespace WorldTools.Application.UseCase

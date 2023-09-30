@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using WorldTools.Application.Gateway;
-using WorldTools.Application.Gateway.Repository;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.Ports;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Application.UseCase

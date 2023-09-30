@@ -1,7 +1,6 @@
-﻿using WorldTools.Application.Gateway.Repository;
-using WorldTools.Domain.DTO;
-using WorldTools.Domain.Entities;
-using WorldTools.Domain.ValueObjects.UserValueObjects;
+﻿using WorldTools.Domain.Entities;
+using WorldTools.Domain.Ports;
+using WorldTools.SqlAdapter.DataEntity;
 
 namespace WorldTools.Infrastructure.Repositories
 {
@@ -16,7 +15,7 @@ namespace WorldTools.Infrastructure.Repositories
 
         public async Task<int> RegisterUserAsync(UserEntity user)
         {
-            var userToRegistered = new RegisterUserDTO(
+            var userToRegistered = new RegisterUserData(
                 user.Name.UserName,
                 user.UserPassword.UserPassword,
                 user.Email.UserEmail,

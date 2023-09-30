@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
-using WorldTools.Domain.DTO;
 using WorldTools.Domain.Entities;
+using WorldTools.SqlAdapter.DataEntity;
 
 namespace WorldTools.Infrastructure
 {
@@ -11,9 +11,9 @@ namespace WorldTools.Infrastructure
         { 
         }
 
-        public DbSet<RegisterBranchDTO> Branch { get; set; }
-        public DbSet<RegisterProductDTO> Product { get; set; }
-        public DbSet<RegisterUserDTO> User { get; set; }
+        public DbSet<RegisterBranchData> Branch { get; set; }
+        public DbSet<RegisterProductData> Product { get; set; }
+        public DbSet<RegisterUserData> User { get; set; }
 
     }
 }

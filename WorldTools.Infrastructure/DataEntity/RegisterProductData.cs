@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Domain.Entities;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
-namespace WorldTools.Domain.DTO
+namespace WorldTools.SqlAdapter.DataEntity
 {
-    public class RegisterProductDTO
+    public class RegisterProductData
     {
-        public RegisterProductDTO(string? productName, string? productDescription, double productPrice, int productInventoryStock, ProductValueObjectCategory.Category productCategory, int branchId)
+        public RegisterProductData(string? productName, string? productDescription, double productPrice, int productInventoryStock, ProductValueObjectCategory.Category productCategory, int branchId)
         {
             ProductName = productName;
             ProductDescription = productDescription;
@@ -34,6 +28,6 @@ namespace WorldTools.Domain.DTO
 
         [Required]
         [ForeignKey("BranchId")]
-        public virtual RegisterBranchDTO Branch { get; set; }
+        public virtual RegisterBranchData Branch { get; set; }
     }
 }

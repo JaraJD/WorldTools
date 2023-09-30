@@ -10,6 +10,6 @@ namespace WorldTools.MongoAdapter.Interfaces
 {
     public interface IContextMongo
     {
-        public IMongoCollection<StoredEventDTO> StoredEvent { get; }
+        public IMongoCollection<StoredEventMongoEntity> StoredEvent { get; }
     }
 }

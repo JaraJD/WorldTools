@@ -1,7 +1,7 @@
 ﻿using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
 
-namespace WorldTools.Application.Gateway.Repository
+namespace WorldTools.Domain.Ports
 {
     public interface IProductRepository
     {

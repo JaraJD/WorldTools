@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper.Data;
 using WorldTools.Application.Gateway;
 using WorldTools.Application.UseCase;
-using WorldTools.Application.Gateway.Repository;
 using WorldTools.Infrastructure.Repositories;
 using WorldTools.MongoAdapter;
 using WorldTools.MongoAdapter.Interfaces;
 using WorldTools.MongoAdapter.Common.Mapping;
-using WorldTools.MongoAdapter.Repositories;
+using WorldTools.Domain.Ports;
+using WorldTools.SqlAdapter.Adapters;
+using WorldTools.MongoAdapter.Adapters;
 
 var builder = WebApplication.CreateBuilder(args);
 
