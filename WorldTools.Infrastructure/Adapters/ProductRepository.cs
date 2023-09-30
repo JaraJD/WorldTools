@@ -15,7 +15,7 @@ namespace WorldTools.SqlAdapter.Adapters
             _context = dbContext;
         }
 
-        public async Task<int> RegisterProductAsync(ProductEntity product)
+        public async Task<ProductEntity> RegisterProductAsync(ProductEntity product)
         {
             var productToRegister = new RegisterProductData(
                 product.ProductName.ProductName,
@@ -29,7 +29,8 @@ namespace WorldTools.SqlAdapter.Adapters
             _context.Add(productToRegister);
             await _context.SaveChangesAsync();
 
-            return productToRegister.ProductId;
+            product.ProductId = productToRegister.ProductId;
+            return product;
         }
 
         public Task<string> RegisterProductFinalCustomerSaleAsync(RegisterSaleProductCommand product)

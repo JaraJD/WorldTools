@@ -3,6 +3,7 @@ using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
+using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Application.UseCase
@@ -18,7 +19,7 @@ namespace WorldTools.Application.UseCase
             _storedEvent = storedEvent;
         }
 
-        public async Task<int> RegisterProduct(RegisterProductCommand product)
+        public async Task<RegisterProductCommand> RegisterProduct(RegisterProductCommand product)
         {
             var productName = new ProductValueObjectName(product.ProductName);
             var productDescription = new ProductValueObjectDescription(product.ProductDescription);
@@ -26,28 +27,28 @@ namespace WorldTools.Application.UseCase
             var productStock = new ProductValueObjectInventoryStock(product.ProductInventoryStock);
             var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, product.ProductCategory, product.BranchId);
 
-            var productId = await _repository.RegisterProductAsync(productEntity);
-            await RegisterAndPersistEvent("ProductRegistered", productId, product);
+            var productResponse = await _repository.RegisterProductAsync(productEntity);
+            await RegisterAndPersistEvent("ProductRegistered", productResponse.BranchId, product);
 
-            return productId;
+            return product;
         }
 
-        public Task<string> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product)
+        public Task<ProductResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product, string idProduct)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> RegisterProductInventoryStock(RegisterProductInventoryCommand product)
+        public Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, string idProduct)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> RegisterResellerSale(RegisterSaleProductCommand product)
+        public Task<ProductResponseVm> RegisterResellerSale(RegisterSaleProductCommand product, string idProduct)
         {
             throw new NotImplementedException();
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, int aggregateId, RegisterProductCommand eventBody)
+        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, RegisterProductCommand eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
 

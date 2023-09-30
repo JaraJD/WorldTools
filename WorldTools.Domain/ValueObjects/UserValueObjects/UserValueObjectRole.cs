@@ -10,9 +10,9 @@ namespace WorldTools.Domain.ValueObjects.UserValueObjects
     {
         public enum roles
         {
-            SUPER_ADMIN = 1,
-            ADMIN = 2,
-            EMPLOYEE = 3
+            Super_admin,
+            Admin,
+            Employee
         }
     }
 }

@@ -5,7 +5,7 @@ namespace WorldTools.Domain.Ports
 {
     public interface IProductRepository
     {
-        Task<int> RegisterProductAsync(ProductEntity product);
+        Task<ProductEntity> RegisterProductAsync(ProductEntity product);
 
         Task<string> RegisterProductInventoryStockAsync(RegisterProductInventoryCommand product);
 

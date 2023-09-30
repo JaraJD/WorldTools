@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WorldTools.Domain.ValueObjects.BranchValueObjects;
 
 namespace WorldTools.Domain.Commands.BranchCommands
 {
@@ -6,9 +7,7 @@ namespace WorldTools.Domain.Commands.BranchCommands
     {
         [Required] public string BranchName { get; set; }
 
-        [Required] public string BranchCountry { get; set; }
-
-        [Required] public string BranchCity { get; set; }
+        [Required] public BranchValueObjectLocation BranchLocation { get; set; }
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using WorldTools.Domain.Entities;
-using WorldTools.MongoAdapter.DTO;
+using WorldTools.MongoAdapter.MongoEntities;
 
 namespace WorldTools.MongoAdapter.Common.Mapping
 {

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
-using WorldTools.MongoAdapter.DTO;
 using WorldTools.MongoAdapter.Interfaces;
+using WorldTools.MongoAdapter.MongoEntities;
 
 namespace WorldTools.MongoAdapter
 {

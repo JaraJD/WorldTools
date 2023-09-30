@@ -14,13 +14,15 @@ namespace WorldTools.SqlAdapter.Adapters
             _context = dbContext;
         }
 
-        public async Task<int> RegisterBranchAsync(BranchEntity branch)
+        public async Task<BranchEntity> RegisterBranchAsync(BranchEntity branch)
         {
             var branchToCreate = new RegisterBranchData(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
             _context.Add(branchToCreate);
             await _context.SaveChangesAsync();
 
-            return branchToCreate.BranchId;
+
+            branch.BranchId = branchToCreate.BranchId;
+            return branch;
         }
     }
 }

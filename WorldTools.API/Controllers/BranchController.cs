@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.BranchCommands;
+using WorldTools.Domain.ResponseVm.Branch;
 
 namespace WorldTools.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/branch")]
     [ApiController]
     public class BranchController : ControllerBase
     {
@@ -16,8 +17,8 @@ namespace WorldTools.API.Controllers
             _branchUseCase = branchUseCase;
         }
 
-        [HttpPost]
-        public async Task<int> RegisterBranch([FromBody] RegisterBranchCommand command)
+        [HttpPost("register")]
+        public async Task<BranchResponseVm> RegisterBranch([FromBody] RegisterBranchCommand command)
         {
             return await _branchUseCase.RegisterBranch(command);
         }

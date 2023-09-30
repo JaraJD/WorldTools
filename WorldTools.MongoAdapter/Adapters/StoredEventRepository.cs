@@ -2,8 +2,8 @@
 using MongoDB.Driver;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
-using WorldTools.MongoAdapter.DTO;
 using WorldTools.MongoAdapter.Interfaces;
+using WorldTools.MongoAdapter.MongoEntities;
 
 namespace WorldTools.MongoAdapter.Adapters
 {

@@ -11,7 +11,7 @@ namespace WorldTools.Domain.Entities
 {
     public class UserEntity
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required] public UserValueObjectName Name { get; set; }
 
@@ -21,11 +21,11 @@ namespace WorldTools.Domain.Entities
 
         [Required] public UserValueObjectRole.roles Role { get; set; }
 
-        [Required] public int BranchId { get; set; }
+        [Required] public Guid BranchId { get; set; }
 
         public virtual BranchEntity BranchEntity { get; set; }
 
-        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole.roles role, int branchId)
+        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole.roles role, Guid branchId)
         {
             Name = name;
             UserPassword = password;

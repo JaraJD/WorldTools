@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.UserCommands;
+using WorldTools.Domain.ResponseVm.User;
 
 namespace WorldTools.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -16,8 +18,8 @@ namespace WorldTools.API.Controllers
             _userUseCase = userUseCase;
         }
 
-        [HttpPost]
-        public async Task<int> RegisterUser([FromBody] RegisterUserCommand command)
+        [HttpPost("register")]
+        public async Task<UserResponseVm> RegisterUser([FromBody] RegisterUserCommand command)
         {
             return await _userUseCase.RegisterUser(command);
         }

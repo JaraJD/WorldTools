@@ -13,10 +13,10 @@ namespace WorldTools.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public async Task<int> RegisterUserAsync(UserEntity user)
+        public async Task<UserEntity> RegisterUserAsync(UserEntity user)
         {
             var userToRegistered = new RegisterUserData(
-                user.Name.UserName,
+                $"{user.Name.FirstName} {user.Name.LastName}",
                 user.UserPassword.UserPassword,
                 user.Email.UserEmail,
                 user.Role,
@@ -25,7 +25,8 @@ namespace WorldTools.Infrastructure.Repositories
             _context.Add(userToRegistered);
             await _context.SaveChangesAsync();
 
-            return userToRegistered.UserId;
+            user.UserId = userToRegistered.UserId;
+            return user;
         }
     }
 }

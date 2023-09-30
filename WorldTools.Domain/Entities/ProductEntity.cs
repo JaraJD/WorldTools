@@ -6,7 +6,7 @@ namespace WorldTools.Domain.Entities
 {
     public class ProductEntity
     {
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         [Required] public ProductValueObjectName ProductName { get; set; }
 
@@ -18,7 +18,7 @@ namespace WorldTools.Domain.Entities
 
         [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
 
-        [Required] public int BranchId { get; set; }
+        [Required] public Guid BranchId { get; set; }
 
         public virtual BranchEntity BranchEntity { get; set; }
 
@@ -28,7 +28,7 @@ namespace WorldTools.Domain.Entities
             ProductValueObjectPrice price,
             ProductValueObjectInventoryStock stock,
             ProductValueObjectCategory.Category category,
-            int branchId
+            Guid branchId
             )
         {
             ProductName = name;

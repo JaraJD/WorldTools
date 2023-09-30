@@ -4,6 +4,6 @@ namespace WorldTools.Domain.Ports
 {
     public interface IUserRepository
     {
-        Task<int> RegisterUserAsync(UserEntity user);
+        Task<UserEntity> RegisterUserAsync(UserEntity user);
     }
 }

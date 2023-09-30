@@ -13,11 +13,11 @@ namespace WorldTools.Domain.Entities
 
         public string StoredName { get; set; }
 
-        public int AggregateId { get; set; }
+        public Guid AggregateId { get; set; }
 
         public string EventBody { get; set; }
 
-        public StoredEvent(string storedName ,int aggregateId ,string eventBody)
+        public StoredEvent(string storedName ,Guid aggregateId ,string eventBody)
         {
             StoredName = storedName;
             AggregateId = aggregateId;

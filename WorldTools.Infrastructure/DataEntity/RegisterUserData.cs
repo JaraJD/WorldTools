@@ -6,7 +6,7 @@ namespace WorldTools.SqlAdapter.DataEntity
 {
     public class RegisterUserData
     {
-        public RegisterUserData(string name, string userPassword, string email, UserValueObjectRole.roles role, int branchId)
+        public RegisterUserData(string name, string userPassword, string email, UserValueObjectRole.roles role, Guid branchId)
         {
             Name = name;
             UserPassword = userPassword;
@@ -18,7 +18,7 @@ namespace WorldTools.SqlAdapter.DataEntity
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required] public string Name { get; set; }
 
@@ -28,7 +28,7 @@ namespace WorldTools.SqlAdapter.DataEntity
 
         [Required] public UserValueObjectRole.roles Role { get; set; }
 
-        [Required] public int BranchId { get; set; }
+        [Required] public Guid BranchId { get; set; }
 
         [Required]
         [ForeignKey("BranchId")]

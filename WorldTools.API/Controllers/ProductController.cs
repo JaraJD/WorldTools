@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.ProductCommands;
+using WorldTools.Domain.ResponseVm.Product;
 
 namespace WorldTools.API.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/product")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -17,27 +18,27 @@ namespace WorldTools.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<int> RegisterProduct([FromBody] RegisterProductCommand command)
+        public async Task<RegisterProductCommand> RegisterProduct([FromBody] RegisterProductCommand command)
         {
             return await _productUseCase.RegisterProduct(command);
         }
 
-        [HttpPost("FinalCustomerSale")]
-        public async Task<string> RegisterProductFinalCustomerSale([FromBody] RegisterSaleProductCommand command)
+        [HttpPatch("customer-sale/{idProduct}")]
+        public async Task<ProductResponseVm> RegisterProductFinalCustomerSale(string idProduct, [FromBody] RegisterSaleProductCommand command)
         {
-            return await _productUseCase.RegisterProductFinalCustomerSale(command);
+            return await _productUseCase.RegisterProductFinalCustomerSale(command, idProduct);
         }
 
-        [HttpPost("InventoryStock")]
-        public async Task<string> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command)
+        [HttpPost("purchase/{idProduct}")]
+        public async Task<ProductResponseVm> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command, string idProduct)
         {
-            return await _productUseCase.RegisterProductInventoryStock(command);
+            return await _productUseCase.RegisterProductInventoryStock(command, idProduct);
         }
 
-        [HttpPost("ResellerSale")]
-        public async Task<string> RegisterResellerSale([FromBody] RegisterSaleProductCommand command)
+        [HttpPatch("seller-sale/{idProduct}")]
+        public async Task<ProductResponseVm> RegisterResellerSale(string idProduct, [FromBody] RegisterSaleProductCommand command)
         {
-            return await _productUseCase.RegisterResellerSale(command);
+            return await _productUseCase.RegisterResellerSale(command, idProduct);
         }
     }
 }

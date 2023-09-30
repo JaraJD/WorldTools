@@ -11,7 +11,7 @@ namespace WorldTools.Domain.Entities
 {
     public class BranchEntity
     {
-        public int BranchId { get; set; }
+        public Guid BranchId { get; set; }
 
         [Required] public BranchValueObjectName BranchName { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace WorldTools.MongoAdapter.DTO
+namespace WorldTools.MongoAdapter.MongoEntities
 {
     public class StoredEventMongoEntity
     {
@@ -10,7 +10,7 @@ namespace WorldTools.MongoAdapter.DTO
 
         public string StoredName { get; set; }
 
-        public int AggregateId { get; set; }
+        public string AggregateId { get; set; }
 
         public string EventBody { get; set; }
     }

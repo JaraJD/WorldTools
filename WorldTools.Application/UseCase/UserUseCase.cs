@@ -3,6 +3,7 @@ using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.UserCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
+using WorldTools.Domain.ResponseVm.User;
 using WorldTools.Domain.ValueObjects.UserValueObjects;
 
 namespace WorldTools.Application.UseCase
@@ -18,20 +19,29 @@ namespace WorldTools.Application.UseCase
             _storedEvent = storedEvent;
         }
 
-        public async Task<int> RegisterUser(RegisterUserCommand user)
+        public async Task<UserResponseVm> RegisterUser(RegisterUserCommand user)
         {
-            var userName = new UserValueObjectName(user.Name);
+            var userName = new UserValueObjectName(user.Name.FirstName, user.Name.LastName);
             var userPassword = new UserValueObjectPassword(user.UserPassword);
             var userEmail = new UserValueObjectEmail(user.Email);
             var userEntity = new UserEntity(userName, userPassword, userEmail, user.Role, user.BranchId);
 
-            var userId = await _repository.RegisterUserAsync(userEntity);
-            await RegisterAndPersistEvent("UserRegistered", userId, user);
+            var userResponse = await _repository.RegisterUserAsync(userEntity);
+            var responseVm = new UserResponseVm();
 
-            return userId;
+            responseVm.Name = $"{user.Name.FirstName} {user.Name.LastName}";
+            responseVm.Email = user.Email;
+            responseVm.UserPassword = user.UserPassword;
+            responseVm.Role = user.Role;
+            responseVm.BranchId = user.BranchId;
+            responseVm.UserId = userResponse.UserId;
+
+            await RegisterAndPersistEvent("UserRegistered", userResponse.BranchId, user);
+
+            return responseVm;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, int aggregateId, RegisterUserCommand eventBody)
+        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, RegisterUserCommand eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
 

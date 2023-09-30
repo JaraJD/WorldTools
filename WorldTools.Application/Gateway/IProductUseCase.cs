@@ -1,15 +1,16 @@
 ﻿using WorldTools.Domain.Commands.ProductCommands;
+using WorldTools.Domain.ResponseVm.Product;
 
 namespace WorldTools.Application.Gateway
 {
     public interface IProductUseCase
     {
-        Task<int> RegisterProduct(RegisterProductCommand product);
+        Task<RegisterProductCommand> RegisterProduct(RegisterProductCommand product);
 
-        Task<string> RegisterProductInventoryStock(RegisterProductInventoryCommand product);
+        Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, string idProduct);
 
-        Task<string> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product);
+        Task<ProductResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product, string idProduct);
 
-        Task<string> RegisterResellerSale(RegisterSaleProductCommand product);
+        Task<ProductResponseVm> RegisterResellerSale(RegisterSaleProductCommand product, string idProduct);
     }
 }

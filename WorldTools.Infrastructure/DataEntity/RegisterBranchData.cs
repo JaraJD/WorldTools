@@ -14,7 +14,7 @@ namespace WorldTools.SqlAdapter.DataEntity
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BranchId { get; set; }
+        public Guid BranchId { get; set; }
 
         [Required] public string BranchName { get; set; }
 

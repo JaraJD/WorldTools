@@ -4,6 +4,6 @@ namespace WorldTools.Domain.Ports
 {
     public interface IBranchRepository
     {
-        Task<int> RegisterBranchAsync(BranchEntity branch);
+        Task<BranchEntity> RegisterBranchAsync(BranchEntity branch);
     }
 }

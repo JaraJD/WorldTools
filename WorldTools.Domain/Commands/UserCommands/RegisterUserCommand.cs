@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorldTools.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 using WorldTools.Domain.ValueObjects.UserValueObjects;
 
 namespace WorldTools.Domain.Commands.UserCommands
@@ -13,7 +6,7 @@ namespace WorldTools.Domain.Commands.UserCommands
     public class RegisterUserCommand
     {
 
-        [Required] public string Name { get; set; }
+        [Required] public UserValueObjectName Name { get; set; }
 
         [Required] public string UserPassword { get; set; }
 
@@ -21,7 +14,7 @@ namespace WorldTools.Domain.Commands.UserCommands
 
         [Required] public UserValueObjectRole.roles Role { get; set; }
 
-        [Required] public int BranchId { get; set; }
+        [Required] public Guid BranchId { get; set; }
 
     }
 }
