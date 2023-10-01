@@ -24,7 +24,8 @@ namespace WorldTools.Application.UseCase
             var userName = new UserValueObjectName(user.Name.FirstName, user.Name.LastName);
             var userPassword = new UserValueObjectPassword(user.UserPassword);
             var userEmail = new UserValueObjectEmail(user.Email);
-            var userEntity = new UserEntity(userName, userPassword, userEmail, user.Role, user.BranchId);
+            var userRole = new UserValueObjectRole(user.Role);
+            var userEntity = new UserEntity(userName, userPassword, userEmail, userRole, user.BranchId);
 
             var userResponse = await _repository.RegisterUserAsync(userEntity);
             var responseVm = new UserResponseVm();

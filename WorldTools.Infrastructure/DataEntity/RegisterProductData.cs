@@ -6,7 +6,7 @@ namespace WorldTools.SqlAdapter.DataEntity
 {
     public class RegisterProductData
     {
-        public RegisterProductData(string? productName, string? productDescription, double productPrice, int productInventoryStock, ProductValueObjectCategory.Category productCategory, Guid branchId)
+        public RegisterProductData(string? productName, string? productDescription, double productPrice, int productInventoryStock, string productCategory, Guid branchId)
         {
             ProductName = productName;
             ProductDescription = productDescription;
@@ -23,7 +23,7 @@ namespace WorldTools.SqlAdapter.DataEntity
         [Required] public string? ProductDescription { get; set; }
         [Required] public double ProductPrice { get; set; }
         [Required] public int ProductInventoryStock { get; set; }
-        [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
+        [Required] public string ProductCategory { get; set; }
         [Required] public Guid BranchId { get; set; }
 
         [Required]

@@ -18,7 +18,7 @@ namespace WorldTools.Domain.ResponseVm.User
 
         [Required] public string Email { get; set; }
 
-        [Required] public UserValueObjectRole.roles Role { get; set; }
+        [Required] public string Role { get; set; }
 
         [Required] public Guid BranchId { get; set; }
     }

@@ -9,19 +9,27 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
 {
     public class ProductValueObjectCategory
     {
-        public enum Category
+        public string? ProductCategory { get; private set; }
+        public ProductValueObjectCategory(string productCategory)
         {
-            HandTools,
-            PowerTools,
-            Locksmithing,
-            ConstructionHardware,
-            PaintAndAccessories,
-            GardeningAndOutdoors,
-            SafetyAndProtectiveEquipment,
-            PlumbingSupplies,
-            Electrical,
-            HomeFixtures,
-            Others
+            Validate(productCategory);
         }
+
+       
+        private void Validate(string category)
+        {
+            if (category == null || category.Length < 5)
+            {
+                throw new ArgumentNullException("Categoria invalida");
+            }
+            
+            ProductCategory = category;
+        }
+
+        public void SetValue(string category)
+        {
+            Validate(category);
+        }
+
     }
 }

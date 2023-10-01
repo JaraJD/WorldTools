@@ -25,7 +25,8 @@ namespace WorldTools.Application.UseCase
             var productDescription = new ProductValueObjectDescription(product.ProductDescription);
             var productPrice = new ProductValueObjectPrice(product.ProductPrice);
             var productStock = new ProductValueObjectInventoryStock(product.ProductInventoryStock);
-            var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, product.ProductCategory, product.BranchId);
+            var productCategory = new ProductValueObjectCategory(product.ProductCategory);
+            var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, productCategory, product.BranchId);
 
             var productResponse = await _repository.RegisterProductAsync(productEntity);
             await RegisterAndPersistEvent("ProductRegistered", productResponse.BranchId, product);

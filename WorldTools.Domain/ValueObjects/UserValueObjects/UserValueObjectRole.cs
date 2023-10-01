@@ -8,11 +8,26 @@ namespace WorldTools.Domain.ValueObjects.UserValueObjects
 {
     public class UserValueObjectRole
     {
-        public enum roles
+        public string Role { get; private set; }
+
+        public UserValueObjectRole(string role)
         {
-            Super_admin,
-            Admin,
-            Employee
+            validate(role);
+        }
+
+        private void validate(string role)
+        {
+            if ( role == null || role.Length < 3 )
+            {
+                throw new ArgumentNullException("Rol incorrecto");
+            }
+
+            Role = role;
+        }
+
+        public void SetValue(string role)
+        {
+            validate(role);
         }
     }
 }

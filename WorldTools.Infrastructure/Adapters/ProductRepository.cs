@@ -22,7 +22,7 @@ namespace WorldTools.SqlAdapter.Adapters
                 product.ProductDescription.ProductDescription,
                 product.ProductPrice.ProductPrice,
                 product.ProductInventoryStock.ProductInventoryStock,
-                product.ProductCategory,
+                product.ProductCategory.ProductCategory,
                 product.BranchId
                 );
 

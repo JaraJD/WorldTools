@@ -9,7 +9,7 @@ namespace WorldTools.Domain.Commands.ProductCommands
         [Required] public string? ProductDescription { get; set; }
         [Required] public double ProductPrice { get; set; }
         [Required] public int ProductInventoryStock { get; set; }   
-        [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
+        [Required] public string ProductCategory { get; set; }
         [Required] public Guid BranchId { get; set; }
 
     }

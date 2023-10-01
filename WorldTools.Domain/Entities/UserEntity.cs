@@ -19,13 +19,13 @@ namespace WorldTools.Domain.Entities
 
         [Required] public UserValueObjectEmail Email { get; set; }
 
-        [Required] public UserValueObjectRole.roles Role { get; set; }
+        [Required] public UserValueObjectRole Role { get; set; }
 
         [Required] public Guid BranchId { get; set; }
 
         public virtual BranchEntity BranchEntity { get; set; }
 
-        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole.roles role, Guid branchId)
+        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole role, Guid branchId)
         {
             Name = name;
             UserPassword = password;

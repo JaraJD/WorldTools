@@ -16,7 +16,7 @@ namespace WorldTools.Domain.Entities
 
         [Required] public ProductValueObjectInventoryStock ProductInventoryStock { get; set; }
 
-        [Required] public ProductValueObjectCategory.Category ProductCategory { get; set; }
+        [Required] public ProductValueObjectCategory ProductCategory { get; set; }
 
         [Required] public Guid BranchId { get; set; }
 
@@ -27,7 +27,7 @@ namespace WorldTools.Domain.Entities
             ProductValueObjectDescription description,
             ProductValueObjectPrice price,
             ProductValueObjectInventoryStock stock,
-            ProductValueObjectCategory.Category category,
+            ProductValueObjectCategory category,
             Guid branchId
             )
         {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WorldTools.SqlAdapter.Migrations
 {
     /// <inheritdoc />
-    public partial class ModificacionColumnas : Migration
+    public partial class InitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace WorldTools.SqlAdapter.Migrations
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductPrice = table.Column<double>(type: "float", nullable: false),
                     ProductInventoryStock = table.Column<int>(type: "int", nullable: false),
-                    ProductCategory = table.Column<int>(type: "int", nullable: false),
+                    ProductCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -56,7 +56,7 @@ namespace WorldTools.SqlAdapter.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

@@ -54,8 +54,9 @@ namespace WorldTools.SqlAdapter.Migrations
                     b.Property<Guid>("BranchId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ProductCategory")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductDescription")
                         .IsRequired()
@@ -95,8 +96,9 @@ namespace WorldTools.SqlAdapter.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserPassword")
                         .IsRequired()

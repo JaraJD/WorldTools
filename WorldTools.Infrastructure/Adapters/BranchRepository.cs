@@ -14,6 +14,11 @@ namespace WorldTools.SqlAdapter.Adapters
             _context = dbContext;
         }
 
+        public Task<BranchEntity> GetBranchIdAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<BranchEntity> RegisterBranchAsync(BranchEntity branch)
         {
             var branchToCreate = new RegisterBranchData(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
