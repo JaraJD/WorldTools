@@ -6,6 +6,6 @@ namespace WorldTools.Domain.Commands.ProductCommands
 {
     public class RegisterSaleProductCommand
     {
-        [Required] public List<ProductSaleCommand> Products { get; set; }
+        [Required] public ProductSaleCommand Products { get; set; }
     }
 }

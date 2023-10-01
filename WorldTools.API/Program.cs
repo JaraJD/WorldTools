@@ -10,6 +10,7 @@ using WorldTools.MongoAdapter.Common.Mapping;
 using WorldTools.Domain.Ports;
 using WorldTools.SqlAdapter.Adapters;
 using WorldTools.MongoAdapter.Adapters;
+using WorldTools.SqlAdapter.Common.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,11 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddAutoMapper(config => config.AddDataReaderMapping(), typeof(MappingProfileMongo));
+builder.Services.AddAutoMapper(config => {
+    config.AddProfile<MappingProfileSql>();
+    config.AddProfile<MappingProfileMongo>();
+});
+
 builder.Services.AddSingleton<IContextMongo>(provider => new ContextMongo(builder.Configuration.GetConnectionString("MongoConnection"), "Events"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

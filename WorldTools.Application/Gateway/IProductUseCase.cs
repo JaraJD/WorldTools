@@ -7,10 +7,10 @@ namespace WorldTools.Application.Gateway
     {
         Task<RegisterProductCommand> RegisterProduct(RegisterProductCommand product);
 
-        Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, string idProduct);
+        Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, Guid idProduct);
 
-        Task<ProductResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product, string idProduct);
+        Task<ProductResponseVm> RegisterProductFinalCustomerSale(ProductSaleCommand product, Guid idProduct);
 
-        Task<ProductResponseVm> RegisterResellerSale(RegisterSaleProductCommand product, string idProduct);
+        Task<ProductResponseVm> RegisterResellerSale(ProductSaleCommand product, Guid idProduct);
     }
 }

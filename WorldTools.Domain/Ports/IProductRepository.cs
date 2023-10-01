@@ -1,5 +1,7 @@
 ﻿using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.ResponseVm.Product;
+using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Domain.Ports
 {
@@ -7,10 +9,10 @@ namespace WorldTools.Domain.Ports
     {
         Task<ProductEntity> RegisterProductAsync(ProductEntity product);
 
-        Task<string> RegisterProductInventoryStockAsync(RegisterProductInventoryCommand product);
+        Task<ProductResponseVm> RegisterProductInventoryStockAsync(ProductValueObjectInventoryStock product, Guid productId);
 
-        Task<string> RegisterProductFinalCustomerSaleAsync(RegisterSaleProductCommand product);
+        Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductValueObjectInventoryStock product, Guid productId);
 
-        Task<string> RegisterResellerSaleAsync(RegisterSaleProductCommand product);
+        Task<ProductResponseVm> RegisterResellerSaleAsync(ProductValueObjectInventoryStock product, Guid productId);
     }
 }

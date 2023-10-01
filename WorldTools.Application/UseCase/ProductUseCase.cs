@@ -2,6 +2,7 @@
 using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.Events.Product;
 using WorldTools.Domain.Ports;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
@@ -34,22 +35,51 @@ namespace WorldTools.Application.UseCase
             return product;
         }
 
-        public Task<ProductResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product, string idProduct)
+        public async Task<ProductResponseVm> RegisterProductFinalCustomerSale(ProductSaleCommand product, Guid idProduct)
         {
-            throw new NotImplementedException();
+            var quatity = new ProductValueObjectInventoryStock(product.ProductQuantity);
+
+            var productResponse = await _repository.RegisterProductFinalCustomerSaleAsync(quatity, idProduct);
+
+            var eventSaleRegistered = new RegisterSaleEvent("ProductFinalCustomerSaleRegistered", product.ProductQuantity, idProduct, productResponse.BranchId);
+
+            var discount = productResponse.ProductPrice * 0.15;
+
+            eventSaleRegistered.TotalPrice = (productResponse.ProductPrice - discount) * product.ProductQuantity;
+
+            await RegisterAndPersistEvent("ProductFinalCustomerSaleRegistered", productResponse.BranchId, eventSaleRegistered);
+            return productResponse;
         }
 
-        public Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, string idProduct)
+        public async Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, Guid idProduct)
         {
-            throw new NotImplementedException();
+            var quatity = new ProductValueObjectInventoryStock(product.ProductQuantity);
+
+            var productResponse = await _repository.RegisterProductInventoryStockAsync(quatity, idProduct);
+
+            var eventStockResgitered = new RegisterStockEvent("ProductStockRegistered", product.ProductQuantity, productResponse.ProductInventoryStock, idProduct, productResponse.BranchId);
+
+            await RegisterAndPersistEvent("ProductStockRegistered", productResponse.BranchId, eventStockResgitered);
+            return productResponse;
         }
 
-        public Task<ProductResponseVm> RegisterResellerSale(RegisterSaleProductCommand product, string idProduct)
+        public async Task<ProductResponseVm> RegisterResellerSale(ProductSaleCommand product, Guid idProduct)
         {
-            throw new NotImplementedException();
+            var quatity = new ProductValueObjectInventoryStock(product.ProductQuantity);
+
+            var productResponse = await _repository.RegisterResellerSaleAsync(quatity, idProduct);
+
+            var eventSaleRegistered = new RegisterSaleEvent("ProductResellerSaleRegistered", product.ProductQuantity, idProduct, productResponse.BranchId);
+
+            var discount = productResponse.ProductPrice * 0.20;
+
+            eventSaleRegistered.TotalPrice = (productResponse.ProductPrice - discount) * product.ProductQuantity;
+
+            await RegisterAndPersistEvent("ProductResellerSaleRegistered", productResponse.BranchId, eventSaleRegistered);
+            return productResponse;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, RegisterProductCommand eventBody)
+        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
 

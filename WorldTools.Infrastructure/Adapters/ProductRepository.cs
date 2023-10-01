@@ -1,6 +1,9 @@
-﻿using WorldTools.Domain.Commands.ProductCommands;
+﻿using AutoMapper;
+using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
+using WorldTools.Domain.ResponseVm.Product;
+using WorldTools.Domain.ValueObjects.ProductValueObjects;
 using WorldTools.Infrastructure;
 using WorldTools.SqlAdapter.DataEntity;
 
@@ -9,10 +12,11 @@ namespace WorldTools.SqlAdapter.Adapters
     public class ProductRepository : IProductRepository
     {
         private readonly Context _context;
-
-        public ProductRepository(Context dbContext)
+        private readonly IMapper _mapper;
+        public ProductRepository(Context dbContext, IMapper mapper)
         {
             _context = dbContext;
+            _mapper = mapper;
         }
 
         public async Task<ProductEntity> RegisterProductAsync(ProductEntity product)
@@ -33,19 +37,52 @@ namespace WorldTools.SqlAdapter.Adapters
             return product;
         }
 
-        public Task<string> RegisterProductFinalCustomerSaleAsync(RegisterSaleProductCommand product)
+        public async Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductValueObjectInventoryStock product, Guid productId)
         {
-            throw new NotImplementedException();
+            var existingProduct = await _context.Product.FindAsync(productId);
+
+            if (existingProduct == null)
+            {
+                throw new ArgumentNullException("El producto no se encontro.");
+            }
+
+            existingProduct.ProductInventoryStock -= product.ProductInventoryStock;
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<ProductResponseVm>(existingProduct);
         }
 
-        public Task<string> RegisterProductInventoryStockAsync(RegisterProductInventoryCommand product)
+        public async Task<ProductResponseVm> RegisterProductInventoryStockAsync(ProductValueObjectInventoryStock product, Guid productId)
         {
-            throw new NotImplementedException();
+            var existingProduct = await _context.Product.FindAsync(productId);
+
+            if (existingProduct == null)
+            {
+                throw new ArgumentNullException("El producto no se encontro.");
+            }
+
+            existingProduct.ProductInventoryStock += product.ProductInventoryStock;
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<ProductResponseVm>(existingProduct);
         }
 
-        public Task<string> RegisterResellerSaleAsync(RegisterSaleProductCommand product)
+        public async Task<ProductResponseVm> RegisterResellerSaleAsync(ProductValueObjectInventoryStock product, Guid productId)
         {
-            throw new NotImplementedException();
+            var existingProduct = await _context.Product.FindAsync(productId);
+
+            if (existingProduct == null)
+            {
+                throw new ArgumentNullException("El producto no se encontro.");
+            }
+
+            existingProduct.ProductInventoryStock -= product.ProductInventoryStock;
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<ProductResponseVm>(existingProduct);
         }
     }
 }

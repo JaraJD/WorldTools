@@ -24,19 +24,19 @@ namespace WorldTools.API.Controllers
         }
 
         [HttpPatch("customer-sale/{idProduct}")]
-        public async Task<ProductResponseVm> RegisterProductFinalCustomerSale(string idProduct, [FromBody] RegisterSaleProductCommand command)
+        public async Task<ProductResponseVm> RegisterProductFinalCustomerSale(Guid idProduct, [FromBody] ProductSaleCommand command)
         {
             return await _productUseCase.RegisterProductFinalCustomerSale(command, idProduct);
         }
 
         [HttpPost("purchase/{idProduct}")]
-        public async Task<ProductResponseVm> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command, string idProduct)
+        public async Task<ProductResponseVm> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command, Guid idProduct)
         {
             return await _productUseCase.RegisterProductInventoryStock(command, idProduct);
         }
 
         [HttpPatch("seller-sale/{idProduct}")]
-        public async Task<ProductResponseVm> RegisterResellerSale(string idProduct, [FromBody] RegisterSaleProductCommand command)
+        public async Task<ProductResponseVm> RegisterResellerSale(Guid idProduct, [FromBody] ProductSaleCommand command)
         {
             return await _productUseCase.RegisterResellerSale(command, idProduct);
         }
