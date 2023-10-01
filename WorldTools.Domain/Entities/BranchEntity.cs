@@ -13,9 +13,13 @@ namespace WorldTools.Domain.Entities
     {
         public Guid BranchId { get; set; }
 
-        [Required] public BranchValueObjectName BranchName { get; set; }
+        [Required(ErrorMessage = "El nombre de la sucursal es obligatorio.")]
 
-        [Required] public BranchValueObjectLocation BranchLocation { get; set; }
+        public BranchValueObjectName BranchName { get; set; }
+
+        [Required(ErrorMessage = "La ubicación de la sucursal es obligatoria.")]
+
+        public BranchValueObjectLocation BranchLocation { get; set; }
 
         public virtual List<ProductEntity> BranchProducts { get; set; }
 

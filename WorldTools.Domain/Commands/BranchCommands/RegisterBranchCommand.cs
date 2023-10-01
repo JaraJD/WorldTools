@@ -5,9 +5,11 @@ namespace WorldTools.Domain.Commands.BranchCommands
 {
     public class RegisterBranchCommand
     {
-        [Required] public string BranchName { get; set; }
+        [Required(ErrorMessage = "El nombre de la sucursal es obligatorio.")]
+        public string BranchName { get; set; }
 
-        [Required] public BranchValueObjectLocation BranchLocation { get; set; }
+        [Required(ErrorMessage = "La ubicación de la sucursal es obligatoria.")]
+        public BranchValueObjectLocation BranchLocation { get; set; }
 
     }
 }
