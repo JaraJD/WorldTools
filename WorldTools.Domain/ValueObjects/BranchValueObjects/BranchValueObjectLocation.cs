@@ -18,5 +18,10 @@ namespace WorldTools.Domain.ValueObjects.BranchValueObjects
             Country = country;
             City = city;
         }
+
+        public BranchValueObjectLocation()
+        {
+            
+        }
     }
 }

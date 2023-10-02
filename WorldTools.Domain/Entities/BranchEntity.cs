@@ -31,5 +31,10 @@ namespace WorldTools.Domain.Entities
             BranchLocation = location;
         }
 
+        public BranchEntity()
+        {
+            
+        }
+
     }
 }

@@ -15,5 +15,9 @@ namespace WorldTools.Domain.ValueObjects.BranchValueObjects
         {
             BranchName = name;
         }
+        public BranchValueObjectName()
+        {
+            
+        }
     }
 }

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.SqlAdapter", "Wo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.Application", "WorldTools.Application\WorldTools.Application.csproj", "{5B59E223-2D40-40F1-92F8-A2BBEAB234F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTools.MongoAdapter", "WorldTools.MongoAdapter\WorldTools.MongoAdapter.csproj", "{4367D22A-26C1-4FBD-AB3F-4D94863054D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.MongoAdapter", "WorldTools.MongoAdapter\WorldTools.MongoAdapter.csproj", "{4367D22A-26C1-4FBD-AB3F-4D94863054D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8CD44ABD-A025-4BED-8E29-B2F11517B87F}"
 EndProject
@@ -22,6 +22,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{C5B3B8F4-ABC8-4A06-8801-30140E6B850E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8BCB5051-1099-458C-86C3-27EF94B330A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CA9F6476-9D66-4EB8-946D-78F26DA948B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTools.Test.Aplication", "WorldTools.Test.Aplication\WorldTools.Test.Aplication.csproj", "{79174F5A-C5D9-4DA4-9EC1-F2FDF45F6024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTools.Test.Infrastructure", "WorldTools.Infrastructure.Adapter\WorldTools.Test.Infrastructure.csproj", "{77AA69A3-C500-46B8-AE98-19D12346F460}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +55,14 @@ Global
 		{4367D22A-26C1-4FBD-AB3F-4D94863054D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4367D22A-26C1-4FBD-AB3F-4D94863054D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4367D22A-26C1-4FBD-AB3F-4D94863054D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79174F5A-C5D9-4DA4-9EC1-F2FDF45F6024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79174F5A-C5D9-4DA4-9EC1-F2FDF45F6024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79174F5A-C5D9-4DA4-9EC1-F2FDF45F6024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79174F5A-C5D9-4DA4-9EC1-F2FDF45F6024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AA69A3-C500-46B8-AE98-19D12346F460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AA69A3-C500-46B8-AE98-19D12346F460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AA69A3-C500-46B8-AE98-19D12346F460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AA69A3-C500-46B8-AE98-19D12346F460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +77,8 @@ Global
 		{0AD981B8-5168-44E9-88F4-A7906EAF95CA} = {8CD44ABD-A025-4BED-8E29-B2F11517B87F}
 		{C5B3B8F4-ABC8-4A06-8801-30140E6B850E} = {8CD44ABD-A025-4BED-8E29-B2F11517B87F}
 		{8BCB5051-1099-458C-86C3-27EF94B330A5} = {8CD44ABD-A025-4BED-8E29-B2F11517B87F}
+		{79174F5A-C5D9-4DA4-9EC1-F2FDF45F6024} = {CA9F6476-9D66-4EB8-946D-78F26DA948B1}
+		{77AA69A3-C500-46B8-AE98-19D12346F460} = {CA9F6476-9D66-4EB8-946D-78F26DA948B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A541330-4FC3-4859-8739-8967164ADE1D}
