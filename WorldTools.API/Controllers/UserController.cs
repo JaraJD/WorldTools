@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 using WorldTools.API.Utils.Encrypt;
-using WorldTools.Application.Gateway;
+using WorldTools.Application.UseCases.UserUseCases;
 using WorldTools.Domain.Commands.UserCommands;
 using WorldTools.Domain.ResponseVm.User;
 
@@ -12,11 +12,11 @@ namespace WorldTools.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserUseCase _userUseCase;
+        private readonly RegisterUserUseCase _registerUserUseCase;
 
-        public UserController(IUserUseCase userUseCase)
+        public UserController(RegisterUserUseCase registerUserUseCase)
         {
-            _userUseCase = userUseCase;
+            _registerUserUseCase = registerUserUseCase;
         }
 
         [HttpPost("register")]
@@ -26,7 +26,7 @@ namespace WorldTools.API.Controllers
             string hashedPassword = PasswordEncryption.EncryptPassword(command.UserPassword, salt);
 
             command.UserPassword = hashedPassword;
-            return await _userUseCase.RegisterUser(command);
+            return await _registerUserUseCase.RegisterUser(command);
         }
     }
 }

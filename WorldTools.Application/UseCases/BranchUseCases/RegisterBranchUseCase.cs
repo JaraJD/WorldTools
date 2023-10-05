@@ -1,19 +1,18 @@
 ﻿using Newtonsoft.Json;
-using WorldTools.Application.Gateway;
 using WorldTools.Domain.Commands.BranchCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
 using WorldTools.Domain.ResponseVm.Branch;
 using WorldTools.Domain.ValueObjects.BranchValueObjects;
 
-namespace WorldTools.Application.UseCase
+namespace WorldTools.Application.UseCases.BranchUseCases
 {
-    public class BranchUseCase : IBranchUseCase
+    public class RegisterBranchUseCase
     {
         private readonly IBranchRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public BranchUseCase(IBranchRepository repository, IStoredEventRepository storedEvent)
+        public RegisterBranchUseCase(IBranchRepository repository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
             _storedEvent = storedEvent;

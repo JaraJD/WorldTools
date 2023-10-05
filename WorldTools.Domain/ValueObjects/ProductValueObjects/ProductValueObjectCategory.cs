@@ -9,6 +9,8 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
 {
     public class ProductValueObjectCategory
     {
+
+        [Required(ErrorMessage = "La categoría del producto es obligatoria.")]
         public string? ProductCategory { get; private set; }
         public ProductValueObjectCategory(string productCategory)
         {

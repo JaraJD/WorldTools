@@ -1,8 +1,6 @@
 using WorldTools.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.Data;
-using WorldTools.Application.Gateway;
-using WorldTools.Application.UseCase;
 using WorldTools.Infrastructure.Repositories;
 using WorldTools.MongoAdapter;
 using WorldTools.MongoAdapter.Interfaces;
@@ -11,18 +9,24 @@ using WorldTools.Domain.Ports;
 using WorldTools.SqlAdapter.Adapters;
 using WorldTools.MongoAdapter.Adapters;
 using WorldTools.SqlAdapter.Common.Mapping;
+using WorldTools.Application.UseCases.BranchUseCases;
+using WorldTools.Application.UseCases.ProductUseCases;
+using WorldTools.Application.UseCases.UserUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddScoped<IBranchUseCase, BranchUseCase>();
+builder.Services.AddTransient<RegisterBranchUseCase>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
-builder.Services.AddScoped<IProductUseCase, ProductUseCase>();
+builder.Services.AddTransient<AddProductUseCase>();
+builder.Services.AddTransient<RegisterProductFinalCustomerSaleUseCase>();
+builder.Services.AddTransient<RegisterProductInventoryStockUseCase>();
+builder.Services.AddTransient<RegisterResellerSaleUseCase>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-builder.Services.AddScoped<IUserUseCase, UserUseCase>();
+builder.Services.AddTransient<RegisterUserUseCase>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();

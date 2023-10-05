@@ -1,5 +1,6 @@
 ﻿using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
+using WorldTools.Domain.ResponseVm.Branch;
 using WorldTools.Infrastructure;
 using WorldTools.SqlAdapter.DataEntity;
 
@@ -14,11 +15,6 @@ namespace WorldTools.SqlAdapter.Adapters
             _context = dbContext;
         }
 
-        public Task<BranchEntity> GetBranchIdAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<BranchEntity> RegisterBranchAsync(BranchEntity branch)
         {
             var branchToCreate = new RegisterBranchData(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
@@ -29,5 +25,6 @@ namespace WorldTools.SqlAdapter.Adapters
             branch.BranchId = branchToCreate.BranchId;
             return branch;
         }
+
     }
 }

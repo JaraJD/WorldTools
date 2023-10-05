@@ -10,7 +10,9 @@ namespace WorldTools.Domain.Commands.UserCommands
 
         [Required] public string UserPassword { get; set; }
 
-        [Required] public string Email { get; set; }
+        [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El correo electrónico no tiene un formato válido.")]
+        public string Email { get; set; }
 
         [Required] public string Role { get; set; }
 

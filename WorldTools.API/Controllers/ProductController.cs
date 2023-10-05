@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WorldTools.Application.Gateway;
+using WorldTools.Application.UseCases.ProductUseCases;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.ResponseVm.Product;
 
@@ -10,35 +10,46 @@ namespace WorldTools.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductUseCase _productUseCase;
+        private readonly AddProductUseCase _AddProductUseCase;
+        private readonly RegisterProductFinalCustomerSaleUseCase _registerProductSaleUseCase;
+        private readonly RegisterProductInventoryStockUseCase _registerProductStockUseCase;
+        private readonly RegisterResellerSaleUseCase _registerProductResellerSaleUseCase;
 
-        public ProductController(IProductUseCase productUseCase)
+        public ProductController(
+            AddProductUseCase addProductUseCase,
+            RegisterProductFinalCustomerSaleUseCase registerProductSaleUseCase, 
+            RegisterProductInventoryStockUseCase registerProductStockUseCase, 
+            RegisterResellerSaleUseCase registerProductResellerSaleUseCase
+            )
         {
-            _productUseCase = productUseCase;
+            _AddProductUseCase = addProductUseCase;
+            _registerProductSaleUseCase = registerProductSaleUseCase;
+            _registerProductStockUseCase = registerProductStockUseCase;
+            _registerProductResellerSaleUseCase = registerProductResellerSaleUseCase;
         }
 
         [HttpPost("register")]
         public async Task<RegisterProductCommand> RegisterProduct([FromBody] RegisterProductCommand command)
         {
-            return await _productUseCase.RegisterProduct(command);
+            return await _AddProductUseCase.RegisterProduct(command);
         }
 
         [HttpPatch("customer-sale/{idProduct}")]
         public async Task<ProductResponseVm> RegisterProductFinalCustomerSale(Guid idProduct, [FromBody] ProductSaleCommand command)
         {
-            return await _productUseCase.RegisterProductFinalCustomerSale(command, idProduct);
+            return await _registerProductSaleUseCase.RegisterProductFinalCustomerSale(command, idProduct);
         }
 
         [HttpPost("purchase/{idProduct}")]
         public async Task<ProductResponseVm> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command, Guid idProduct)
         {
-            return await _productUseCase.RegisterProductInventoryStock(command, idProduct);
+            return await _registerProductStockUseCase.RegisterProductInventoryStock(command, idProduct);
         }
 
         [HttpPatch("seller-sale/{idProduct}")]
         public async Task<ProductResponseVm> RegisterResellerSale(Guid idProduct, [FromBody] ProductSaleCommand command)
         {
-            return await _productUseCase.RegisterResellerSale(command, idProduct);
+            return await _registerProductResellerSaleUseCase.RegisterResellerSale(command, idProduct);
         }
     }
 }

@@ -1,19 +1,19 @@
-﻿using Newtonsoft.Json;
-using WorldTools.Application.Gateway;
+﻿
+using Newtonsoft.Json;
 using WorldTools.Domain.Commands.UserCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
 using WorldTools.Domain.ResponseVm.User;
 using WorldTools.Domain.ValueObjects.UserValueObjects;
 
-namespace WorldTools.Application.UseCase
+namespace WorldTools.Application.UseCases.UserUseCases
 {
-    public class UserUseCase : IUserUseCase
+    public class RegisterUserUseCase
     {
         private readonly IUserRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public UserUseCase(IUserRepository repository, IStoredEventRepository storedEvent)
+        public RegisterUserUseCase(IUserRepository repository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
             _storedEvent = storedEvent;

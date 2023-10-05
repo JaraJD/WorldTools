@@ -9,7 +9,9 @@ namespace WorldTools.Domain.ValueObjects.ProductValueObjects
 {
     public class ProductValueObjectDescription
     {
-        [Required] public string ProductDescription { get; set; }
+        [Required(ErrorMessage = "La descripción del producto es obligatoria.")]
+        [StringLength(500, MinimumLength = 10, ErrorMessage = "La descripción del producto debe tener entre 10 y 500 caracteres.")]
+        public string ProductDescription { get; set; }
 
         public ProductValueObjectDescription(string description)
         {

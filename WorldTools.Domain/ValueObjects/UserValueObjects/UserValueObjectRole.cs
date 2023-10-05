@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace WorldTools.Domain.ValueObjects.UserValueObjects
 {
     public class UserValueObjectRole
     {
+
+        [Required(ErrorMessage = "El rol es obligatorio.")]
         public string Role { get; private set; }
 
         public UserValueObjectRole(string role)
