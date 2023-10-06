@@ -37,16 +37,16 @@ namespace WorldTools.SqlAdapter.Adapters
             return product;
         }
 
-        public async Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductValueObjectInventoryStock product, Guid productId)
+        public async Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductSaleCommand product)
         {
-            var existingProduct = await _context.Product.FindAsync(productId);
+            var existingProduct = await _context.Product.FindAsync(product.ProductId);
 
             if (existingProduct == null)
             {
                 throw new ArgumentNullException("El producto no se encontro.");
             }
 
-            existingProduct.ProductInventoryStock -= product.ProductInventoryStock;
+            existingProduct.ProductInventoryStock -= product.ProductQuantity;
 
             await _context.SaveChangesAsync();
 
@@ -69,16 +69,16 @@ namespace WorldTools.SqlAdapter.Adapters
             return _mapper.Map<ProductResponseVm>(existingProduct);
         }
 
-        public async Task<ProductResponseVm> RegisterResellerSaleAsync(ProductValueObjectInventoryStock product, Guid productId)
+        public async Task<ProductResponseVm> RegisterResellerSaleAsync(ProductSaleCommand product)
         {
-            var existingProduct = await _context.Product.FindAsync(productId);
+            var existingProduct = await _context.Product.FindAsync(product.ProductId);
 
             if (existingProduct == null)
             {
                 throw new ArgumentNullException("El producto no se encontro.");
             }
 
-            existingProduct.ProductInventoryStock -= product.ProductInventoryStock;
+            existingProduct.ProductInventoryStock -= product.ProductQuantity;
 
             await _context.SaveChangesAsync();
 

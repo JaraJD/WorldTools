@@ -79,6 +79,35 @@ namespace WorldTools.SqlAdapter.Migrations
                     b.ToTable("Product");
                 });
 
+            modelBuilder.Entity("WorldTools.SqlAdapter.DataEntity.RegisterSaleData", b =>
+                {
+                    b.Property<Guid>("SaleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BranchId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SaleNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaleQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("SaleTotal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SaleType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SaleId");
+
+                    b.HasIndex("BranchId");
+
+                    b.ToTable("Sale");
+                });
+
             modelBuilder.Entity("WorldTools.SqlAdapter.DataEntity.RegisterUserData", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -122,6 +151,17 @@ namespace WorldTools.SqlAdapter.Migrations
                     b.Navigation("Branch");
                 });
 
+            modelBuilder.Entity("WorldTools.SqlAdapter.DataEntity.RegisterSaleData", b =>
+                {
+                    b.HasOne("WorldTools.SqlAdapter.DataEntity.RegisterBranchData", "Branch")
+                        .WithMany("BranchSales")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+                });
+
             modelBuilder.Entity("WorldTools.SqlAdapter.DataEntity.RegisterUserData", b =>
                 {
                     b.HasOne("WorldTools.SqlAdapter.DataEntity.RegisterBranchData", "Branch")
@@ -138,6 +178,8 @@ namespace WorldTools.SqlAdapter.Migrations
                     b.Navigation("BranchEmployees");
 
                     b.Navigation("BranchProducts");
+
+                    b.Navigation("BranchSales");
                 });
 #pragma warning restore 612, 618
         }

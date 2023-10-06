@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WorldTools.SqlAdapter.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class InitDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,28 @@ namespace WorldTools.SqlAdapter.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sale",
+                columns: table => new
+                {
+                    SaleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SaleNumber = table.Column<int>(type: "int", nullable: false),
+                    SaleQuantity = table.Column<int>(type: "int", nullable: false),
+                    SaleTotal = table.Column<double>(type: "float", nullable: false),
+                    SaleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sale", x => x.SaleId);
+                    table.ForeignKey(
+                        name: "FK_Sale_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "BranchId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -76,6 +98,11 @@ namespace WorldTools.SqlAdapter.Migrations
                 column: "BranchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Sale_BranchId",
+                table: "Sale",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_BranchId",
                 table: "User",
                 column: "BranchId");
@@ -86,6 +113,9 @@ namespace WorldTools.SqlAdapter.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Sale");
 
             migrationBuilder.DropTable(
                 name: "User");

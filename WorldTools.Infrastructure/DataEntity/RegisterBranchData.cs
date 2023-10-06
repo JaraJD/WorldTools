@@ -26,6 +26,7 @@ namespace WorldTools.SqlAdapter.DataEntity
 
         public virtual List<RegisterUserData> BranchEmployees { get; set; }
 
+        public virtual List<RegisterSaleData> BranchSales { get; set; }
 
     }
 }

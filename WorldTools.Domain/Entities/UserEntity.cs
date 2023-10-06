@@ -24,6 +24,7 @@ namespace WorldTools.Domain.Entities
 
         public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole role, Guid branchId)
         {
+            UserId = Guid.NewGuid();
             Name = name;
             UserPassword = password;
             Email = email;

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.UseCases.ProductUseCases;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.ResponseVm.Product;
+using WorldTools.Domain.ResponseVm.Sale;
 
 namespace WorldTools.API.Controllers
 {
@@ -34,10 +35,10 @@ namespace WorldTools.API.Controllers
             return await _AddProductUseCase.RegisterProduct(command);
         }
 
-        [HttpPatch("customer-sale/{idProduct}")]
-        public async Task<ProductResponseVm> RegisterProductFinalCustomerSale(Guid idProduct, [FromBody] ProductSaleCommand command)
+        [HttpPatch("customer-sale")]
+        public async Task<SaleResponseVm> RegisterProductFinalCustomerSale([FromBody] RegisterSaleProductCommand command)
         {
-            return await _registerProductSaleUseCase.RegisterProductFinalCustomerSale(command, idProduct);
+            return await _registerProductSaleUseCase.RegisterProductFinalCustomerSale(command);
         }
 
         [HttpPost("purchase/{idProduct}")]
@@ -46,10 +47,10 @@ namespace WorldTools.API.Controllers
             return await _registerProductStockUseCase.RegisterProductInventoryStock(command, idProduct);
         }
 
-        [HttpPatch("seller-sale/{idProduct}")]
-        public async Task<ProductResponseVm> RegisterResellerSale(Guid idProduct, [FromBody] ProductSaleCommand command)
+        [HttpPatch("seller-sale")]
+        public async Task<SaleResponseVm> RegisterResellerSale([FromBody] RegisterSaleProductCommand command)
         {
-            return await _registerProductResellerSaleUseCase.RegisterResellerSale(command, idProduct);
+            return await _registerProductResellerSaleUseCase.RegisterResellerSale(command);
         }
     }
 }

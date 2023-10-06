@@ -14,6 +14,7 @@ namespace WorldTools.Infrastructure
         public DbSet<RegisterBranchData> Branch { get; set; }
         public DbSet<RegisterProductData> Product { get; set; }
         public DbSet<RegisterUserData> User { get; set; }
+        public DbSet<RegisterSaleData> Sale { get; set; }
 
     }
 }

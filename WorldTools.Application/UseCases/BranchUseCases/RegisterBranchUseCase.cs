@@ -31,7 +31,7 @@ namespace WorldTools.Application.UseCases.BranchUseCases
             responseVm.BranchName = branchResponse.BranchName.BranchName;
 
             // Registro del evento
-            await RegisterAndPersistEvent("BranchRegistered", branchResponse.BranchId, branch);
+            await RegisterAndPersistEvent("BranchRegistered", branchEntity.BranchId, branch);
 
             return responseVm;
         }

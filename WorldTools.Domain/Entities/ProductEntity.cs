@@ -33,6 +33,7 @@ namespace WorldTools.Domain.Entities
             Guid branchId
         )
         {
+            ProductId = Guid.NewGuid();
             ProductName = name;
             ProductDescription = description;
             ProductPrice = price;

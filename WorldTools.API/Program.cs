@@ -28,6 +28,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddTransient<RegisterUserUseCase>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISaleProductRepository, SaleRepository>();
 
 builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();
 

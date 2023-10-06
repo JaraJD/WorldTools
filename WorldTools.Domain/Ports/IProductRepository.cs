@@ -11,8 +11,8 @@ namespace WorldTools.Domain.Ports
 
         Task<ProductResponseVm> RegisterProductInventoryStockAsync(ProductValueObjectInventoryStock product, Guid productId);
 
-        Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductValueObjectInventoryStock product, Guid productId);
+        Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductSaleCommand product);
 
-        Task<ProductResponseVm> RegisterResellerSaleAsync(ProductValueObjectInventoryStock product, Guid productId);
+        Task<ProductResponseVm> RegisterResellerSaleAsync(ProductSaleCommand product);
     }
 }

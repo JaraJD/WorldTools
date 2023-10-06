@@ -23,6 +23,7 @@ namespace WorldTools.Domain.Entities
 
         public BranchEntity(BranchValueObjectName name, BranchValueObjectLocation location)
         {
+            BranchId = Guid.NewGuid();
             BranchName = name;
             BranchLocation = location;
         }
