@@ -32,18 +32,18 @@ namespace WorldTools.Application.UseCases.BranchUseCases
             responseVm.BranchName = branchEntity.BranchName.BranchName;
 
             // Registro del evento
-            await RegisterAndPersistEvent("BranchRegistered", branchEntity.BranchId, branchEntity);
+            var eventResponse = await RegisterAndPersistEvent("BranchRegistered", branchEntity.BranchId, branchEntity);
 
-            _publishEventRepository.Publish(branchEntity);
+            _publishEventRepository.PublishRegisterBranchEvent(eventResponse);
 
             return responseVm;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
+        public async Task<StoredEvent> RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
-
             await _storedEvent.RegisterEvent(storedEvent);
+            return storedEvent;
         }
     }
 }

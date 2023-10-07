@@ -1,12 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 
 namespace WorldTools.Rabbit.SubscribeAdapter
 {
@@ -27,66 +22,96 @@ namespace WorldTools.Rabbit.SubscribeAdapter
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            //string queueName = "mi_cola"; // Reemplaza con el nombre de tu cola
-            //_channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+
             _channel.ExchangeDeclare("topic_exchange", ExchangeType.Topic, true);
-            var queueNameTopic1 = _channel.QueueDeclare("queue.topic1", true, false, false).QueueName;
-            var queueNameTopic2 = _channel.QueueDeclare("queue.topic2", true, false, false).QueueName;
-            _channel.QueueBind(queueNameTopic1, "topic_exchange", "topic.routing.*");
-            _channel.QueueBind(queueNameTopic2, "topic_exchange", "*.routing.key");
+            _channel.QueueDeclare("queue.branch.register", true, false, false);
+            _channel.QueueDeclare("queue.product.add", true, false, false);
+            _channel.QueueDeclare("queue.product.customerSale", true, false, false);
+            _channel.QueueDeclare("queue.product.resellerSale", true, false, false);
+            _channel.QueueDeclare("queue.product.inventoryStock", true, false, false);
+            _channel.QueueDeclare("queue.user.register", true, false, false);
+            _channel.QueueBind("queue.branch.register", "topic_exchange", "topic.routing.branch");
+            _channel.QueueBind("queue.product.add", "topic_exchange", "topic.routing.product.add");
+            _channel.QueueBind("queue.product.customerSale", "topic_exchange", "topic.routing.product.customerSale");
+            _channel.QueueBind("queue.product.resellerSale", "topic_exchange", "topic.routing.product.resellerSale");
+            _channel.QueueBind("queue.product.inventoryStock", "topic_exchange", "topic.routing.product.inventoryStock");
+            _channel.QueueBind("queue.user.register", "topic_exchange", "topic.routing.user");
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            //var factory = new ConnectionFactory()
-            //{
-            //    HostName = "localhost",
-            //    Port = 5672,
-            //    UserName = "guest",
-            //    Password = "guest"
-            //};
 
-            //using (var connection = factory.CreateConnection())
-            //using (var channel = connection.CreateModel())
-            //{
-            // Tipo topic
+            var consumerTopic1 = new EventingBasicConsumer(_channel);
+            consumerTopic1.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"Recibido en Topic 1: '{message}'");
+            };
 
-                var consumerTopic1 = new EventingBasicConsumer(_channel);
-                consumerTopic1.Received += (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine($"Recibido en Topic 1: '{message}'");
-                };
+            var consumerTopic2 = new EventingBasicConsumer(_channel);
+            consumerTopic2.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"Recibido en Topic 2: '{message}'");
+            };
 
-                var consumerTopic2 = new EventingBasicConsumer(_channel);
-                consumerTopic2.Received += (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine($"Recibido en Topic 2: '{message}'");
-                };
+            var consumerTopic3 = new EventingBasicConsumer(_channel);
+            consumerTopic2.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"Recibido en Topic 3: '{message}'");
+            };
 
-            _channel.BasicConsume(queue: "queue.topic1",
+            var consumerTopic4 = new EventingBasicConsumer(_channel);
+            consumerTopic2.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"Recibido en Topic 4: '{message}'");
+            };
+
+            var consumerTopic5 = new EventingBasicConsumer(_channel);
+            consumerTopic2.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"Recibido en Topic 5: '{message}'");
+            };
+
+            var consumerTopic6 = new EventingBasicConsumer(_channel);
+            consumerTopic2.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"Recibido en Topic 6: '{message}'");
+            };
+
+            _channel.BasicConsume(queue: "queue.branch.register",
                                      autoAck: true,
                                      consumer: consumerTopic1);
 
-            _channel.BasicConsume(queue: "queue.topic2",
+            _channel.BasicConsume(queue: "queue.product.add",
                                      autoAck: true,
                                      consumer: consumerTopic2);
-            //}
 
+            _channel.BasicConsume(queue: "queue.product.customerSale",
+                                     autoAck: true,
+                                     consumer: consumerTopic3);
 
-            //var consumer = new EventingBasicConsumer(_channel);
+            _channel.BasicConsume(queue: "queue.product.resellerSale",
+                                     autoAck: true,
+                                     consumer: consumerTopic4);
 
-            //consumer.Received += (model, ea) =>
-            //{
-            //    var body = ea.Body.ToArray();
-            //    var message = Encoding.UTF8.GetString(body);
-            //    Console.WriteLine("Mensaje recibido: {0}", message);
-            //};
+            _channel.BasicConsume(queue: "queue.product.inventoryStock",
+                                     autoAck: true,
+                                     consumer: consumerTopic5);
 
-            //_channel.BasicConsume(queue: "mi_cola", autoAck: true, consumer: consumer);
+            _channel.BasicConsume(queue: "queue.user.register",
+                                     autoAck: true,
+                                     consumer: consumerTopic6);
 
             return Task.CompletedTask;
         }

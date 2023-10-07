@@ -9,11 +9,13 @@ namespace WorldTools.Application.UseCases.ProductUseCases
     public class AddProductUseCase
     {
         private readonly IProductRepository _repository;
+        private readonly IPublishEventRepository _publishEventRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public AddProductUseCase(IProductRepository repository, IStoredEventRepository storedEvent)
+        public AddProductUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
+            _publishEventRepository = publishEventRepository;
             _storedEvent = storedEvent;
         }
 
@@ -26,16 +28,17 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             var productCategory = new ProductValueObjectCategory(product.ProductCategory);
             var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, productCategory, product.BranchId);
 
-            var productResponse = await _repository.RegisterProductAsync(productEntity);
-            await RegisterAndPersistEvent("ProductRegistered", productResponse.BranchId, product);
+            var eventResponse = await RegisterAndPersistEvent("ProductRegistered", productEntity.BranchId, product);
 
+            _publishEventRepository.PublishAddProduct(eventResponse);
             return product;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
+        public async Task<StoredEvent> RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
             await _storedEvent.RegisterEvent(storedEvent);
+            return storedEvent;
         }
     }
 }

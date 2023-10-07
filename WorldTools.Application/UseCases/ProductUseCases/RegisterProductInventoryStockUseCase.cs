@@ -12,11 +12,13 @@ namespace WorldTools.Application.UseCases.ProductUseCases
     public class RegisterProductInventoryStockUseCase
     {
         private readonly IProductRepository _repository;
+        private readonly IPublishEventRepository _publishEventRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterProductInventoryStockUseCase(IProductRepository repository, IStoredEventRepository storedEvent)
+        public RegisterProductInventoryStockUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
+            _publishEventRepository = publishEventRepository;
             _storedEvent = storedEvent;
         }
 

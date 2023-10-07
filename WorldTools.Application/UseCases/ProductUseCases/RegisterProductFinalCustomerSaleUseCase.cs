@@ -1,13 +1,8 @@
-﻿
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
-using WorldTools.Domain.Events.Product;
 using WorldTools.Domain.Ports;
-using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ResponseVm.Sale;
-using WorldTools.Domain.ValueObjects.ProductValueObjects;
 using WorldTools.Domain.ValueObjects.SaleValueObjects;
 
 namespace WorldTools.Application.UseCases.ProductUseCases
@@ -15,12 +10,14 @@ namespace WorldTools.Application.UseCases.ProductUseCases
     public class RegisterProductFinalCustomerSaleUseCase
     {
         private readonly IProductRepository _productRepository;
+        private readonly IPublishEventRepository _publishEventRepository;
         private readonly ISaleProductRepository _saleProductRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterProductFinalCustomerSaleUseCase(IProductRepository repository, IStoredEventRepository storedEvent, ISaleProductRepository saleProductRepository)
+        public RegisterProductFinalCustomerSaleUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent, ISaleProductRepository saleProductRepository)
         {
             _productRepository = repository;
+            _publishEventRepository = publishEventRepository;
             _storedEvent = storedEvent;
             _saleProductRepository = saleProductRepository;
         }
