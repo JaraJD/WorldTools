@@ -26,19 +26,21 @@ namespace WorldTools.Application.UseCases.ProductUseCases
         {
             var quatity = new ProductValueObjectInventoryStock(product.ProductQuantity);
 
-            var productResponse = await _repository.RegisterProductInventoryStockAsync(quatity, idProduct);
+            var productResponse = await _repository.GetProductById(idProduct);
 
-            var eventStockResgitered = new RegisterStockEvent("ProductStockRegistered", product.ProductQuantity, productResponse.ProductInventoryStock, idProduct, productResponse.BranchId);
+            var eventStockResgitered = new RegisterStockEvent(product.ProductQuantity, idProduct);
 
-            await RegisterAndPersistEvent("ProductStockRegistered", productResponse.BranchId, eventStockResgitered);
+            var eventResponse = await RegisterAndPersistEvent("ProductStockRegistered", productResponse.BranchId, eventStockResgitered);
+
+            _publishEventRepository.PublishRegisterProductStock(eventResponse);
             return productResponse;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
+        public async Task<StoredEvent> RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
-
             await _storedEvent.RegisterEvent(storedEvent);
+            return storedEvent;
         }
     }
 }

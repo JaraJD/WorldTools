@@ -19,6 +19,7 @@ namespace WorldTools.SqlAdapter.Adapters
             _mapper = mapper;
         }
 
+
         public async Task<ProductEntity> RegisterProductAsync(ProductEntity product)
         {
             var productToRegister = new RegisterProductData(
@@ -88,6 +89,18 @@ namespace WorldTools.SqlAdapter.Adapters
             existingProduct.ProductInventoryStock -= product.ProductQuantity;
 
             await _context.SaveChangesAsync();
+
+            return _mapper.Map<ProductResponseVm>(existingProduct);
+        }
+
+        public async Task<ProductResponseVm> GetProductById(Guid productId)
+        {
+            var existingProduct = await _context.Product.FindAsync(productId);
+
+            if (existingProduct == null)
+            {
+                throw new ArgumentNullException("El producto no se encontro.");
+            }
 
             return _mapper.Map<ProductResponseVm>(existingProduct);
         }

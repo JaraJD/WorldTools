@@ -30,7 +30,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             double totalPrice = 0;
             foreach (var item in product.Products)
             {
-                var productResponse = await _productRepository.RegisterResellerSaleAsync(item);
+                var productResponse = await _productRepository.GetProductById(item.ProductId);
 
                 if (productResponse.ProductInventoryStock < item.ProductQuantity)
                 {
@@ -48,25 +48,26 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             var saleType = new SaleValueObjectType("ResellerSale");
 
             var saleEntity = new SaleEntity(saleNumber, saleQuantity, saleTotal, saleType, product.BranchId);
-            var saleEntityResponse = await _saleProductRepository.RegisterSaleAsync(saleEntity);
 
             var saleResponse = new SaleResponseVm();
-            saleResponse.BranchId = saleEntityResponse.BranchId;
-            saleResponse.SaleValueNumber = saleEntityResponse.SaleValueNumber.Number;
-            saleResponse.saleValueObjectTotal = saleEntityResponse.saleValueObjectTotal.TotalPrice;
-            saleResponse.SaleValueQuantity = saleEntityResponse.SaleValueQuantity.Quantity;
-            saleResponse.saleValueObjectType = saleEntityResponse.saleValueObjectType.SaleType;
-            saleResponse.SaleId = saleEntityResponse.SaleId;
+            saleResponse.BranchId = saleEntity.BranchId;
+            saleResponse.SaleValueNumber = saleEntity.SaleValueNumber.Number;
+            saleResponse.saleValueObjectTotal = saleEntity.saleValueObjectTotal.TotalPrice;
+            saleResponse.SaleValueQuantity = saleEntity.SaleValueQuantity.Quantity;
+            saleResponse.saleValueObjectType = saleEntity.saleValueObjectType.SaleType;
+            saleResponse.SaleId = saleEntity.SaleId;
 
-            await RegisterAndPersistEvent("ProductResellerSaleRegistered", product.BranchId, saleEntity);
+            var eventResponse = await RegisterAndPersistEvent("ProductResellerSaleRegistered", product.BranchId, saleEntity);
+
+            _publishEventRepository.PublishRegisterProductSaleReseller(eventResponse);
             return saleResponse;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
+        public async Task<StoredEvent> RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
         {
             var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
-
             await _storedEvent.RegisterEvent(storedEvent);
+            return storedEvent;
         }
     }
 }
