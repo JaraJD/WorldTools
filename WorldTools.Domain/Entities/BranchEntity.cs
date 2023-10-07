@@ -17,10 +17,6 @@ namespace WorldTools.Domain.Entities
 
         public BranchValueObjectLocation BranchLocation { get; set; }
 
-        public virtual List<ProductEntity> BranchProducts { get; set; }
-
-        public virtual List<UserEntity> BranchEmployees { get; set; }
-
         public BranchEntity(BranchValueObjectName name, BranchValueObjectLocation location)
         {
             BranchId = Guid.NewGuid();

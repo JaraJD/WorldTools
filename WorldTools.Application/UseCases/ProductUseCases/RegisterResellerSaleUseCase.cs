@@ -29,6 +29,12 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             foreach (var item in product.Products)
             {
                 var productResponse = await _productRepository.RegisterResellerSaleAsync(item);
+
+                if (productResponse.ProductInventoryStock < item.ProductQuantity)
+                {
+                    throw new Exception($"No hay suficiente stock para el producto: {productResponse.ProductName}");
+                }
+
                 var discount = productResponse.ProductPrice * 0.25;
                 var price = (productResponse.ProductPrice - discount) * item.ProductQuantity;
                 totalPrice += price;

@@ -45,7 +45,10 @@ namespace WorldTools.SqlAdapter.Adapters
             {
                 throw new ArgumentNullException("El producto no se encontro.");
             }
-
+            if (existingProduct.ProductInventoryStock < product.ProductQuantity)
+            {
+                throw new Exception($"No hay suficiente stock para el producto: {existingProduct.ProductName}");
+            }
             existingProduct.ProductInventoryStock -= product.ProductQuantity;
 
             await _context.SaveChangesAsync();
@@ -76,6 +79,10 @@ namespace WorldTools.SqlAdapter.Adapters
             if (existingProduct == null)
             {
                 throw new ArgumentNullException("El producto no se encontro.");
+            }
+            if (existingProduct.ProductInventoryStock < product.ProductQuantity)
+            {
+                throw new Exception($"No hay suficiente stock para el producto: {existingProduct.ProductName}");
             }
 
             existingProduct.ProductInventoryStock -= product.ProductQuantity;

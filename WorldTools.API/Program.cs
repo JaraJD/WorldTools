@@ -12,6 +12,8 @@ using WorldTools.SqlAdapter.Common.Mapping;
 using WorldTools.Application.UseCases.BranchUseCases;
 using WorldTools.Application.UseCases.ProductUseCases;
 using WorldTools.Application.UseCases.UserUseCases;
+using WorldTools.Rabbit.PublishAdapter;
+using WorldTools.Rabbit.SubscribeAdapter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISaleProductRepository, SaleRepository>();
 
 builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();
+builder.Services.AddScoped<IPublishEventRepository, PublishEvent>();
+
+builder.Services.AddHostedService<SubscribeEvent>();
 
 builder.Services.AddControllers();
 
