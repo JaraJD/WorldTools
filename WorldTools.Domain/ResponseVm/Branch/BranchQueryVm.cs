@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WorldTools.Domain.ResponseVm.Product;
+using WorldTools.Domain.ResponseVm.Sale;
 using WorldTools.Domain.ResponseVm.User;
 
 namespace WorldTools.Domain.ResponseVm.Branch
@@ -10,10 +11,13 @@ namespace WorldTools.Domain.ResponseVm.Branch
 
         [Required] public string BranchName { get; set; }
 
-        [Required] public string Location { get; set; }
+        [Required] public string BranchCountry { get; set; }
+        [Required] public string BranchCity { get; set; }
 
         public virtual List<ProductQueryVm> BranchProducts { get; set; }
 
         public virtual List<UserQueryVm> BranchEmployees { get; set; }
+
+        public virtual List<SaleResponseVm> BranchSales { get; set; }
     }
 }

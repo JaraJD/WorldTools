@@ -12,8 +12,8 @@ using WorldTools.Infrastructure;
 namespace WorldTools.SqlAdapter.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231006012634_InitDB")]
-    partial class InitDB
+    [Migration("20231008043830_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

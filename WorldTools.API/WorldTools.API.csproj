@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WorldTools.Application.Queries\WorldTools.Application.Queries.csproj" />
     <ProjectReference Include="..\WorldTools.Application\WorldTools.Application.csproj" />
     <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.MongoAdapter\WorldTools.MongoAdapter.csproj" />

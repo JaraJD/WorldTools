@@ -11,4 +11,9 @@
     <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WorldTools.Application.Queries\WorldTools.Application.Queries.csproj" />
+    <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
+  </ItemGroup>
+
 </Project>

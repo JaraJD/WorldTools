@@ -9,13 +9,12 @@ namespace WorldTools.Application.UseCases.BranchUseCases
 {
     public class RegisterBranchUseCase
     {
-        private readonly IBranchRepository _repository;
         private readonly IPublishEventRepository _publishEventRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterBranchUseCase(IBranchRepository repository, IStoredEventRepository storedEvent, IPublishEventRepository publishEventRepository)
+
+        public RegisterBranchUseCase(IStoredEventRepository storedEvent, IPublishEventRepository publishEventRepository)
         {
-            _repository = repository;
             _storedEvent = storedEvent;
             _publishEventRepository = publishEventRepository;
         }

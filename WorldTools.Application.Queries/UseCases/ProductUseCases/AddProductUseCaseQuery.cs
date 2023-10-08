@@ -6,12 +6,12 @@ using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Application.UseCases.ProductUseCases
 {
-    public class AddProductUseCase
+    public class AddProductUseCaseQuery
     {
         private readonly IProductRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public AddProductUseCase(IProductRepository repository, IStoredEventRepository storedEvent)
+        public AddProductUseCaseQuery(IProductRepository repository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
             _storedEvent = storedEvent;

@@ -1,14 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
-using WorldTools.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 using WorldTools.SqlAdapter.DataEntity;
 
 namespace WorldTools.Infrastructure
 {
     public class Context : DbContext
     {
-        public Context(DbContextOptions<Context> options) : base (options) 
-        { 
+        private readonly IConfiguration _configuration;
+
+        public Context()
+        {
+        }
+
+        public Context(DbContextOptions<Context> options, IConfiguration configuration) : base(options)
+        {
+            _configuration = configuration;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=LAPTOP-2V18T6VP\\SERVIDORSQL;Database=WorldTools;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
+            }
         }
 
         public DbSet<RegisterBranchData> Branch { get; set; }

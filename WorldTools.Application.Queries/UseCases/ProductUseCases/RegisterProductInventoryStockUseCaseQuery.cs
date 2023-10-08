@@ -9,12 +9,12 @@ using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
 namespace WorldTools.Application.UseCases.ProductUseCases
 {
-    public class RegisterProductInventoryStockUseCase
+    public class RegisterProductInventoryStockUseCaseQuery
     {
         private readonly IProductRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterProductInventoryStockUseCase(IProductRepository repository, IStoredEventRepository storedEvent)
+        public RegisterProductInventoryStockUseCaseQuery(IProductRepository repository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
             _storedEvent = storedEvent;
@@ -26,7 +26,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
 
             var productResponse = await _repository.RegisterProductInventoryStockAsync(quatity, idProduct);
 
-            var eventStockResgitered = new RegisterStockEvent("ProductStockRegistered", product.ProductQuantity, productResponse.ProductInventoryStock, idProduct, productResponse.BranchId);
+            var eventStockResgitered = new RegisterStockEvent(product.ProductQuantity, idProduct);
 
             await RegisterAndPersistEvent("ProductStockRegistered", productResponse.BranchId, eventStockResgitered);
             return productResponse;

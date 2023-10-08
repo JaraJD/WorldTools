@@ -8,12 +8,12 @@ using WorldTools.Domain.ValueObjects.UserValueObjects;
 
 namespace WorldTools.Application.UseCases.UserUseCases
 {
-    public class RegisterUserUseCase
+    public class RegisterUserUseCaseQuery
     {
         private readonly IUserRepository _repository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterUserUseCase(IUserRepository repository, IStoredEventRepository storedEvent)
+        public RegisterUserUseCaseQuery(IUserRepository repository, IStoredEventRepository storedEvent)
         {
             _repository = repository;
             _storedEvent = storedEvent;

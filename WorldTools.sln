@@ -49,7 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{9E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queries", "Queries", "{F0CFEF25-D994-411E-9127-A6AF8E9DDBC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTools.Application.Queries", "WorldTools.Application.Queries\WorldTools.Application.Queries.csproj", "{39555E40-9F0D-4843-A71A-123EF89F3740}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.Application.Queries", "WorldTools.Application.Queries\WorldTools.Application.Queries.csproj", "{39555E40-9F0D-4843-A71A-123EF89F3740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

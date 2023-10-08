@@ -11,15 +11,13 @@ namespace WorldTools.Application.UseCases.ProductUseCases
     {
         private readonly IProductRepository _productRepository;
         private readonly IPublishEventRepository _publishEventRepository;
-        private readonly ISaleProductRepository _saleProductRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterProductFinalCustomerSaleUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent, ISaleProductRepository saleProductRepository)
+        public RegisterProductFinalCustomerSaleUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
         {
             _productRepository = repository;
             _publishEventRepository = publishEventRepository;
             _storedEvent = storedEvent;
-            _saleProductRepository = saleProductRepository;
         }
 
         public async Task<SaleResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product)

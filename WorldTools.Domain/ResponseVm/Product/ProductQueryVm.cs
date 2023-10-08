@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WorldTools.Domain.ResponseVm.Product
 {
@@ -16,5 +13,7 @@ namespace WorldTools.Domain.ResponseVm.Product
         [Required] public int ProductInventoryStock { get; set; }
         [Required] public string ProductCategory { get; set; }
         [Required] public Guid BranchId { get; set; }
+
+
     }
 }

@@ -26,8 +26,7 @@ namespace WorldTools.SqlAdapter.DataEntity
         [Required] public string ProductCategory { get; set; }
         [Required] public Guid BranchId { get; set; }
 
-        [Required]
         [ForeignKey("BranchId")]
-        public virtual RegisterBranchData Branch { get; set; }
+        public RegisterBranchData Branch { get; set; }
     }
 }

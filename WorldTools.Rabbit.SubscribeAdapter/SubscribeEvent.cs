@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using WorldTools.Domain.Factory;
 
 namespace WorldTools.Rabbit.SubscribeAdapter
 {
@@ -9,9 +10,11 @@ namespace WorldTools.Rabbit.SubscribeAdapter
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
+        private readonly IBranchUseCaseQueryFactory _factory;
 
-        public SubscribeEvent()
+        public SubscribeEvent(IBranchUseCaseQueryFactory factoryBranch)
         {
+            _factory = factoryBranch;
             var factory = new ConnectionFactory()
             {
                 HostName = "localhost",
@@ -40,12 +43,13 @@ namespace WorldTools.Rabbit.SubscribeAdapter
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-
+            var registerBranchUseCase = _factory.Create();
             var consumerTopic1 = new EventingBasicConsumer(_channel);
-            consumerTopic1.Received += (model, ea) =>
+            consumerTopic1.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                await registerBranchUseCase.RegisterBranch(message);
                 Console.WriteLine($"Recibido en Topic 1: '{message}'");
             };
 
@@ -58,7 +62,7 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             };
 
             var consumerTopic3 = new EventingBasicConsumer(_channel);
-            consumerTopic2.Received += (model, ea) =>
+            consumerTopic3.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
@@ -66,7 +70,7 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             };
 
             var consumerTopic4 = new EventingBasicConsumer(_channel);
-            consumerTopic2.Received += (model, ea) =>
+            consumerTopic4.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
@@ -74,7 +78,7 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             };
 
             var consumerTopic5 = new EventingBasicConsumer(_channel);
-            consumerTopic2.Received += (model, ea) =>
+            consumerTopic5.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
@@ -82,7 +86,7 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             };
 
             var consumerTopic6 = new EventingBasicConsumer(_channel);
-            consumerTopic2.Received += (model, ea) =>
+            consumerTopic6.Received += (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
@@ -116,11 +120,11 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             return Task.CompletedTask;
         }
 
-        public override void Dispose()
+        public override async Task StopAsync(CancellationToken cancellationToken)
         {
             _channel.Close();
             _connection.Close();
-            base.Dispose();
+            await base.StopAsync(cancellationToken);
         }
 
     }

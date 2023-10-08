@@ -12,13 +12,13 @@ using WorldTools.Domain.ValueObjects.SaleValueObjects;
 
 namespace WorldTools.Application.UseCases.ProductUseCases
 {
-    public class RegisterProductFinalCustomerSaleUseCase
+    public class RegisterProductFinalCustomerSaleUseCaseQuery
     {
         private readonly IProductRepository _productRepository;
         private readonly ISaleProductRepository _saleProductRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterProductFinalCustomerSaleUseCase(IProductRepository repository, IStoredEventRepository storedEvent, ISaleProductRepository saleProductRepository)
+        public RegisterProductFinalCustomerSaleUseCaseQuery(IProductRepository repository, IStoredEventRepository storedEvent, ISaleProductRepository saleProductRepository)
         {
             _productRepository = repository;
             _storedEvent = storedEvent;

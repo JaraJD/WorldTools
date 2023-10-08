@@ -8,13 +8,11 @@ namespace WorldTools.Application.UseCases.ProductUseCases
 {
     public class AddProductUseCase
     {
-        private readonly IProductRepository _repository;
         private readonly IPublishEventRepository _publishEventRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public AddProductUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
+        public AddProductUseCase(IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
         {
-            _repository = repository;
             _publishEventRepository = publishEventRepository;
             _storedEvent = storedEvent;
         }
