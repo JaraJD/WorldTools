@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.BranchPorts;
 using WorldTools.Domain.ResponseVm.Branch;
 
 namespace WorldTools.Application.Queries.UseCases.BranchUseCases

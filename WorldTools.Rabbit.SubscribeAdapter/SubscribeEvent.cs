@@ -10,11 +10,20 @@ namespace WorldTools.Rabbit.SubscribeAdapter
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly IBranchUseCaseQueryFactory _factory;
+        private readonly IBranchUseCaseQueryFactory _branchFactory;
+        private readonly IProductUseCaseQueryFactory _productFactory;
+        private readonly IUserUseCaseQueryFactory _userFactory;
 
-        public SubscribeEvent(IBranchUseCaseQueryFactory factoryBranch)
+        public SubscribeEvent(
+            IBranchUseCaseQueryFactory factoryBranch,
+            IProductUseCaseQueryFactory productFactory,
+            IUserUseCaseQueryFactory userFactory
+            )
         {
-            _factory = factoryBranch;
+            _branchFactory = factoryBranch;
+            _productFactory = productFactory;
+            _userFactory = userFactory;
+
             var factory = new ConnectionFactory()
             {
                 HostName = "localhost",
@@ -39,11 +48,12 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             _channel.QueueBind("queue.product.resellerSale", "topic_exchange", "topic.routing.product.resellerSale");
             _channel.QueueBind("queue.product.inventoryStock", "topic_exchange", "topic.routing.product.inventoryStock");
             _channel.QueueBind("queue.user.register", "topic_exchange", "topic.routing.user");
+            
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var registerBranchUseCase = _factory.Create();
+            var registerBranchUseCase = _branchFactory.Create();
             var consumerTopic1 = new EventingBasicConsumer(_channel);
             consumerTopic1.Received += async (model, ea) =>
             {
@@ -53,43 +63,53 @@ namespace WorldTools.Rabbit.SubscribeAdapter
                 Console.WriteLine($"Recibido en Topic 1: '{message}'");
             };
 
+            var registerProductUseCase = _productFactory.Create();
             var consumerTopic2 = new EventingBasicConsumer(_channel);
-            consumerTopic2.Received += (model, ea) =>
+            consumerTopic2.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                await registerProductUseCase.RegisterProduct(message);
                 Console.WriteLine($"Recibido en Topic 2: '{message}'");
             };
 
+            var registerCustomerSaleProductUseCase = _productFactory.RegisterCustomerSale();
             var consumerTopic3 = new EventingBasicConsumer(_channel);
-            consumerTopic3.Received += (model, ea) =>
+            consumerTopic3.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                await registerCustomerSaleProductUseCase.RegisterProductFinalCustomerSale(message);
                 Console.WriteLine($"Recibido en Topic 3: '{message}'");
             };
 
+            var registerResellerSaleProductUseCase = _productFactory.RegisterResellerSale();
             var consumerTopic4 = new EventingBasicConsumer(_channel);
-            consumerTopic4.Received += (model, ea) =>
+            consumerTopic4.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                await registerResellerSaleProductUseCase.RegisterResellerSale(message);
                 Console.WriteLine($"Recibido en Topic 4: '{message}'");
             };
 
+            var registerProductStockUseCase = _productFactory.RegisterProductStock();
             var consumerTopic5 = new EventingBasicConsumer(_channel);
-            consumerTopic5.Received += (model, ea) =>
+            consumerTopic5.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                await registerProductStockUseCase.RegisterProductInventoryStock(message);
                 Console.WriteLine($"Recibido en Topic 5: '{message}'");
             };
 
+            var registerUserUseCase = _userFactory.Create();
             var consumerTopic6 = new EventingBasicConsumer(_channel);
-            consumerTopic6.Received += (model, ea) =>
+            consumerTopic6.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                await registerUserUseCase.RegisterUser(message);
                 Console.WriteLine($"Recibido en Topic 6: '{message}'");
             };
 

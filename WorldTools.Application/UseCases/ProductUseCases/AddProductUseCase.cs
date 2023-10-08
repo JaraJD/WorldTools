@@ -26,7 +26,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             var productCategory = new ProductValueObjectCategory(product.ProductCategory);
             var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, productCategory, product.BranchId);
 
-            var eventResponse = await RegisterAndPersistEvent("ProductRegistered", productEntity.BranchId, product);
+            var eventResponse = await RegisterAndPersistEvent("ProductRegistered", productEntity.BranchId, productEntity);
 
             _publishEventRepository.PublishAddProduct(eventResponse);
             return product;

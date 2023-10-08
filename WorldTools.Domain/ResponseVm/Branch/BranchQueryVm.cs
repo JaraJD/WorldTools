@@ -14,7 +14,7 @@ namespace WorldTools.Domain.ResponseVm.Branch
         [Required] public string BranchCountry { get; set; }
         [Required] public string BranchCity { get; set; }
 
-        public virtual List<ProductQueryVm> BranchProducts { get; set; }
+        public virtual List<ProductResponseVm> BranchProducts { get; set; }
 
         public virtual List<UserQueryVm> BranchEmployees { get; set; }
 

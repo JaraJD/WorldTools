@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorldTools.Domain.Entities;
 
-namespace WorldTools.Domain.Ports
+namespace WorldTools.Domain.Ports.ProductPorts
 {
     public interface ISaleProductRepository
     {

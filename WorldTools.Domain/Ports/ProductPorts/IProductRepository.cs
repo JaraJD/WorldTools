@@ -3,7 +3,7 @@ using WorldTools.Domain.Entities;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
-namespace WorldTools.Domain.Ports
+namespace WorldTools.Domain.Ports.ProductPorts
 {
     public interface IProductRepository
     {
@@ -15,6 +15,8 @@ namespace WorldTools.Domain.Ports
 
         Task<ProductResponseVm> RegisterResellerSaleAsync(ProductSaleCommand product);
 
-        Task<ProductResponseVm> GetProductById(Guid productId);
+        Task<ProductResponseVm> GetProductByIdAsync(Guid productId);
+
+        Task<List<ProductResponseVm>> GetAllProductsAsync();
     }
 }

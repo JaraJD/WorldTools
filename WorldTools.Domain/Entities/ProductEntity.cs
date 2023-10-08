@@ -22,7 +22,6 @@ namespace WorldTools.Domain.Entities
         [Required(ErrorMessage = "El BranchId es obligatorio.")]
         public Guid BranchId { get; set; }
 
-        public virtual BranchEntity BranchEntity { get; set; }
 
         public ProductEntity(
             ProductValueObjectName name,
@@ -40,6 +39,11 @@ namespace WorldTools.Domain.Entities
             ProductInventoryStock = stock;
             ProductCategory = category;
             BranchId = branchId;
+        }
+
+        public ProductEntity()
+        {
+            
         }
     }
 }

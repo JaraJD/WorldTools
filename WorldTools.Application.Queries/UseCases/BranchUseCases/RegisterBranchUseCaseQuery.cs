@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using WorldTools.Domain.Commands.BranchCommands;
 using WorldTools.Domain.Entities;
-using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.BranchPorts;
 using WorldTools.Domain.ResponseVm.Branch;
 using WorldTools.Domain.ValueObjects.BranchValueObjects;
 

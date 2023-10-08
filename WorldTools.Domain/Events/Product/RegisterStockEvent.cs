@@ -5,11 +5,11 @@ namespace WorldTools.Domain.Events.Product
     {
         public RegisterStockEvent(int quantity, Guid productId)
         {
-            Quantity = quantity;
+            ProductQuantity = quantity;
             ProductId = productId;
         }
 
-        public int Quantity { get; set; }
+        public int ProductQuantity { get; set; }
 
         public Guid ProductId { get; set; }
     }

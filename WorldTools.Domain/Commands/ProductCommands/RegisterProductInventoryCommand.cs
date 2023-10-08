@@ -9,7 +9,7 @@ namespace WorldTools.Domain.Commands.ProductCommands
 {
     public class RegisterProductInventoryCommand
     {
-
+        [Required] public Guid ProductId { get; set; }
         [Required] public int ProductQuantity { get; set;}
     }
 }

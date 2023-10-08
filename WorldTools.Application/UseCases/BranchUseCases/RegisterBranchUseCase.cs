@@ -30,7 +30,6 @@ namespace WorldTools.Application.UseCases.BranchUseCases
             responseVm.BranchLocation = $"{branchEntity.BranchLocation.City}, {branchEntity.BranchLocation.Country}";
             responseVm.BranchName = branchEntity.BranchName.BranchName;
 
-            // Registro del evento
             var eventResponse = await RegisterAndPersistEvent("BranchRegistered", branchEntity.BranchId, branchEntity);
 
             _publishEventRepository.PublishRegisterBranchEvent(eventResponse);

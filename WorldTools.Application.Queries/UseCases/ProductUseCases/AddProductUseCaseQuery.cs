@@ -1,41 +1,43 @@
 ﻿using Newtonsoft.Json;
-using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
-using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.ProductPorts;
+using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
-namespace WorldTools.Application.UseCases.ProductUseCases
+namespace WorldTools.Application.Queries.UseCases.ProductUseCases
 {
-    public class AddProductUseCaseQuery
+    public class AddProductUseCaseQuery : IProductUseCaseQuery
     {
         private readonly IProductRepository _repository;
-        private readonly IStoredEventRepository _storedEvent;
 
-        public AddProductUseCaseQuery(IProductRepository repository, IStoredEventRepository storedEvent)
+        public AddProductUseCaseQuery(IProductRepository repository)
         {
             _repository = repository;
-            _storedEvent = storedEvent;
         }
 
-        public async Task<RegisterProductCommand> RegisterProduct(RegisterProductCommand product)
+        public async Task<ProductResponseVm> RegisterProduct(string product)
         {
-            var productName = new ProductValueObjectName(product.ProductName);
-            var productDescription = new ProductValueObjectDescription(product.ProductDescription);
-            var productPrice = new ProductValueObjectPrice(product.ProductPrice);
-            var productStock = new ProductValueObjectInventoryStock(product.ProductInventoryStock);
-            var productCategory = new ProductValueObjectCategory(product.ProductCategory);
-            var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, productCategory, product.BranchId);
+            ProductEntity productToCreate = JsonConvert.DeserializeObject<ProductEntity>(product);
+            var productName = new ProductValueObjectName(productToCreate.ProductName.ProductName);
+            var productDescription = new ProductValueObjectDescription(productToCreate.ProductDescription.ProductDescription);
+            var productPrice = new ProductValueObjectPrice(productToCreate.ProductPrice.ProductPrice);
+            var productStock = new ProductValueObjectInventoryStock(productToCreate.ProductInventoryStock.ProductInventoryStock);
+            var productCategory = new ProductValueObjectCategory(productToCreate.ProductCategory.ProductCategory);
+            var productEntity = new ProductEntity(productName, productDescription, productPrice, productStock, productCategory, productToCreate.BranchId);
 
-            var productResponse = await _repository.RegisterProductAsync(productEntity);
-            await RegisterAndPersistEvent("ProductRegistered", productResponse.BranchId, product);
+            await _repository.RegisterProductAsync(productEntity);
 
-            return product;
+            var responseVm = new ProductResponseVm();
+            responseVm.ProductName = productEntity.ProductName.ProductName;
+            responseVm.ProductId = productEntity.ProductId;
+            responseVm.ProductCategory = productEntity.ProductCategory.ProductCategory;
+            responseVm.ProductPrice = productEntity.ProductPrice.ProductPrice;
+            responseVm.ProductDescription = productEntity.ProductDescription.ProductDescription;
+            responseVm.ProductInventoryStock = productEntity.ProductInventoryStock.ProductInventoryStock;
+            responseVm.BranchId = productEntity.BranchId;
+
+            return responseVm;
         }
 
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
-        {
-            var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
-            await _storedEvent.RegisterEvent(storedEvent);
-        }
     }
 }

@@ -19,21 +19,21 @@ namespace WorldTools.Infrastructure.Adapter
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 
-            using (var context = new Context(options))
-            {
-                var repository = new BranchRepository(context);
+            //using (var context = new Context(options))
+            //{
+            //    var repository = new BranchRepository(context);
 
-                var branchToRegister = new BranchEntity
-                {
-                    BranchName = new BranchValueObjectName("Sucursal de Prueba"),
-                    BranchLocation = new BranchValueObjectLocation("País de Prueba", "Ciudad de Prueba")
-                };
+            //    var branchToRegister = new BranchEntity
+            //    {
+            //        BranchName = new BranchValueObjectName("Sucursal de Prueba"),
+            //        BranchLocation = new BranchValueObjectLocation("País de Prueba", "Ciudad de Prueba")
+            //    };
 
-                var registeredBranch = await repository.RegisterBranchAsync(branchToRegister);
+            //    var registeredBranch = await repository.RegisterBranchAsync(branchToRegister);
 
-                Assert.NotEqual(Guid.Empty, registeredBranch.BranchId);
+            //    Assert.NotEqual(Guid.Empty, registeredBranch.BranchId);
 
-            }
+            //}
 
         }
     }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WorldTools.Domain.Entities;
-using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.BranchPorts;
 using WorldTools.Domain.ResponseVm.Branch;
 using WorldTools.Infrastructure;
 using WorldTools.SqlAdapter.DataEntity;
@@ -17,6 +17,19 @@ namespace WorldTools.SqlAdapter.Adapters
         {
             _context = dbContext;
             _mapper = mapper;
+        }
+
+        public async Task<List<BranchQueryVm>> GetAllBranchesAsync()
+        {
+            List<RegisterBranchData> branchesWithRelatedData = await _context.Branch
+                .Include(b => b.BranchProducts)
+                .Include(b => b.BranchEmployees)
+                .Include(b => b.BranchSales)
+                .ToListAsync();
+
+            var branchQueryVms = _mapper.Map<List<BranchQueryVm>>(branchesWithRelatedData);
+
+            return branchQueryVms;
         }
 
         public async Task<BranchQueryVm> GetBranchByIdAsync(Guid branchId)

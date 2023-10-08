@@ -41,10 +41,10 @@ namespace WorldTools.API.Controllers
             return await _registerProductSaleUseCase.RegisterProductFinalCustomerSale(command);
         }
 
-        [HttpPost("purchase/{idProduct}")]
-        public async Task<ProductResponseVm> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command, Guid idProduct)
+        [HttpPost("purchase")]
+        public async Task<ProductResponseVm> RegisterProductInventoryStock([FromBody] RegisterProductInventoryCommand command)
         {
-            return await _registerProductStockUseCase.RegisterProductInventoryStock(command, idProduct);
+            return await _registerProductStockUseCase.RegisterProductInventoryStock(command);
         }
 
         [HttpPatch("seller-sale")]

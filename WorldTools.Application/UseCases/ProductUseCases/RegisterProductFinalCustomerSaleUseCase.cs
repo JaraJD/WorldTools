@@ -2,6 +2,7 @@
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.ResponseVm.Sale;
 using WorldTools.Domain.ValueObjects.SaleValueObjects;
 
@@ -25,7 +26,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             double totalPrice = 0;
             foreach (var item in product.Products)
             {
-                var productResponse = await _productRepository.GetProductById(item.ProductId);
+                var productResponse = await _productRepository.GetProductByIdAsync(item.ProductId);
 
                 if (productResponse.ProductInventoryStock < item.ProductQuantity)
                 {
@@ -52,7 +53,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             saleResponse.saleValueObjectType = saleEntity.saleValueObjectType.SaleType;
             saleResponse.SaleId = saleEntity.SaleId;
 
-            var eventResponse = await RegisterAndPersistEvent("ProductFinalCustomerSaleRegistered", product.BranchId, saleEntity);
+            var eventResponse = await RegisterAndPersistEvent("ProductFinalCustomerSaleRegistered", product.BranchId, product);
 
             _publishEventRepository.PublishRegisterProductSaleCustomer(eventResponse);
             return saleResponse;

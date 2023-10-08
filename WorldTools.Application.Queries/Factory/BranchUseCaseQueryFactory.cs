@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WorldTools.Domain.Factory;
-using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.BranchPorts;
 
 namespace WorldTools.Application.Queries.Factory
 {

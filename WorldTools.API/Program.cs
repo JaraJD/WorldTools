@@ -13,6 +13,9 @@ using WorldTools.Application.UseCases.BranchUseCases;
 using WorldTools.Application.UseCases.ProductUseCases;
 using WorldTools.Application.UseCases.UserUseCases;
 using WorldTools.Rabbit.PublishAdapter;
+using WorldTools.Domain.Ports.BranchPorts;
+using WorldTools.Domain.Ports.ProductPorts;
+using WorldTools.Domain.Ports.UserPorts;
 
 var builder = WebApplication.CreateBuilder(args);
 

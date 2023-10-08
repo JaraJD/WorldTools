@@ -10,13 +10,11 @@ namespace WorldTools.Application.UseCases.UserUseCases
 {
     public class RegisterUserUseCase
     {
-        private readonly IUserRepository _repository;
         private readonly IPublishEventRepository _publishEventRepository;
         private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterUserUseCase(IUserRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
+        public RegisterUserUseCase(IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
         {
-            _repository = repository;
             _publishEventRepository = publishEventRepository;
             _storedEvent = storedEvent;
         }
@@ -38,7 +36,7 @@ namespace WorldTools.Application.UseCases.UserUseCases
             responseVm.BranchId = user.BranchId;
             responseVm.UserId = userEntity.UserId;
 
-            var eventResponse = await RegisterAndPersistEvent("UserRegistered", userEntity.BranchId, user);
+            var eventResponse = await RegisterAndPersistEvent("UserRegistered", userEntity.BranchId, userEntity);
 
             _publishEventRepository.PublishRegisterUser(eventResponse);
 

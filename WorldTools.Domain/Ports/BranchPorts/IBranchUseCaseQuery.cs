@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorldTools.Domain.ResponseVm.Branch;
 
-namespace WorldTools.Domain.Ports
+namespace WorldTools.Domain.Ports.BranchPorts
 {
     public interface IBranchUseCaseQuery
     {

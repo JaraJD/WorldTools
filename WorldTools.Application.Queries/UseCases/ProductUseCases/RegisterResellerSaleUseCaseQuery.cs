@@ -2,7 +2,6 @@
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Events.Product;
-using WorldTools.Domain.Ports;
 using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ResponseVm.Sale;
@@ -11,25 +10,24 @@ using WorldTools.Domain.ValueObjects.SaleValueObjects;
 
 namespace WorldTools.Application.UseCases.ProductUseCases
 {
-    public class RegisterResellerSaleUseCase
+    public class RegisterResellerSaleUseCaseQuery : IProductResellerSaleUseCaseQuery
     {
         private readonly IProductRepository _productRepository;
-        private readonly IPublishEventRepository _publishEventRepository;
-        private readonly IStoredEventRepository _storedEvent;
+        private readonly ISaleProductRepository _saleProductRepository;
 
-        public RegisterResellerSaleUseCase(IProductRepository repository, IPublishEventRepository publishEventRepository, IStoredEventRepository storedEvent)
+        public RegisterResellerSaleUseCaseQuery(IProductRepository repository, ISaleProductRepository saleProductRepository)
         {
             _productRepository = repository;
-            _publishEventRepository = publishEventRepository;
-            _storedEvent = storedEvent;
+            _saleProductRepository = saleProductRepository;
         }
 
-        public async Task<SaleResponseVm> RegisterResellerSale(RegisterSaleProductCommand product)
+        public async Task<SaleResponseVm> RegisterResellerSale(string product)
         {
+            RegisterSaleProductCommand ResellerSaleToCreate = JsonConvert.DeserializeObject<RegisterSaleProductCommand>(product);
             double totalPrice = 0;
-            foreach (var item in product.Products)
+            foreach (var item in ResellerSaleToCreate.Products)
             {
-                var productResponse = await _productRepository.GetProductByIdAsync(item.ProductId);
+                var productResponse = await _productRepository.RegisterResellerSaleAsync(item);
 
                 if (productResponse.ProductInventoryStock < item.ProductQuantity)
                 {
@@ -41,12 +39,13 @@ namespace WorldTools.Application.UseCases.ProductUseCases
                 totalPrice += price;
             }
 
-            var saleNumber = new SaleValueObjectNumber(product.Number);
-            var saleQuantity = new SaleValueObjectQuantity(product.Products.Count);
+            var saleNumber = new SaleValueObjectNumber(ResellerSaleToCreate.Number);
+            var saleQuantity = new SaleValueObjectQuantity(ResellerSaleToCreate.Products.Count);
             var saleTotal = new SaleValueObjectTotal(totalPrice);
             var saleType = new SaleValueObjectType("ResellerSale");
 
-            var saleEntity = new SaleEntity(saleNumber, saleQuantity, saleTotal, saleType, product.BranchId);
+            var saleEntity = new SaleEntity(saleNumber, saleQuantity, saleTotal, saleType, ResellerSaleToCreate.BranchId);
+            var saleEntityResponse = await _saleProductRepository.RegisterSaleAsync(saleEntity);
 
             var saleResponse = new SaleResponseVm();
             saleResponse.BranchId = saleEntity.BranchId;
@@ -54,19 +53,10 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             saleResponse.saleValueObjectTotal = saleEntity.saleValueObjectTotal.TotalPrice;
             saleResponse.SaleValueQuantity = saleEntity.SaleValueQuantity.Quantity;
             saleResponse.saleValueObjectType = saleEntity.saleValueObjectType.SaleType;
-            saleResponse.SaleId = saleEntity.SaleId;
+            saleResponse.SaleId = saleEntityResponse.SaleId;
 
-            var eventResponse = await RegisterAndPersistEvent("ProductResellerSaleRegistered", product.BranchId, product);
-
-            _publishEventRepository.PublishRegisterProductSaleReseller(eventResponse);
             return saleResponse;
         }
 
-        public async Task<StoredEvent> RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
-        {
-            var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
-            await _storedEvent.RegisterEvent(storedEvent);
-            return storedEvent;
-        }
     }
 }

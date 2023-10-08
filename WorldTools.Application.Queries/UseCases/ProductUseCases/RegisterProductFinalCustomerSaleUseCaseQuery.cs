@@ -1,34 +1,29 @@
-﻿
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
-using WorldTools.Domain.Events.Product;
 using WorldTools.Domain.Ports;
-using WorldTools.Domain.ResponseVm.Product;
+using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.ResponseVm.Sale;
-using WorldTools.Domain.ValueObjects.ProductValueObjects;
 using WorldTools.Domain.ValueObjects.SaleValueObjects;
 
 namespace WorldTools.Application.UseCases.ProductUseCases
 {
-    public class RegisterProductFinalCustomerSaleUseCaseQuery
+    public class RegisterProductFinalCustomerSaleUseCaseQuery : IProductCustomerSaleUseCaseQuery
     {
         private readonly IProductRepository _productRepository;
         private readonly ISaleProductRepository _saleProductRepository;
-        private readonly IStoredEventRepository _storedEvent;
 
-        public RegisterProductFinalCustomerSaleUseCaseQuery(IProductRepository repository, IStoredEventRepository storedEvent, ISaleProductRepository saleProductRepository)
+        public RegisterProductFinalCustomerSaleUseCaseQuery(IProductRepository repository, ISaleProductRepository saleProductRepository)
         {
             _productRepository = repository;
-            _storedEvent = storedEvent;
             _saleProductRepository = saleProductRepository;
         }
 
-        public async Task<SaleResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product)
+        public async Task<SaleResponseVm> RegisterProductFinalCustomerSale(string product)
         {
+            RegisterSaleProductCommand customerSaleToCreate = JsonConvert.DeserializeObject<RegisterSaleProductCommand>(product);
             double totalPrice = 0;
-            foreach (var item in product.Products)
+            foreach (var item in customerSaleToCreate.Products)
             {
                 var productResponse = await _productRepository.RegisterProductFinalCustomerSaleAsync(item);
 
@@ -42,12 +37,12 @@ namespace WorldTools.Application.UseCases.ProductUseCases
                 totalPrice += price;
             }
 
-            var saleNumber = new SaleValueObjectNumber(product.Number);
-            var saleQuantity = new SaleValueObjectQuantity(product.Products.Count);
+            var saleNumber = new SaleValueObjectNumber(customerSaleToCreate.Number);
+            var saleQuantity = new SaleValueObjectQuantity(customerSaleToCreate.Products.Count);
             var saleTotal = new SaleValueObjectTotal(totalPrice);
             var saleType = new SaleValueObjectType("FinalCustomerSale");
 
-            var saleEntity = new SaleEntity(saleNumber, saleQuantity, saleTotal, saleType, product.BranchId);
+            var saleEntity = new SaleEntity(saleNumber, saleQuantity, saleTotal, saleType, customerSaleToCreate.BranchId);
             var saleEntityResponse = await _saleProductRepository.RegisterSaleAsync(saleEntity);
 
             var saleResponse = new SaleResponseVm();
@@ -58,15 +53,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             saleResponse.saleValueObjectType = saleEntityResponse.saleValueObjectType.SaleType;
             saleResponse.SaleId = saleEntityResponse.SaleId;
 
-            await RegisterAndPersistEvent("ProductFinalCustomerSaleRegistered", product.BranchId, saleEntity);
             return saleResponse;
-        }
-
-        public async Task RegisterAndPersistEvent(string eventName, Guid aggregateId, Object eventBody)
-        {
-            var storedEvent = new StoredEvent(eventName, aggregateId, JsonConvert.SerializeObject(eventBody));
-
-            await _storedEvent.RegisterEvent(storedEvent);
         }
     }
 }

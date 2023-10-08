@@ -4,6 +4,7 @@ using WorldTools.Domain.Commands.ProductCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Events.Product;
 using WorldTools.Domain.Ports;
+using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
 
@@ -22,13 +23,13 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             _storedEvent = storedEvent;
         }
 
-        public async Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product, Guid idProduct)
+        public async Task<ProductResponseVm> RegisterProductInventoryStock(RegisterProductInventoryCommand product)
         {
             var quatity = new ProductValueObjectInventoryStock(product.ProductQuantity);
 
-            var productResponse = await _repository.GetProductById(idProduct);
+            var productResponse = await _repository.GetProductByIdAsync(product.ProductId);
 
-            var eventStockResgitered = new RegisterStockEvent(product.ProductQuantity, idProduct);
+            var eventStockResgitered = new RegisterStockEvent(product.ProductQuantity, product.ProductId);
 
             var eventResponse = await RegisterAndPersistEvent("ProductStockRegistered", productResponse.BranchId, eventStockResgitered);
 
