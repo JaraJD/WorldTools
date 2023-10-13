@@ -1,9 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a5a6eae0-84d5-4890-a55f-9cc6feec0477</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,16 +14,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WorldTools.Application.Queries\WorldTools.Application.Queries.csproj" />
     <ProjectReference Include="..\WorldTools.Application\WorldTools.Application.csproj" />
     <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.MongoAdapter\WorldTools.MongoAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.Rabbit.PublishAdapter\WorldTools.Rabbit.PublishAdapter.csproj" />
-    <ProjectReference Include="..\WorldTools.Rabbit.SubscribeAdapter\WorldTools.Rabbit.SubscribeAdapter.csproj" />
+    <ProjectReference Include="..\WorldTools.WebSocketAdapter\WorldTools.WebSocketAdapter.csproj" />
   </ItemGroup>
 
 </Project>

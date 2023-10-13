@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: microservice-api-queries-deploy
+    labels:
+        name: microservice-api-queries-deploy
+        app: microservice
+spec:
+    replicas: 2
+    selector: 
+        matchlabels:
+			app: microservice-api-queries
+			type: microservice
+	template:
+		metadata:
+			name: microservice-api-queries-pod
+			labels:
+				app: microservice-api-queries
+				type: microservice
+		spec:
+			containers:
+			- name: microservice-api-queries-app
+			  image: jarajd/worldtoolsapiqueries:latest
+			  ports:
+				- containerPort: 80
+			  env:
+				- name: ConnectionStrings__Connection
+				  value: Server=mssql-service;Database=WorldTools;User=sa;Password=$juan123

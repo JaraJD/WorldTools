@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: pod
+metadata:
+	name: microservice-api-queries-pod
+	labels:
+		app: microservice-api-queries
+		type: microservice
+spec:
+	containers:
+	- name: microservice-api-queries-app
+	  image: jarajd/worldtoolsapiqueries:latest
+	  ports:
+		- containerPort: 80
+	  env:
+		- name: ConnectionStrings__Connection
+		  value: Server=mssql-service;Database=WorldTools;User=sa;Password=$juan123
+	

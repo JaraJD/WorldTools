@@ -16,10 +16,13 @@ using WorldTools.Rabbit.PublishAdapter;
 using WorldTools.Domain.Ports.BranchPorts;
 using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.Ports.UserPorts;
+using WorldTools.WebSocketAdapter.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<WebSocketService>();
+
 builder.Services.AddTransient<RegisterBranchUseCase>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
@@ -35,10 +38,6 @@ builder.Services.AddScoped<ISaleProductRepository, SaleRepository>();
 
 builder.Services.AddScoped<IStoredEventRepository, StoredEventRepository>();
 builder.Services.AddScoped<IPublishEventRepository, PublishEvent>();
-
-
-
-builder.Services.AddControllers();
 
 
 builder.Services.AddAutoMapper(config => config.AddDataReaderMapping(), typeof(MappingProfileMongo));
@@ -57,15 +56,23 @@ builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"))
 );
 
+builder.Services.AddControllers();
+
+builder.Services.AddSignalR();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy", builder =>
+    {
+        builder.SetIsOriginAllowed(origen => true)
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<Context>();
-    context.Database.Migrate();
-}
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -73,8 +80,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 
-app.UseAuthorization();
+app.UseCors("MyCorsPolicy");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<WebSocketService>("/WebSocked");
+    endpoints.MapControllers();
+});
 
 app.MapControllers();
 

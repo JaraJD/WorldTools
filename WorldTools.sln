@@ -51,6 +51,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queries", "Queries", "{F0CF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.Application.Queries", "WorldTools.Application.Queries\WorldTools.Application.Queries.csproj", "{39555E40-9F0D-4843-A71A-123EF89F3740}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kubernetes", "kubernetes", "{5C51DAB2-0E5B-4D01-9000-F2DAD001D676}"
+	ProjectSection(SolutionItems) = preProject
+		microservice-api-commands-deploy.yml = microservice-api-commands-deploy.yml
+		microservice-api-commands-pod.yml = microservice-api-commands-pod.yml
+		microservice-api-commands-service.yml = microservice-api-commands-service.yml
+		microservice-api-queries-deploy.yml = microservice-api-queries-deploy.yml
+		microservice-api-queries-pod.yml = microservice-api-queries-pod.yml
+		microservice-api-queries-service.yml = microservice-api-queries-service.yml
+		sqlserver-deploy.yml = sqlserver-deploy.yml
+		sqlserver-pod.yml = sqlserver-pod.yml
+		sqlserver-service.yml = sqlserver-service.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSocket", "WebSocket", "{148469AB-3A27-466D-BE0D-5C659A7C0C97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.WebSocketAdapter", "WorldTools.WebSocketAdapter\WorldTools.WebSocketAdapter.csproj", "{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F902FC29-31B9-4E7D-9EF6-1C781B2F36AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +120,14 @@ Global
 		{39555E40-9F0D-4843-A71A-123EF89F3740}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39555E40-9F0D-4843-A71A-123EF89F3740}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39555E40-9F0D-4843-A71A-123EF89F3740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F902FC29-31B9-4E7D-9EF6-1C781B2F36AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F902FC29-31B9-4E7D-9EF6-1C781B2F36AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F902FC29-31B9-4E7D-9EF6-1C781B2F36AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F902FC29-31B9-4E7D-9EF6-1C781B2F36AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +155,8 @@ Global
 		{9E291F95-B8C2-4477-AF04-14B09DD913DB} = {0AD981B8-5168-44E9-88F4-A7906EAF95CA}
 		{F0CFEF25-D994-411E-9127-A6AF8E9DDBC1} = {0AD981B8-5168-44E9-88F4-A7906EAF95CA}
 		{39555E40-9F0D-4843-A71A-123EF89F3740} = {F0CFEF25-D994-411E-9127-A6AF8E9DDBC1}
+		{148469AB-3A27-466D-BE0D-5C659A7C0C97} = {8BCB5051-1099-458C-86C3-27EF94B330A5}
+		{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7} = {148469AB-3A27-466D-BE0D-5C659A7C0C97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A541330-4FC3-4859-8739-8967164ADE1D}

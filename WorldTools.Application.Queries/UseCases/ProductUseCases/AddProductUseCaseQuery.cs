@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using WorldTools.Domain.Entities;
+using WorldTools.Domain.Ports;
 using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
@@ -9,6 +10,7 @@ namespace WorldTools.Application.Queries.UseCases.ProductUseCases
     public class AddProductUseCaseQuery : IProductUseCaseQuery
     {
         private readonly IProductRepository _repository;
+        //private readonly IWebSocketPort _webSocketService;
 
         public AddProductUseCaseQuery(IProductRepository repository)
         {
@@ -35,6 +37,8 @@ namespace WorldTools.Application.Queries.UseCases.ProductUseCases
             responseVm.ProductDescription = productEntity.ProductDescription.ProductDescription;
             responseVm.ProductInventoryStock = productEntity.ProductInventoryStock.ProductInventoryStock;
             responseVm.BranchId = productEntity.BranchId;
+
+            //_webSocketService.SendObjectToClient("Prueba");
 
             return responseVm;
         }
