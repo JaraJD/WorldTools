@@ -3,17 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports.BranchPorts;
 using WorldTools.Domain.ResponseVm.Branch;
-using WorldTools.Infrastructure;
 using WorldTools.SqlAdapter.DataEntity;
 
 namespace WorldTools.SqlAdapter.Adapters
 {
     public class BranchRepository : IBranchRepository
     {
-        private readonly Context _context;
+        private readonly ContextSql _context;
         private readonly IMapper _mapper;
 
-        public BranchRepository(Context dbContext, IMapper mapper)
+        public BranchRepository(ContextSql dbContext, IMapper mapper)
         {
             _context = dbContext;
             _mapper = mapper;
@@ -47,13 +46,13 @@ namespace WorldTools.SqlAdapter.Adapters
 
         public async Task<BranchEntity> RegisterBranchAsync(BranchEntity branch)
         {
-            using (var context = new Context())
+            using (var context = new ContextSql())
             {
                 var branchToCreate = new RegisterBranchData(branch.BranchName.BranchName, branch.BranchLocation.Country, branch.BranchLocation.City);
                 context.Add(branchToCreate);
                 await context.SaveChangesAsync();
 
-                branch.BranchId = branchToCreate.BranchId;
+                branch.BranchId = branch.BranchId;
                 return branch;
             }
 

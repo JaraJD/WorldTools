@@ -24,7 +24,7 @@ namespace WorldTools.Application.UseCases.UserUseCases
             var userPassword = new UserValueObjectPassword(userToCreate.UserPassword.UserPassword);
             var userEmail = new UserValueObjectEmail(userToCreate.Email.UserEmail);
             var userRole = new UserValueObjectRole(userToCreate.Role.Role);
-            var userEntity = new UserEntity(userName, userPassword, userEmail, userRole, userToCreate.BranchId);
+            var userEntity = new UserEntity(userName, userPassword, userEmail, userRole, userToCreate.BranchId, userToCreate.Salt);
 
             var userResponse = await _repository.RegisterUserAsync(userEntity);
 

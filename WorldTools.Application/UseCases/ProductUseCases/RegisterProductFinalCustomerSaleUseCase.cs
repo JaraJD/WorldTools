@@ -23,7 +23,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
 
         public async Task<SaleResponseVm> RegisterProductFinalCustomerSale(RegisterSaleProductCommand product)
         {
-            double totalPrice = 0;
+            double totalPrice = 0.0;
             foreach (var item in product.Products)
             {
                 var productResponse = await _productRepository.GetProductByIdAsync(item.ProductId);
@@ -47,10 +47,10 @@ namespace WorldTools.Application.UseCases.ProductUseCases
 
             var saleResponse = new SaleResponseVm();
             saleResponse.BranchId = saleEntity.BranchId;
-            saleResponse.SaleValueNumber = saleEntity.SaleValueNumber.Number;
-            saleResponse.saleValueObjectTotal = saleEntity.saleValueObjectTotal.TotalPrice;
-            saleResponse.SaleValueQuantity = saleEntity.SaleValueQuantity.Quantity;
-            saleResponse.saleValueObjectType = saleEntity.saleValueObjectType.SaleType;
+            saleResponse.SaleNumber = saleEntity.SaleValueNumber.Number;
+            saleResponse.SaleTotal = saleEntity.saleValueObjectTotal.TotalPrice;
+            saleResponse.SaleQuantity = saleEntity.SaleValueQuantity.Quantity;
+            saleResponse.SaleType = saleEntity.saleValueObjectType.SaleType;
             saleResponse.SaleId = saleEntity.SaleId;
 
             var eventResponse = await RegisterAndPersistEvent("ProductFinalCustomerSaleRegistered", product.BranchId, product);

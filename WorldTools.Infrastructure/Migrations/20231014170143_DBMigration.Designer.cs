@@ -5,15 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WorldTools.Infrastructure;
 
 #nullable disable
 
 namespace WorldTools.SqlAdapter.Migrations
 {
-    [DbContext(typeof(Context))]
-    [Migration("20231008043830_Init")]
-    partial class Init
+    [DbContext(typeof(ContextSql))]
+    [Migration("20231014170143_DBMigration")]
+    partial class DBMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,6 +128,10 @@ namespace WorldTools.SqlAdapter.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoreSalt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

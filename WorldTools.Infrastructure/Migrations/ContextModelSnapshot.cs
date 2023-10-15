@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WorldTools.Infrastructure;
 
 #nullable disable
 
 namespace WorldTools.SqlAdapter.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(ContextSql))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -126,6 +125,10 @@ namespace WorldTools.SqlAdapter.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoreSalt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

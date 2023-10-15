@@ -12,13 +12,13 @@ namespace WorldTools.Domain.ResponseVm.Sale
     {
         public Guid SaleId { get; set; }
 
-        public int SaleValueNumber { get; set; }
+        public int SaleNumber { get; set; }
 
-        public int SaleValueQuantity { get; set; }
+        public int SaleQuantity { get; set; }
 
-        public double saleValueObjectTotal { get; set; }
+        public double SaleTotal { get; set; }
 
-        public string saleValueObjectType { get; set; }
+        public string SaleType { get; set; }
 
         public Guid BranchId { get; set; }
     }

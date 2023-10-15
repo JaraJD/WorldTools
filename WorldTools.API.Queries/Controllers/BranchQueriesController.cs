@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.Queries.UseCases.BranchUseCases;
+using WorldTools.Application.Queries.UseCases.SaleUseCases;
 using WorldTools.Domain.ResponseVm.Branch;
+using WorldTools.Domain.ResponseVm.Sale;
 
 namespace WorldTools.API.Queries.Controllers
 {
@@ -11,11 +13,16 @@ namespace WorldTools.API.Queries.Controllers
     {
         private readonly GetBrachByIdUseCase _getBrachByIdUseCase;
         private readonly GetAllBranchUseCase _getAllBranch;
+        private readonly GetAllSalesByBranchIdUseCase _getSalesByBranch;
 
-        public BranchQueriesController(GetBrachByIdUseCase getBrachByIdUseCase, GetAllBranchUseCase getAllBranch)
+        public BranchQueriesController(
+            GetBrachByIdUseCase getBrachByIdUseCase,
+            GetAllBranchUseCase getAllBranch,
+            GetAllSalesByBranchIdUseCase getSalesByBranch)
         {
             _getBrachByIdUseCase = getBrachByIdUseCase;
             _getAllBranch = getAllBranch;
+            _getSalesByBranch = getSalesByBranch;
         }
 
         [HttpGet("GetBranch/{id}")]
@@ -28,6 +35,12 @@ namespace WorldTools.API.Queries.Controllers
         public async Task<List<BranchQueryVm>> GetAllBranch()
         {
             return await _getAllBranch.GetAllBranches();
+        }
+
+        [HttpGet("GetSalesBranch/{id}")]
+        public async Task<List<SaleResponseVm>> GetSalesByBranch(Guid branchId)
+        {
+            return await _getSalesByBranch.GetAllSalesByBranchId(branchId);
         }
     }
 }

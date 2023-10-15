@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using WorldTools.Application.Queries.Factory;
 using WorldTools.Application.Queries.UseCases.BranchUseCases;
 using WorldTools.Domain.Factory;
-using WorldTools.Infrastructure;
 using WorldTools.Rabbit.SubscribeAdapter;
 using WorldTools.SqlAdapter.Adapters;
 using AutoMapper.Data;
@@ -15,6 +14,8 @@ using WorldTools.Application.UseCases.ProductUseCases;
 using WorldTools.Application.Queries.UseCases.UserUserCases;
 using WorldTools.Domain.Ports.UserPorts;
 using WorldTools.Infrastructure.Repositories;
+using WorldTools.Application.Queries.UseCases.SaleUseCases;
+using WorldTools.SqlAdapter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +24,14 @@ builder.Services.AddTransient<GetBrachByIdUseCase>();
 builder.Services.AddTransient<GetAllBranchUseCase>();
 
 builder.Services.AddTransient<GetProductByIdUseCaseQuery>();
+builder.Services.AddTransient<GetProductsByBranchIdUseCaseQuery>();
 builder.Services.AddTransient<GetAllProductsUseCaseQuery>();
 
 builder.Services.AddTransient<GetUserByIdUseCase>();
 builder.Services.AddTransient<GetAllUsersUseCase>();
+builder.Services.AddTransient<LoginUserUseCase>();
+
+builder.Services.AddTransient<GetAllSalesByBranchIdUseCase>();
 
 builder.Services.AddHostedService<SubscribeEvent>();
 
@@ -51,7 +56,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddDbContext<Context>(options =>
+builder.Services.AddDbContext<ContextSql>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
 builder.Services.AddEndpointsApiExplorer();

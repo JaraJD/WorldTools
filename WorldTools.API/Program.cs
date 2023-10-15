@@ -1,4 +1,3 @@
-using WorldTools.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.Data;
 using WorldTools.Infrastructure.Repositories;
@@ -17,6 +16,7 @@ using WorldTools.Domain.Ports.BranchPorts;
 using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.Ports.UserPorts;
 using WorldTools.WebSocketAdapter.Service;
+using WorldTools.SqlAdapter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +52,7 @@ builder.Services.AddSingleton<IContextMongo>(provider => new ContextMongo(builde
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<Context>(options =>
+builder.Services.AddDbContext<ContextSql>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"))
 );
 

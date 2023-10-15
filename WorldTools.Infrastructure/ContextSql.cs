@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 using WorldTools.SqlAdapter.DataEntity;
 
-namespace WorldTools.Infrastructure
+namespace WorldTools.SqlAdapter
 {
-    public class Context : DbContext
+    public class ContextSql : DbContext
     {
         private readonly IConfiguration _configuration;
 
-        public Context()
+        public ContextSql()
         {
         }
 
-        public Context(DbContextOptions<Context> options, IConfiguration configuration) : base(options)
+        public ContextSql(DbContextOptions<ContextSql> options, IConfiguration configuration) : base(options)
         {
             _configuration = configuration;
         }
@@ -27,7 +28,7 @@ namespace WorldTools.Infrastructure
 
         public DbSet<RegisterBranchData> Branch { get; set; }
         public DbSet<RegisterProductData> Product { get; set; }
-        public DbSet<RegisterUserData> User { get; set; }
+        public DbSet<RegisterUserData> Users { get; set; }
         public DbSet<RegisterSaleData> Sale { get; set; }
 
     }

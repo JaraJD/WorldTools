@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.ValueObjects.BranchValueObjects;
+using WorldTools.SqlAdapter;
 using WorldTools.SqlAdapter.Adapters;
 
 namespace WorldTools.Infrastructure.Adapter
@@ -15,7 +16,7 @@ namespace WorldTools.Infrastructure.Adapter
         [Fact]
         public async Task RegisterBranchAsync_ShouldCreateBranchInDatabase()
         {
-            var options = new DbContextOptionsBuilder<Context>()
+            var options = new DbContextOptionsBuilder<ContextSql>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 

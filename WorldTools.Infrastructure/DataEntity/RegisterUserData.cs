@@ -6,13 +6,14 @@ namespace WorldTools.SqlAdapter.DataEntity
 {
     public class RegisterUserData
     {
-        public RegisterUserData(string name, string userPassword, string email, string role, Guid branchId)
+        public RegisterUserData(string name, string userPassword, string email, string role, Guid branchId, string storeSalt)
         {
             Name = name;
             UserPassword = userPassword;
             Email = email;
             Role = role;
             BranchId = branchId;
+            StoreSalt = storeSalt;
         }
 
         [Key]
@@ -29,6 +30,8 @@ namespace WorldTools.SqlAdapter.DataEntity
         [Required] public string Role { get; set; }
 
         [Required] public Guid BranchId { get; set; }
+
+        [Required] public string StoreSalt { get; set; }
 
         [ForeignKey("BranchId")]
         public RegisterBranchData Branch { get; set; }

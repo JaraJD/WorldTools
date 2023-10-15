@@ -49,10 +49,10 @@ namespace WorldTools.Application.UseCases.ProductUseCases
 
             var saleResponse = new SaleResponseVm();
             saleResponse.BranchId = saleEntity.BranchId;
-            saleResponse.SaleValueNumber = saleEntity.SaleValueNumber.Number;
-            saleResponse.saleValueObjectTotal = saleEntity.saleValueObjectTotal.TotalPrice;
-            saleResponse.SaleValueQuantity = saleEntity.SaleValueQuantity.Quantity;
-            saleResponse.saleValueObjectType = saleEntity.saleValueObjectType.SaleType;
+            saleResponse.SaleNumber = saleEntity.SaleValueNumber.Number;
+            saleResponse.SaleTotal = saleEntity.saleValueObjectTotal.TotalPrice;
+            saleResponse.SaleQuantity = saleEntity.SaleValueQuantity.Quantity;
+            saleResponse.SaleType = saleEntity.saleValueObjectType.SaleType;
             saleResponse.SaleId = saleEntityResponse.SaleId;
 
             return saleResponse;

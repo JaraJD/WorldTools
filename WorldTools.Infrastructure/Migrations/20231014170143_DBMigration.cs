@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WorldTools.SqlAdapter.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class DBMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,7 +79,8 @@ namespace WorldTools.SqlAdapter.Migrations
                     UserPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StoreSalt = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

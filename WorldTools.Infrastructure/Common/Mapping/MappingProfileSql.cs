@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using WorldTools.Domain.Commands.UserCommands;
 using WorldTools.Domain.ResponseVm.Branch;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ResponseVm.Sale;
@@ -15,6 +16,7 @@ namespace WorldTools.SqlAdapter.Common.Mapping
             CreateMap<RegisterProductData, ProductResponseVm>().ReverseMap();
             CreateMap<RegisterBranchData, BranchQueryVm>().ReverseMap();
             CreateMap<RegisterUserData, UserQueryVm>().ReverseMap();
+            CreateMap<LoginUserCommand, UserQueryVm>().ReverseMap();
             CreateMap<RegisterSaleData, SaleResponseVm>().ReverseMap();
         }
     }

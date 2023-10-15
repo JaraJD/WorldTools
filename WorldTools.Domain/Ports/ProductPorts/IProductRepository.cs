@@ -17,6 +17,8 @@ namespace WorldTools.Domain.Ports.ProductPorts
 
         Task<ProductResponseVm> GetProductByIdAsync(Guid productId);
 
+        Task<List<ProductResponseVm>> GetProductByBranchIdAsync(Guid branchId);
+
         Task<List<ProductResponseVm>> GetAllProductsAsync();
     }
 }

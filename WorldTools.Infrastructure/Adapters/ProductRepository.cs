@@ -5,16 +5,15 @@ using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ValueObjects.ProductValueObjects;
-using WorldTools.Infrastructure;
 using WorldTools.SqlAdapter.DataEntity;
 
 namespace WorldTools.SqlAdapter.Adapters
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly Context _context;
+        private readonly ContextSql _context;
         private readonly IMapper _mapper;
-        public ProductRepository(Context dbContext, IMapper mapper)
+        public ProductRepository(ContextSql dbContext, IMapper mapper)
         {
             _context = dbContext;
             _mapper = mapper;
@@ -23,7 +22,7 @@ namespace WorldTools.SqlAdapter.Adapters
 
         public async Task<ProductEntity> RegisterProductAsync(ProductEntity product)
         {
-            using (var context = new Context())
+            using (var context = new ContextSql())
             {
                 var productToRegister = new RegisterProductData(
                 product.ProductName.ProductName,
@@ -44,7 +43,7 @@ namespace WorldTools.SqlAdapter.Adapters
 
         public async Task<ProductResponseVm> RegisterProductFinalCustomerSaleAsync(ProductSaleCommand product)
         {
-            using (var context = new Context())
+            using (var context = new ContextSql())
             {
                 var existingProduct = await context.Product.FindAsync(product.ProductId);
 
@@ -66,7 +65,7 @@ namespace WorldTools.SqlAdapter.Adapters
 
         public async Task<ProductResponseVm> RegisterProductInventoryStockAsync(ProductValueObjectInventoryStock product, Guid productId)
         {
-            using (var context = new Context())
+            using (var context = new ContextSql())
             {
                 var existingProduct = await context.Product.FindAsync(productId);
 
@@ -85,7 +84,7 @@ namespace WorldTools.SqlAdapter.Adapters
 
         public async Task<ProductResponseVm> RegisterResellerSaleAsync(ProductSaleCommand product)
         {
-            using (var context = new Context())
+            using (var context = new ContextSql())
             {
                 var existingProduct = await context.Product.FindAsync(product.ProductId);
 
@@ -104,24 +103,38 @@ namespace WorldTools.SqlAdapter.Adapters
 
                 return _mapper.Map<ProductResponseVm>(existingProduct);
             }
-            
+
         }
 
         public async Task<ProductResponseVm> GetProductByIdAsync(Guid productId)
         {
-            var existingProduct = await _context.Product.FindAsync(productId);
-
-            if (existingProduct == null)
+            using (var context = new ContextSql())
             {
-                throw new ArgumentNullException("El producto no se encontro.");
-            }
+                var existingProduct = await context.Product.FindAsync(productId);
 
-            return _mapper.Map<ProductResponseVm>(existingProduct);
+                if (existingProduct == null)
+                {
+                    throw new ArgumentNullException("El producto no se encontro.");
+                }
+
+                return _mapper.Map<ProductResponseVm>(existingProduct);
+            }
         }
 
         public async Task<List<ProductResponseVm>> GetAllProductsAsync()
         {
             var products = await _context.Product.ToListAsync();
+
+            var productResponseList = products.Select(product => _mapper.Map<ProductResponseVm>(product)).ToList();
+
+            return productResponseList;
+        }
+
+        public async Task<List<ProductResponseVm>> GetProductByBranchIdAsync(Guid branchId)
+        {
+            var products = await _context.Product
+                .Where(product => product.BranchId == branchId)
+                .ToListAsync();
 
             var productResponseList = products.Select(product => _mapper.Map<ProductResponseVm>(product)).ToList();
 

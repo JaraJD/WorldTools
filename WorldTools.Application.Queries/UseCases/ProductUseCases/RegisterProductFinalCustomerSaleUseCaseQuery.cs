@@ -22,7 +22,7 @@ namespace WorldTools.Application.UseCases.ProductUseCases
         public async Task<SaleResponseVm> RegisterProductFinalCustomerSale(string product)
         {
             RegisterSaleProductCommand customerSaleToCreate = JsonConvert.DeserializeObject<RegisterSaleProductCommand>(product);
-            double totalPrice = 0;
+            double totalPrice = 0.0;
             foreach (var item in customerSaleToCreate.Products)
             {
                 var productResponse = await _productRepository.RegisterProductFinalCustomerSaleAsync(item);
@@ -47,10 +47,10 @@ namespace WorldTools.Application.UseCases.ProductUseCases
 
             var saleResponse = new SaleResponseVm();
             saleResponse.BranchId = saleEntityResponse.BranchId;
-            saleResponse.SaleValueNumber = saleEntityResponse.SaleValueNumber.Number;
-            saleResponse.saleValueObjectTotal = saleEntityResponse.saleValueObjectTotal.TotalPrice;
-            saleResponse.SaleValueQuantity = saleEntityResponse.SaleValueQuantity.Quantity;
-            saleResponse.saleValueObjectType = saleEntityResponse.saleValueObjectType.SaleType;
+            saleResponse.SaleNumber = saleEntityResponse.SaleValueNumber.Number;
+            saleResponse.SaleTotal = saleEntityResponse.saleValueObjectTotal.TotalPrice;
+            saleResponse.SaleQuantity = saleEntityResponse.SaleValueQuantity.Quantity;
+            saleResponse.SaleType = saleEntityResponse.saleValueObjectType.SaleType;
             saleResponse.SaleId = saleEntityResponse.SaleId;
 
             return saleResponse;

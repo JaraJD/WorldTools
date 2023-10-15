@@ -20,9 +20,10 @@ namespace WorldTools.Domain.Entities
         [Required(ErrorMessage = "El BranchId es obligatorio.")]
         public Guid BranchId { get; set; }
 
+        public string Salt { get; set; }
         public virtual BranchEntity BranchEntity { get; set; }
 
-        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole role, Guid branchId)
+        public UserEntity(UserValueObjectName name, UserValueObjectPassword password, UserValueObjectEmail email, UserValueObjectRole role, Guid branchId, string salt)
         {
             UserId = Guid.NewGuid();
             Name = name;
@@ -30,6 +31,7 @@ namespace WorldTools.Domain.Entities
             Email = email;
             Role = role;
             BranchId = branchId;
+            Salt = salt;
         }
     }
 }
