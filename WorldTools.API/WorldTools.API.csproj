@@ -23,6 +23,7 @@
     <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.MongoAdapter\WorldTools.MongoAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.Rabbit.PublishAdapter\WorldTools.Rabbit.PublishAdapter.csproj" />
+    <ProjectReference Include="..\WorldTools.Rabbit.SubscribeAdapter\WorldTools.Rabbit.SubscribeAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.WebSocketAdapter\WorldTools.WebSocketAdapter.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  worldtools.api:
+    image: ${DOCKER_REGISTRY-}worldtoolsapi
+    build:
+      context: .
+      dockerfile: WorldTools.API/Dockerfile
+    ports: 
+      - 7031:7031
+      - 5229:5229
+
+  worldtools.api.queries:
+    image: ${DOCKER_REGISTRY-}worldtoolsapiqueries
+    build:
+      context: .
+      dockerfile: WorldTools.API.Queries/Dockerfile
+    ports: 
+      - 7063:7063
+      - 5110:5110
+    environment: 
+      Connection: "Server=LAPTOP-2V18T6VP\\SERVIDORSQL;Database=WorldTools;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+
+  webapp:
+    image: mcr.microsoft.com/dotnet/aspnet:6.0
+    container_name: my-dotnet-app
+    #ports:
+    #  - "80:80"
+    environment:
+      - ConnectionStrings__Connection=Server=LAPTOP-2V18T6VP\\SERVIDORSQL;Database=WorldTools;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+    volumes:
+      - ./app:/app
+
+  rabbitmq:
+    image: "rabbitmq:management"  # Usamos la imagen oficial de RabbitMQ con el plugin de administraci?n
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # Mapeamos el puerto 5672 del contenedor al mismo puerto en el host
+      - "15672:15672"  # Puerto para la interfaz de gesti?n web
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"

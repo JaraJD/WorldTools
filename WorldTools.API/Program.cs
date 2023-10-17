@@ -17,10 +17,12 @@ using WorldTools.Domain.Ports.ProductPorts;
 using WorldTools.Domain.Ports.UserPorts;
 using WorldTools.WebSocketAdapter.Service;
 using WorldTools.SqlAdapter;
+using WorldTools.Rabbit.SubscribeAdapter;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//builder.Services.AddHostedService<SubscribeEvent>();
 builder.Services.AddTransient<WebSocketService>();
 
 builder.Services.AddTransient<RegisterBranchUseCase>();

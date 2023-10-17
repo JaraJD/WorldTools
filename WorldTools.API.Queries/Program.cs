@@ -20,16 +20,16 @@ using WorldTools.SqlAdapter;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<GetBrachByIdUseCase>();
-builder.Services.AddTransient<GetAllBranchUseCase>();
+builder.Services.AddScoped<GetBrachByIdUseCase>();
+builder.Services.AddScoped<GetAllBranchUseCase>();
 
-builder.Services.AddTransient<GetProductByIdUseCaseQuery>();
-builder.Services.AddTransient<GetProductsByBranchIdUseCaseQuery>();
-builder.Services.AddTransient<GetAllProductsUseCaseQuery>();
+builder.Services.AddScoped<GetProductByIdUseCaseQuery>();
+builder.Services.AddScoped<GetProductsByBranchIdUseCaseQuery>();
+builder.Services.AddScoped<GetAllProductsUseCaseQuery>();
 
-builder.Services.AddTransient<GetUserByIdUseCase>();
-builder.Services.AddTransient<GetAllUsersUseCase>();
-builder.Services.AddTransient<LoginUserUseCase>();
+builder.Services.AddScoped<GetUserByIdUseCase>();
+builder.Services.AddScoped<GetAllUsersUseCase>();
+builder.Services.AddScoped<LoginUserUseCase>();
 
 builder.Services.AddTransient<GetAllSalesByBranchIdUseCase>();
 

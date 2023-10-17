@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 using WorldTools.SqlAdapter.DataEntity;
 
@@ -30,6 +29,5 @@ namespace WorldTools.SqlAdapter
         public DbSet<RegisterProductData> Product { get; set; }
         public DbSet<RegisterUserData> Users { get; set; }
         public DbSet<RegisterSaleData> Sale { get; set; }
-
     }
 }
