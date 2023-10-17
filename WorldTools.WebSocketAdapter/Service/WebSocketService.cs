@@ -21,7 +21,7 @@ namespace WorldTools.WebSocketAdapter.Service
 
         public async Task SendObjectToSale(Object data)
         {
-            await Clients.All.SendAsync("saleUpdate", data);
+            await Clients.All.SendAsync("salesUpdate", data);
         }
     }
 }

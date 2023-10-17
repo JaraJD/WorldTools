@@ -37,7 +37,7 @@ namespace WorldTools.API.Queries.Controllers
             return await _getAllBranch.GetAllBranches();
         }
 
-        [HttpGet("GetSalesBranch/{id}")]
+        [HttpGet("GetSalesBranch/{branchId}")]
         public async Task<List<SaleResponseVm>> GetSalesByBranch(Guid branchId)
         {
             return await _getSalesByBranch.GetAllSalesByBranchId(branchId);
