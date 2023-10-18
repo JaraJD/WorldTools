@@ -16,10 +16,14 @@ using WorldTools.Domain.Ports.UserPorts;
 using WorldTools.Infrastructure.Repositories;
 using WorldTools.Application.Queries.UseCases.SaleUseCases;
 using WorldTools.SqlAdapter;
+using WorldTools.Domain.Ports;
+using WorldTools.WebSocketAdapter.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IWebSocketPort, WebSocketHandler>();
+
 builder.Services.AddScoped<GetBrachByIdUseCase>();
 builder.Services.AddScoped<GetAllBranchUseCase>();
 
@@ -68,6 +72,8 @@ builder.Services.AddAutoMapper(config => {
     config.AddProfile<MappingProfileSql>();
 });
 
+builder.Services.AddSignalR();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
@@ -91,11 +97,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
+
 app.UseCors("AllowSpecificOrigin");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<WebSocketService>("/WebSocked");
+    endpoints.MapControllers();
+});
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

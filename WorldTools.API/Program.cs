@@ -22,8 +22,6 @@ using WorldTools.Rabbit.SubscribeAdapter;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddHostedService<SubscribeEvent>();
-builder.Services.AddTransient<WebSocketService>();
 
 builder.Services.AddTransient<RegisterBranchUseCase>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
@@ -60,8 +58,6 @@ builder.Services.AddDbContext<ContextSql>(options =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddSignalR();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyCorsPolicy", builder =>
@@ -85,12 +81,6 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors("MyCorsPolicy");
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<WebSocketService>("/WebSocked");
-    endpoints.MapControllers();
-});
 
 app.MapControllers();
 

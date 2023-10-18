@@ -10,11 +10,12 @@ namespace WorldTools.Application.Queries.UseCases.ProductUseCases
     public class AddProductUseCaseQuery : IProductUseCaseQuery
     {
         private readonly IProductRepository _repository;
-        //private readonly IWebSocketPort _webSocketService;
+        private readonly IWebSocketPort _webSocketService;
 
-        public AddProductUseCaseQuery(IProductRepository repository)
+        public AddProductUseCaseQuery(IProductRepository repository, IWebSocketPort webSocketService)
         {
             _repository = repository;
+            _webSocketService = webSocketService;
         }
 
         public async Task<ProductResponseVm> RegisterProduct(string product)
@@ -38,7 +39,7 @@ namespace WorldTools.Application.Queries.UseCases.ProductUseCases
             responseVm.ProductInventoryStock = productEntity.ProductInventoryStock.ProductInventoryStock;
             responseVm.BranchId = productEntity.BranchId;
 
-            //_webSocketService.SendObjectToClient("Prueba");
+            await _webSocketService.CreateProduct(responseVm);
 
             return responseVm;
         }

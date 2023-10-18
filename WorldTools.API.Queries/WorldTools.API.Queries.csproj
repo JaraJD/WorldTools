@@ -25,6 +25,7 @@
     <ProjectReference Include="..\WorldTools.Domain\WorldTools.Domain.csproj" />
     <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.Rabbit.SubscribeAdapter\WorldTools.Rabbit.SubscribeAdapter.csproj" />
+    <ProjectReference Include="..\WorldTools.WebSocketAdapter\WorldTools.WebSocketAdapter.csproj" />
   </ItemGroup>
 
 </Project>

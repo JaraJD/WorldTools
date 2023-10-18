@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace WorldTools.Domain.Ports
 {
     public interface IWebSocketPort
     {
-        Task SendObjectToClient(string data);
+        Task<string> CreateProduct(Object message);
+
+        Task<string> UpdateStock(Object message);
+
+        Task<string> ProductSale(Object message);
+
+        Task<string> UpdateSales(Object message);
+
     }
 }
