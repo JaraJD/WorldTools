@@ -13,7 +13,7 @@ namespace WorldTools.Application.Queries.UseCases.UserUserCases
             _userRepository = userRepository;
         }
 
-        public async Task<AuthResponse> LoginUser(LoginUserCommand user)
+        public async Task<AuthResponse> LoginUser(LoginUserModel user)
         {
             return await _userRepository.LoginUser(user);
         }

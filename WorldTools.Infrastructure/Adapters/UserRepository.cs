@@ -73,7 +73,7 @@ namespace WorldTools.Infrastructure.Repositories
             }
         }
 
-        public async Task<AuthResponse> LoginUser(LoginUserCommand user)
+        public async Task<AuthResponse> LoginUser(LoginUserModel user)
         {
             AuthResponse authResponse = new AuthResponse();
             var userResponse = await _context.Users
@@ -91,6 +91,10 @@ namespace WorldTools.Infrastructure.Repositories
 
             authResponse.UserEmail = userResponse.Email;
             authResponse.Token = GetToken(userResponse);
+            authResponse.UserId = userResponse.UserId;
+            authResponse.UserName = userResponse.Name;
+            authResponse.Role = userResponse.Role;
+            authResponse.BranchId = userResponse.BranchId;
 
             return authResponse;
         }

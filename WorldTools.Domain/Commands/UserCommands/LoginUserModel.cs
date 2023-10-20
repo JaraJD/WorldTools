@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WorldTools.Domain.Commands.UserCommands
 {
-    public class LoginUserCommand
+    public class LoginUserModel
     {
         [Required] public string UserEmail { get; set; }
         [Required] public string Password { get; set; }

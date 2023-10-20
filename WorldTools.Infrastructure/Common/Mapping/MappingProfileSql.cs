@@ -16,7 +16,7 @@ namespace WorldTools.SqlAdapter.Common.Mapping
             CreateMap<RegisterProductData, ProductResponseVm>().ReverseMap();
             CreateMap<RegisterBranchData, BranchQueryVm>().ReverseMap();
             CreateMap<RegisterUserData, UserQueryVm>().ReverseMap();
-            CreateMap<LoginUserCommand, UserQueryVm>().ReverseMap();
+            CreateMap<LoginUserModel, UserQueryVm>().ReverseMap();
             CreateMap<RegisterSaleData, SaleResponseVm>().ReverseMap();
         }
     }

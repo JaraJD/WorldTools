@@ -40,13 +40,15 @@ namespace WorldTools.API.Queries.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginUser([FromBody] LoginUserCommand command)
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserModel user)
         {
-            var response = await _loginUserUseCase.LoginUser(command);
+            var response = await _loginUserUseCase.LoginUser(user);
             if(response == null)
             {
-                return BadRequest();
+                response.Status = 0;
+                return BadRequest(response);
             }
+            response.Status = 1;
             return Ok(response);
         }
     }
