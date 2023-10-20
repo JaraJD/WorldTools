@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.Queries.UseCases.BranchUseCases;
 using WorldTools.Application.Queries.UseCases.UserUserCases;
@@ -25,21 +26,28 @@ namespace WorldTools.API.Queries.Controllers
         }
 
         [HttpGet("GetUser/{id}")]
+        [Authorize]
         public async Task<UserQueryVm> GetUserById(Guid id)
         {
             return await _getUserByIdUseCase.GetUserById(id);
         }
 
         [HttpGet("GetAllUsers")]
+        [Authorize]
         public async Task<List<UserQueryVm>> GetAllUsers()
         {
             return await _getAllUsersUseCase.GetAllUsers();
         }
 
         [HttpPost("Login")]
-        public async Task<UserQueryVm> LoginUser([FromBody] LoginUserCommand command)
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserCommand command)
         {
-            return await _loginUserUseCase.LoginUser(command);
+            var response = await _loginUserUseCase.LoginUser(command);
+            if(response == null)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
         }
     }
 }

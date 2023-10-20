@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.Queries.UseCases.BranchUseCases;
 using WorldTools.Application.Queries.UseCases.SaleUseCases;
@@ -9,6 +10,7 @@ namespace WorldTools.API.Queries.Controllers
 {
     [Route("api/v1/branch/")]
     [ApiController]
+    [Authorize]
     public class BranchQueriesController : ControllerBase
     {
         private readonly GetBrachByIdUseCase _getBrachByIdUseCase;

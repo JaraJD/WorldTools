@@ -1,13 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Org.BouncyCastle.Crypto.Generators;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
+using System.Security.Claims;
+using System.Text;
 using WorldTools.Domain.Commands.UserCommands;
 using WorldTools.Domain.Entities;
 using WorldTools.Domain.Ports.UserPorts;
-using WorldTools.Domain.ResponseVm.Product;
 using WorldTools.Domain.ResponseVm.User;
 using WorldTools.SqlAdapter;
+using WorldTools.SqlAdapter.Common.Secrets;
 using WorldTools.SqlAdapter.DataEntity;
 using WorldTools.SqlAdapter.Utils.Encrypt;
 
@@ -17,11 +22,13 @@ namespace WorldTools.Infrastructure.Repositories
     {
         private readonly ContextSql _context;
         private readonly IMapper _mapper;
+        private readonly AppSettings _appSettings;
 
-        public UserRepository(ContextSql dbContext, IMapper mapper)
+        public UserRepository(ContextSql dbContext, IMapper mapper, IOptions<AppSettings> appSettings)
         {
             _context = dbContext;
             _mapper = mapper;
+            _appSettings = appSettings.Value;
         }
 
         public async Task<List<UserQueryVm>> GetAllUsersAsync()
@@ -66,8 +73,9 @@ namespace WorldTools.Infrastructure.Repositories
             }
         }
 
-        public async Task<UserQueryVm> LoginUser(LoginUserCommand user)
+        public async Task<AuthResponse> LoginUser(LoginUserCommand user)
         {
+            AuthResponse authResponse = new AuthResponse();
             var userResponse = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == user.UserEmail);
 
@@ -81,7 +89,10 @@ namespace WorldTools.Infrastructure.Repositories
                 throw new AuthenticationException("Usuario o Contraseña incorrecta.");
             }
 
-            return _mapper.Map<UserQueryVm>(userResponse);
+            authResponse.UserEmail = userResponse.Email;
+            authResponse.Token = GetToken(userResponse);
+
+            return authResponse;
         }
 
         public async Task<bool> EmailExists(string email)
@@ -90,6 +101,28 @@ namespace WorldTools.Infrastructure.Repositories
             {
                 return await context.Users.AnyAsync(u => u.Email == email);
             }
+        }
+
+        private string GetToken(RegisterUserData userResponse)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var llave = Encoding.ASCII.GetBytes(_appSettings.Secreto);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new System.Security.Claims.ClaimsIdentity(
+                    new Claim[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, userResponse.UserId.ToString()),
+                        new Claim(ClaimTypes.Email, userResponse.Email)
+                    }
+                    ),
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(llave), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WorldTools.Domain.Commands.UserCommands
 {
     public class LoginUserCommand
     {
-        public string? UserEmail { get; set; }
+        [Required] public string UserEmail { get; set; }
         [Required] public string Password { get; set; }
 
     }

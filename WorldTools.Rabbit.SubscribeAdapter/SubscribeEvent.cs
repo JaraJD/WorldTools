@@ -36,19 +36,20 @@ namespace WorldTools.Rabbit.SubscribeAdapter
             _channel = _connection.CreateModel();
 
             _channel.ExchangeDeclare("topic_exchange", ExchangeType.Topic, true);
-            _channel.QueueDeclare("queue.branch.register", true, false, false);
-            _channel.QueueDeclare("queue.product.add", true, false, false);
-            _channel.QueueDeclare("queue.product.customerSale", true, false, false);
-            _channel.QueueDeclare("queue.product.resellerSale", true, false, false);
-            _channel.QueueDeclare("queue.product.inventoryStock", true, false, false);
-            _channel.QueueDeclare("queue.user.register", true, false, false);
-            _channel.QueueBind("queue.branch.register", "topic_exchange", "topic.routing.branch");
-            _channel.QueueBind("queue.product.add", "topic_exchange", "topic.routing.product.add");
-            _channel.QueueBind("queue.product.customerSale", "topic_exchange", "topic.routing.product.customerSale");
-            _channel.QueueBind("queue.product.resellerSale", "topic_exchange", "topic.routing.product.resellerSale");
-            _channel.QueueBind("queue.product.inventoryStock", "topic_exchange", "topic.routing.product.inventoryStock");
-            _channel.QueueBind("queue.user.register", "topic_exchange", "topic.routing.user");
-            
+            #region "Configuracion Vistas materializadas"
+            _channel.QueueDeclare("queue.branch.register.query", true, false, false);
+            _channel.QueueDeclare("queue.product.add.query", true, false, false);
+            _channel.QueueDeclare("queue.product.customerSale.query", true, false, false);
+            _channel.QueueDeclare("queue.product.resellerSale.query", true, false, false);
+            _channel.QueueDeclare("queue.product.inventoryStock.query", true, false, false);
+            _channel.QueueDeclare("queue.user.add.query", true, false, false);
+            _channel.QueueBind("queue.branch.register.query", "topic_exchange", "topic.routing.register.branch.query");
+            _channel.QueueBind("queue.product.add.query", "topic_exchange", "topic.routing.product.add.query");
+            _channel.QueueBind("queue.product.customerSale.query", "topic_exchange", "topic.routing.product.customerSale.query");
+            _channel.QueueBind("queue.product.resellerSale.query", "topic_exchange", "topic.routing.product.resellerSale.query");
+            _channel.QueueBind("queue.product.inventoryStock.query", "topic_exchange", "topic.routing.product.inventoryStock.query");
+            _channel.QueueBind("queue.user.add.query", "topic_exchange", "topic.routing.user.add.query");
+            #endregion
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -113,27 +114,27 @@ namespace WorldTools.Rabbit.SubscribeAdapter
                 Console.WriteLine($"Recibido en Topic 6: '{message}'");
             };
 
-            _channel.BasicConsume(queue: "queue.branch.register",
+            _channel.BasicConsume(queue: "queue.branch.register.query",
                                      autoAck: true,
                                      consumer: consumerTopic1);
 
-            _channel.BasicConsume(queue: "queue.product.add",
+            _channel.BasicConsume(queue: "queue.product.add.query",
                                      autoAck: true,
                                      consumer: consumerTopic2);
 
-            _channel.BasicConsume(queue: "queue.product.customerSale",
+            _channel.BasicConsume(queue: "queue.product.customerSale.query",
                                      autoAck: true,
                                      consumer: consumerTopic3);
 
-            _channel.BasicConsume(queue: "queue.product.resellerSale",
+            _channel.BasicConsume(queue: "queue.product.resellerSale.query",
                                      autoAck: true,
                                      consumer: consumerTopic4);
 
-            _channel.BasicConsume(queue: "queue.product.inventoryStock",
+            _channel.BasicConsume(queue: "queue.product.inventoryStock.query",
                                      autoAck: true,
                                      consumer: consumerTopic5);
 
-            _channel.BasicConsume(queue: "queue.user.register",
+            _channel.BasicConsume(queue: "queue.user.add.query",
                                      autoAck: true,
                                      consumer: consumerTopic6);
 

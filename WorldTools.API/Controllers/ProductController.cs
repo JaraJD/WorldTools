@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.UseCases.ProductUseCases;
 using WorldTools.Domain.Commands.ProductCommands;
@@ -9,6 +10,7 @@ namespace WorldTools.API.Controllers
 {
     [Route("api/v1/product")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly AddProductUseCase _AddProductUseCase;

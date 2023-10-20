@@ -15,6 +15,6 @@ namespace WorldTools.Domain.Ports.UserPorts
 
         Task<bool> EmailExists(string email);
 
-        Task<UserQueryVm> LoginUser(LoginUserCommand user);
+        Task<AuthResponse> LoginUser(LoginUserCommand user);
     }
 }

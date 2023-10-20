@@ -15,16 +15,13 @@ namespace WorldTools.Application.UseCases.ProductUseCases
     {
         private readonly IProductRepository _productRepository;
         private readonly ISaleProductRepository _saleProductRepository;
-        private readonly IWebSocketPort _webSocketService;
 
         public RegisterResellerSaleUseCaseQuery(
             IProductRepository repository,
-            ISaleProductRepository saleProductRepository,
-            IWebSocketPort webSocketService)
+            ISaleProductRepository saleProductRepository)
         {
             _productRepository = repository;
             _saleProductRepository = saleProductRepository;
-            _webSocketService = webSocketService;
         }
 
         public async Task<SaleResponseVm> RegisterResellerSale(string product)
@@ -60,9 +57,6 @@ namespace WorldTools.Application.UseCases.ProductUseCases
             saleResponse.SaleQuantity = saleEntity.SaleValueQuantity.Quantity;
             saleResponse.SaleType = saleEntity.saleValueObjectType.SaleType;
             saleResponse.SaleId = saleEntityResponse.SaleId;
-
-            await _webSocketService.ProductSale(ResellerSaleToCreate);
-            await _webSocketService.UpdateSales(saleResponse);
 
             return saleResponse;
         }

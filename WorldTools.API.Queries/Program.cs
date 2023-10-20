@@ -18,11 +18,18 @@ using WorldTools.Application.Queries.UseCases.SaleUseCases;
 using WorldTools.SqlAdapter;
 using WorldTools.Domain.Ports;
 using WorldTools.WebSocketAdapter.Service;
+using WorldTools.Rabbit.SubscribeSocketAdapter;
+using WorldTools.Rabbit.SubscribeSocketAdapter.Factory;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using WorldTools.SqlAdapter.Common.Secrets;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IWebSocketPort, WebSocketHandler>();
+//builder.Services.AddScoped<IWebSocketPort, WebSocketHandler>();
 
 builder.Services.AddScoped<GetBrachByIdUseCase>();
 builder.Services.AddScoped<GetAllBranchUseCase>();
@@ -38,10 +45,12 @@ builder.Services.AddScoped<LoginUserUseCase>();
 builder.Services.AddTransient<GetAllSalesByBranchIdUseCase>();
 
 builder.Services.AddHostedService<SubscribeEvent>();
+builder.Services.AddHostedService<SubscribeEventSocket>();
 
 builder.Services.AddSingleton<IBranchUseCaseQueryFactory, BranchUseCaseQueryFactory>();
 builder.Services.AddScoped<IBranchUseCaseQuery, RegisterBranchUseCaseQuery>();
 
+builder.Services.AddSingleton<IProductRepositoryFactory, ProductRepositoryFactory>();
 builder.Services.AddSingleton<IProductUseCaseQueryFactory, ProductUseCaseQueryFactory>();
 builder.Services.AddScoped<IProductUseCaseQuery, AddProductUseCaseQuery>();
 builder.Services.AddScoped<IProductCustomerSaleUseCaseQuery, RegisterProductFinalCustomerSaleUseCaseQuery>();
@@ -57,8 +66,60 @@ builder.Services.AddScoped<ISaleProductRepository, SaleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
+builder.Services.AddSwaggerGen(setup =>
+{
+    // Include 'SecurityScheme' to use JWT Authentication
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        BearerFormat = "JWT",
+        Name = "JWT Authentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+    setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtSecurityScheme, Array.Empty<string>() }
+    });
+});
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+var appSettingsSection = builder.Configuration.GetSection("AppSettings");
+builder.Services.Configure<AppSettings>(appSettingsSection);
+
+//JWT
+var appSettings = appSettingsSection.Get<AppSettings>();
+var llave = Encoding.ASCII.GetBytes(appSettings.Secreto);
+
+builder.Services.AddAuthentication(d =>
+{
+    d.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    d.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(d =>
+    {
+        d.RequireHttpsMetadata = false;
+        d.SaveToken = true;
+        d.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(llave),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
 
 builder.Services.AddDbContext<ContextSql>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
@@ -101,6 +162,10 @@ app.UseRouting();
 
 app.UseCors("AllowSpecificOrigin");
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<WebSocketService>("/WebSocked");
@@ -108,8 +173,6 @@ app.UseEndpoints(endpoints =>
 });
 
 app.UseHttpsRedirection();
-
-//app.UseAuthorization();
 
 app.MapControllers();
 

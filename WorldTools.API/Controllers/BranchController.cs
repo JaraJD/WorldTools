@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.UseCases.BranchUseCases;
 using WorldTools.Domain.Commands.BranchCommands;
@@ -8,6 +9,7 @@ namespace WorldTools.API.Controllers
 {
     [Route("api/v1/branch")]
     [ApiController]
+    [Authorize]
     public class BranchController : ControllerBase
     {
         private readonly RegisterBranchUseCase _registerBranchUseCase;

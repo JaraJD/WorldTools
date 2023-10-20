@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorldTools.Application.Queries.UseCases.BranchUseCases;
 using WorldTools.Application.Queries.UseCases.ProductUseCases;
@@ -9,6 +10,7 @@ namespace WorldTools.API.Queries.Controllers
 {
     [Route("api/v1/product/")]
     [ApiController]
+    [Authorize]
     public class ProductQueriesController : ControllerBase
     {
         private readonly GetProductByIdUseCaseQuery _getProductByIdUseCase;

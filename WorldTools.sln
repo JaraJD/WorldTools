@@ -70,6 +70,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTools.WebSocketAdapter
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{87F6EE9F-8E34-4F99-ADA8-F78B0788681A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTools.Rabbit.SubscribeSocketAdapter", "WorldTools.Rabbit.SubscribeSocketAdapter\WorldTools.Rabbit.SubscribeSocketAdapter.csproj", "{514D59E9-376D-43E9-978B-D97CAB3DE2C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{87F6EE9F-8E34-4F99-ADA8-F78B0788681A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87F6EE9F-8E34-4F99-ADA8-F78B0788681A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87F6EE9F-8E34-4F99-ADA8-F78B0788681A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{514D59E9-376D-43E9-978B-D97CAB3DE2C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{514D59E9-376D-43E9-978B-D97CAB3DE2C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{514D59E9-376D-43E9-978B-D97CAB3DE2C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{514D59E9-376D-43E9-978B-D97CAB3DE2C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{39555E40-9F0D-4843-A71A-123EF89F3740} = {F0CFEF25-D994-411E-9127-A6AF8E9DDBC1}
 		{148469AB-3A27-466D-BE0D-5C659A7C0C97} = {8BCB5051-1099-458C-86C3-27EF94B330A5}
 		{0DCC25C7-13FA-4CD0-B613-3DE55B646BA7} = {148469AB-3A27-466D-BE0D-5C659A7C0C97}
+		{514D59E9-376D-43E9-978B-D97CAB3DE2C8} = {92D567AD-6521-4FB2-ABEF-783DB7AA3E31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A541330-4FC3-4859-8739-8967164ADE1D}

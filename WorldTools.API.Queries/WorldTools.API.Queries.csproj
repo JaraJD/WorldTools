@@ -12,12 +12,14 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Data" Version="7.0.2" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,7 @@
     <ProjectReference Include="..\WorldTools.Domain\WorldTools.Domain.csproj" />
     <ProjectReference Include="..\WorldTools.Infrastructure\WorldTools.SqlAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.Rabbit.SubscribeAdapter\WorldTools.Rabbit.SubscribeAdapter.csproj" />
+    <ProjectReference Include="..\WorldTools.Rabbit.SubscribeSocketAdapter\WorldTools.Rabbit.SubscribeSocketAdapter.csproj" />
     <ProjectReference Include="..\WorldTools.WebSocketAdapter\WorldTools.WebSocketAdapter.csproj" />
   </ItemGroup>
 
